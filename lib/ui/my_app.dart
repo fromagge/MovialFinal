@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     //Get.put(UserController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Oferi',
       theme: ThemeData(
           primaryColor: Colors.blue,
           iconTheme: const IconThemeData(color: Colors.purpleAccent),

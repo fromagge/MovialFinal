@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:oferi/ui/pages/home_page/result.dart';
 
-class SearchBar_Widget extends StatefulWidget {
-  const SearchBar_Widget({super.key});
+class SearchBar extends StatefulWidget {
+  const SearchBar({super.key});
   @override
-  State<SearchBar_Widget> createState() => searchBar();
+  State<SearchBar> createState() => _SearchBar();
 }
 
-class searchBar extends State<SearchBar_Widget> {
+class _SearchBar extends State<SearchBar> {
   late TextEditingController textController;
 
   @override

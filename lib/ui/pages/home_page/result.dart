@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:oferi/ui/widgets/home_widgets/item_card.dart';
 import 'package:oferi/ui/widgets/home_widgets/search_bar.dart';
 import 'package:oferi/ui/widgets/home_widgets/category_widget.dart';
-import 'package:flutter/cupertino.dart';
 
 class Result extends StatelessWidget {
   const Result({Key? key}) : super(key: key);
@@ -13,8 +12,8 @@ class Result extends StatelessWidget {
       body: ListView(
         scrollDirection: Axis.vertical,
         children: [
-          SearchBar_Widget(),
-          CategoryList(),
+          const SearchBar(),
+          const CategoryList(),
           itemList(context),
         ],
       ),
@@ -33,12 +32,12 @@ class Result extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       crossAxisSpacing: 10,
       childAspectRatio: (itemWidth / itemHeight),
-      controller: new ScrollController(keepScrollOffset: false),
+      controller: ScrollController(keepScrollOffset: false),
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       // Generate 100 widgets that display their index in the List.
       children: List.generate(100, (index) {
-        return Center(child: ItemCard());
+        return const Center(child: ItemCard());
       }),
     );
   }

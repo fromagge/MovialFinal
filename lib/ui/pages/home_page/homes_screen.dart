@@ -11,8 +11,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-      SearchBar_Widget(),
+    return ListView(children: const [
+      SearchBar(),
       CategoryList(),
       ItemCard(),
     ]);
