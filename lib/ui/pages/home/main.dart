@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:oferi/ui/pages/home_page/homes_screen.dart';
-import 'package:oferi/ui/pages/home_page/menu.dart';
-import 'package:oferi/ui/pages/home_page/notification_page.dart';
+import 'package:oferi/ui/pages/home/homes_screen.dart';
+import 'package:oferi/ui/pages/home/menu.dart';
+import 'package:oferi/ui/pages/home/notification_page.dart';
 
 import 'result.dart';
 import 'profile_page.dart';
 
-class Content extends StatefulWidget {
-  const Content({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  _ContentState createState() => _ContentState();
+  _Home createState() => _Home();
 }
 
-class _ContentState extends State<Content> {
+class _Home extends State<Home> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
@@ -58,19 +58,19 @@ class _ContentState extends State<Content> {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.menu),
-              label: 'Menu',
+              label: "",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Home',
+              label: "",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.notifications),
-              label: 'Notificaciones',
+              label: "",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              label: 'Perfil',
+              label: "",
             ),
           ],
           currentIndex: _selectedIndex,

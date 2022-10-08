@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:oferi/ui/widgets/home_widgets/item_card.dart';
-import 'package:oferi/ui/widgets/home_widgets/search_bar.dart';
-import 'package:oferi/ui/widgets/home_widgets/category_widget.dart';
+import 'package:oferi/ui/widgets/item_card.dart';
+import 'package:oferi/ui/widgets/search_bar.dart';
+import 'package:oferi/ui/widgets/category_widget.dart';
 
 class Result extends StatelessWidget {
   const Result({Key? key}) : super(key: key);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:oferi/ui/pages/home_page/result.dart';
-import 'package:oferi/ui/widgets/home_widgets/category_widget.dart';
-import 'package:oferi/ui/widgets/home_widgets/item_card.dart';
-import 'package:oferi/ui/widgets/home_widgets/search_bar.dart';
+import 'package:oferi/ui/pages/home/result.dart';
+import 'package:oferi/ui/widgets/category_widget.dart';
+import 'package:oferi/ui/widgets/item_card.dart';
+import 'package:oferi/ui/widgets/search_bar.dart';
 import 'package:flutter/cupertino.dart';
 
 class HomeScreen extends StatelessWidget {

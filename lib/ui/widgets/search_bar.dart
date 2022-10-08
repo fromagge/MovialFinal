@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:oferi/ui/pages/home_page/result.dart';
+import 'package:oferi/ui/pages/home/result.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({super.key});
@@ -40,7 +40,7 @@ class _SearchBar extends State<SearchBar> {
             ),
             style: const TextStyle(fontSize: 22),
             placeholder: 'Search',
-            onSubmitted: ((value) => Get.to(() => Result())),
+            onSubmitted: ((value) => Get.to(() => const Result())),
           ),
         ),
       ),
