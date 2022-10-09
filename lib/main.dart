@@ -1,9 +1,12 @@
+import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:loggy/loggy.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:oferi/ui/pages/home/main.dart';
+import 'package:oferi/ui/pages/loading/index.dart';
 import 'package:oferi/ui/pages/login/login.dart';
 import 'package:oferi/ui/pages/login/confirmation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const Oferi());
@@ -29,7 +32,6 @@ void configLoading() {
 class Oferi extends StatelessWidget {
   const Oferi({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     WidgetsFlutterBinding.ensureInitialized();
@@ -47,6 +49,29 @@ class Oferi extends StatelessWidget {
             inputDecorationTheme: const InputDecorationTheme(
                 labelStyle: TextStyle(color: Colors.redAccent))),
         builder: EasyLoading.init(),
-        home: const Scaffold(body: Home()));
+        home: FutureBuilder(
+          future: SharedPreferences.getInstance(),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                EasyLoading.show();
+                return const LoaderPage();
+
+              case ConnectionState.active:
+              case ConnectionState.done:
+                if (snapshot.hasData) {
+                  EasyLoading.dismiss();
+                  if (snapshot.data?.getBool("isLoggedIn") ?? false) {
+                    return const Home();
+                  }
+                  return const LoginForm();
+                }
+
+                return const Txt("Fatal error");
+              default:
+                return const Txt("Fatal error");
+            }
+          },
+        ));
   }
 }

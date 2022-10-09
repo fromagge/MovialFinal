@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:oferi/ui/pages/home/main.dart';
 import 'package:oferi/ui/pages/loading/index.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NumberInput extends StatelessWidget {
   NumberInput({
@@ -34,14 +35,12 @@ class NumberInput extends StatelessWidget {
         width: 40,
         height: 40,
         child: TextFormField(
-          onFieldSubmitted: (value) {
+          onFieldSubmitted: (value) async {
             if (isLast) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoaderPage()),
-              );
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setBool('isLoggedIn', true);
 
-              EasyLoading.show(status: 'Loading...').then(
+              return EasyLoading.show(status: 'Loading...').then(
                 (value) =>
                     MaterialPageRoute(builder: (context) => const Home()),
               );

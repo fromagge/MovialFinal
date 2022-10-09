@@ -1,6 +1,7 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:oferi/styles/login.styles.dart';
+import 'package:oferi/ui/pages/login/confirmation.dart';
 
 // Define a custom Form widget.
 class LoginForm extends StatefulWidget {
@@ -35,7 +36,13 @@ class _LoginForm extends State<LoginForm> {
                   style: signInButtonStyle,
                   gesture: Gestures()
                     ..onTap(() {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ConfirmationForm()));
+                      }
                     }),
                 )
               ],

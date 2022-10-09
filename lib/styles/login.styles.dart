@@ -47,7 +47,7 @@ final emailField = TextFormField(
 );
 
 final TxtStyle signInButtonStyle = TxtStyle()
-  ..background.color(Colors.lightGreen)
+  ..background.color(Colors.black)
   ..bold()
   ..borderRadius(all: 10)
   ..fontSize(16)
