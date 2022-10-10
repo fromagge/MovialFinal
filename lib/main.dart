@@ -1,5 +1,6 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loggy/loggy.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:oferi/ui/pages/home/main.dart';
@@ -9,6 +10,8 @@ import 'package:oferi/ui/pages/login/confirmation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
   runApp(const Oferi());
   configLoading();
 }
@@ -44,6 +47,13 @@ class Oferi extends StatelessWidget {
     return MaterialApp(
         title: 'Oferi',
         theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+                systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Colors.red,
+              statusBarIconBrightness:
+                  Brightness.dark, // For Android (dark icons)
+              statusBarBrightness: Brightness.light, // For iOS (dark icons)
+            )),
             primaryColor: Colors.blue,
             iconTheme: const IconThemeData(color: Colors.purpleAccent),
             inputDecorationTheme: const InputDecorationTheme(

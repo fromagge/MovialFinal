@@ -1,7 +1,9 @@
+import 'package:division/division.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:oferi/ui/pages/home/result.dart';
+import 'package:oferi/ui/widgets/location_select.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({super.key});
@@ -15,7 +17,7 @@ class _SearchBar extends State<SearchBar> {
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController(text: 'initial text');
+    textController = TextEditingController();
   }
 
   @override
@@ -29,20 +31,27 @@ class _SearchBar extends State<SearchBar> {
     return CupertinoPageScaffold(
       child: Align(
         alignment: Alignment.topCenter,
-        child: Padding(
-          padding: const EdgeInsets.all(13.0),
-          child: CupertinoSearchTextField(
-            controller: textController,
-            itemSize: 32,
-            suffixIcon: const Icon(
-              Icons.shopping_cart,
-              size: 35,
-            ),
-            style: const TextStyle(fontSize: 22),
-            placeholder: 'Search',
-            onSubmitted: ((value) => Get.to(() => const Result())),
-          ),
-        ),
+        child: Parent(
+            style: ParentStyle()..padding(all: 13),
+            child: Column(children: [
+              const LocationSelect(),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                      flex: 8,
+                      child: CupertinoSearchTextField(
+                        controller: textController,
+                        itemSize: 16,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                        placeholder: 'Search',
+                        onSubmitted: ((value) => Get.to(() => const Result())),
+                      )),
+                  const Expanded(flex: 1, child: Icon(Icons.shopping_cart))
+                ],
+              )
+            ])),
       ),
     );
   }

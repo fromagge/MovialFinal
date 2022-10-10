@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:oferi/ui/widgets/item_card.dart';
+import 'package:oferi/ui/widgets/item_list.dart';
 import 'package:oferi/ui/widgets/search_bar.dart';
 import 'package:oferi/ui/widgets/category_widget.dart';
+import 'package:http/http.dart' as http;
 
 class Result extends StatelessWidget {
   const Result({Key? key}) : super(key: key);
@@ -11,15 +13,15 @@ class Result extends StatelessWidget {
     return Scaffold(
       body: ListView(
         scrollDirection: Axis.vertical,
-        children: [
-          const SearchBar(),
-          const CategoryList(),
-          itemList(context),
+        children: const [
+          SearchBar(),
+          CategoryList(),
+          ListItem(),
         ],
       ),
     );
   }
-
+/** I'm going to recycle this as soon as I can - don't delete
   Widget itemList(BuildContext context) {
     var size = MediaQuery.of(context).size;
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
@@ -41,4 +43,5 @@ class Result extends StatelessWidget {
       }),
     );
   }
+   */
 }
