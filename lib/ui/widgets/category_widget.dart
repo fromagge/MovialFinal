@@ -11,14 +11,14 @@ class CategoryList extends StatelessWidget {
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        itemCount: 5,
+        itemCount: 10,
         itemBuilder: (BuildContext context, int index) =>
-            Center(child: CategoryButtonWidget(index.toString())),
+            Center(child: categoryButtonWidget(index.toString())),
       ),
     );
   }
 
-  Widget CategoryButtonWidget(String a) {
+  Widget categoryButtonWidget(String a) {
     return Row(children: [
       const SizedBox(
         width: 15,
@@ -26,7 +26,8 @@ class CategoryList extends StatelessWidget {
       ),
       ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red, fixedSize: Size.fromWidth(150)),
+            backgroundColor: Colors.black26,
+            fixedSize: const Size.fromWidth(100)),
         onPressed: () => {},
         child: Text('Categoria $a'),
       ),

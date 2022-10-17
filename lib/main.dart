@@ -1,12 +1,12 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:oferi/ui/pages/home/main.dart';
 import 'package:oferi/ui/pages/loading/index.dart';
 import 'package:oferi/ui/pages/login/login.dart';
-import 'package:oferi/ui/pages/login/confirmation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -27,7 +27,7 @@ void configLoading() {
     ..backgroundColor = Colors.green
     ..indicatorColor = Colors.yellow
     ..textColor = Colors.yellow
-    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..maskColor = Colors.black.withOpacity(0.5)
     ..userInteractions = true
     ..dismissOnTap = false;
 }
@@ -44,7 +44,7 @@ class Oferi extends StatelessWidget {
       ),
     );
 
-    return MaterialApp(
+    return GetMaterialApp(
         title: 'Oferi',
         theme: ThemeData(
             appBarTheme: const AppBarTheme(
@@ -55,7 +55,6 @@ class Oferi extends StatelessWidget {
               statusBarBrightness: Brightness.light, // For iOS (dark icons)
             )),
             primaryColor: Colors.blue,
-            iconTheme: const IconThemeData(color: Colors.purpleAccent),
             inputDecorationTheme: const InputDecorationTheme(
                 labelStyle: TextStyle(color: Colors.redAccent))),
         builder: EasyLoading.init(),

@@ -17,7 +17,7 @@ class _SearchBar extends State<SearchBar> {
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    textController = TextEditingController(text: "");
   }
 
   @override
@@ -46,7 +46,8 @@ class _SearchBar extends State<SearchBar> {
                           fontSize: 16,
                         ),
                         placeholder: 'Search',
-                        onSubmitted: ((value) => Get.to(() => const Result())),
+                        onSubmitted: ((value) =>
+                            Get.to(() => Result(search: value))),
                       )),
                   const Expanded(flex: 1, child: Icon(Icons.shopping_cart))
                 ],

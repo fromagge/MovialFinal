@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:oferi/ui/pages/home/homes_screen.dart';
 import 'package:oferi/ui/pages/home/menu.dart';
 import 'package:oferi/ui/pages/home/notification_page.dart';
-
-import 'result.dart';
 import 'profile_page.dart';
 
 class Home extends StatefulWidget {
@@ -19,7 +17,6 @@ class _Home extends State<Home> {
   static const List<Widget> _widgetOptions = <Widget>[
     MenuPage(),
     HomeScreen(),
-    NotificationPage(),
     ProfilePage(),
   ];
 
@@ -33,14 +30,9 @@ class _Home extends State<Home> {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          //brightness: Brightness.dark,
-          primaryColor: Colors.green,
           inputDecorationTheme: const InputDecorationTheme(
               labelStyle: TextStyle(color: Colors.redAccent)),
         ),
-
-        /*darkTheme:
-            ThemeData(brightness: Brightness.dark, primaryColor: Colors.blue),*/
         home: bottomNavBar(context));
   }
 
@@ -51,9 +43,9 @@ class _Home extends State<Home> {
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          unselectedLabelStyle: const TextStyle(color: Colors.black),
-          unselectedItemColor: Colors.black,
-          showUnselectedLabels: true,
+          unselectedItemColor: Colors.grey,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -65,16 +57,12 @@ class _Home extends State<Home> {
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: "",
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: "",
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
+          selectedItemColor: Colors.black,
           onTap: _onItemTapped,
         ));
   }

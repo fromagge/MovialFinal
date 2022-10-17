@@ -7,7 +7,8 @@ import 'package:oferi/ui/pages/loading/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NumberInput extends StatelessWidget {
-  NumberInput({
+  const NumberInput({
+    super.key,
     required this.label,
     this.isLast = false,
     this.controller,
@@ -39,11 +40,8 @@ class NumberInput extends StatelessWidget {
             if (isLast) {
               final prefs = await SharedPreferences.getInstance();
               await prefs.setBool('isLoggedIn', true);
-
-              return EasyLoading.show(status: 'Loading...').then(
-                (value) =>
-                    MaterialPageRoute(builder: (context) => const Home()),
-              );
+              EasyLoading.show(status: 'Loading...');
+              MaterialPageRoute(builder: (context) => const Home());
             }
           },
           controller: controller,

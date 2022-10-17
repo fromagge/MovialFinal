@@ -1,8 +1,5 @@
 import 'package:division/division.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:oferi/ui/pages/home/result.dart';
 
 class LocationSelect extends StatefulWidget {
   const LocationSelect({super.key});
@@ -22,7 +19,9 @@ class _LocationSelect extends State<LocationSelect> {
   @override
   Widget build(BuildContext context) {
     return Parent(
-        style: ParentStyle()..padding(bottom: 12),
+        style: ParentStyle()
+          ..padding(bottom: 12)
+          ..ripple(true),
         child: Row(children: <Widget>[
           const Icon(Icons.edit_location_outlined, size: 20),
           Txt("Barranquilla",

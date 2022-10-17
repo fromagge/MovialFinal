@@ -1,73 +1,60 @@
+import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:get/route_manager.dart';
+import 'package:oferi/domain/entities/drink.dart';
+import 'package:oferi/ui/pages/home/item.dart';
 
 class ItemCard extends StatelessWidget {
-  const ItemCard({super.key});
+  const ItemCard({super.key, required this.drink});
+
+  final Drink drink;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Card(
-            shape: RoundedRectangleBorder(
-              side: const BorderSide(color: Colors.black, width: 2),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxHeight: 325, maxWidth: 200),
-                child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Column(
-                      children: [
-                        thumbnail(),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const SizedBox(
-                                  width: 100,
-                                  height: 70,
-                                  child: AutoSizeText(
-                                    "Cable USB V4 Amarillo y Azul y Verde",
-                                    style: TextStyle(
-                                      fontSize: 50,
-                                    ),
-                                    maxLines: 3,
-                                    minFontSize: 17,
-                                    overflow: TextOverflow.ellipsis,
-                                  )),
-                              SizedBox(
-                                  width: 30,
-                                  child: IconButton(
-                                      onPressed: () => {},
-                                      icon: const Icon(
-                                        Icons.favorite_border,
-                                        color: Colors.red,
-                                        size: 35,
-                                      )))
-                            ]),
-                        const SizedBox(
-                            width: 280,
-                            height: 48,
-                            child: AutoSizeText(
-                              "\$100.150.000",
-                              style: TextStyle(
-                                  fontStyle: FontStyle.italic, fontSize: 20),
-                              maxLines: 1,
-                              minFontSize: 22,
-                              overflow: TextOverflow.ellipsis,
-                            )),
-                      ],
-                    )))));
+    return Parent(
+        style: ParentStyle()
+          ..border(all: 1.0, color: Colors.grey.shade400)
+          ..borderRadius(all: 10.0),
+        child: Column(children: [
+          Padding(
+              padding: const EdgeInsets.only(top: 10.0, bottom: 6.0),
+              child: SizedBox(
+                height: 75,
+                child: thumbnail(drink.imgUrl),
+              )),
+          Parent(
+              style: ParentStyle()
+                ..padding(left: 18, right: 21, top: 0)
+                ..offset(4, 0),
+              gesture: Gestures()
+                ..onTap(() {
+                  Get.to(ItemPage(drink: drink));
+                }),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Txt(drink.name,
+                        style: TxtStyle()
+                          ..padding(all: 0)
+                          ..fontSize(14)
+                          ..height(15)),
+                    Parent(
+                      style: ParentStyle()..ripple(true),
+                      child: const Icon(
+                        Icons.favorite_border,
+                        color: Colors.red,
+                        size: 16,
+                      ),
+                    )
+                  ]))
+        ]));
   }
 
-  Widget thumbnail() {
+  Widget thumbnail(url) {
     return ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
-        child: Image.asset(
-          "assets/images/owl.jpg",
+        child: Image.network(
+          url,
           scale: 1,
         ));
   }
