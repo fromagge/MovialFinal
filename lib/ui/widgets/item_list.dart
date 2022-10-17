@@ -10,8 +10,8 @@ import 'package:oferi/ui/pages/loading/index.dart';
 import 'package:oferi/ui/widgets/item_card.dart';
 
 Future fetchResource() async {
-  final response = await http.get(Uri.parse(
-      'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=Martini'));
+  final response = await http.get(
+      Uri.parse('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=s'));
 
   if (response.statusCode == 200) {
     return response.body;

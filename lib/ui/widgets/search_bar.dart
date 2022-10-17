@@ -2,6 +2,7 @@ import 'package:division/division.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:oferi/ui/pages/cart/checkout.dart';
 import 'package:oferi/ui/pages/home/result.dart';
 import 'package:oferi/ui/widgets/location_select.dart';
 
@@ -49,7 +50,15 @@ class _SearchBar extends State<SearchBar> {
                         onSubmitted: ((value) =>
                             Get.to(() => Result(search: value))),
                       )),
-                  const Expanded(flex: 1, child: Icon(Icons.shopping_cart))
+                  Expanded(
+                      flex: 1,
+                      child: Parent(
+                          style: ParentStyle()..ripple(true),
+                          gesture: Gestures()
+                            ..onTap(() {
+                              Get.to(CheckoutPage());
+                            }),
+                          child: const Icon(Icons.shopping_cart)))
                 ],
               )
             ])),

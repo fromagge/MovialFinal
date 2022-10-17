@@ -1,6 +1,4 @@
-import 'dart:ffi';
-
-import 'package:oferi/utils.dart';
+import 'package:oferi/ui/utils/utils.dart';
 
 class Drink {
   String id;
