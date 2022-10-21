@@ -371,6 +371,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
+  web_ffi:
+    dependency: "direct main"
+    description:
+      name: web_ffi
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.2"
   win32:
     dependency: transitive
     description:

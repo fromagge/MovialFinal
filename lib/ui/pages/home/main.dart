@@ -17,6 +17,7 @@ class _Home extends State<Home> {
   static const List<Widget> _widgetOptions = <Widget>[
     MenuPage(),
     HomeScreen(),
+    NotificationPage(),
     ProfilePage(),
   ];
 
@@ -54,6 +55,10 @@ class _Home extends State<Home> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
+              label: "",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.notifications),
               label: "",
             ),
             BottomNavigationBarItem(
