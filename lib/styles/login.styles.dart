@@ -13,7 +13,7 @@ final TxtStyle imageStyle = TxtStyle()
   ..width(1550)
   ..height(150)
   ..margin(bottom: 60)
-  ..background.image(path: "assets/logo.png");
+  ..background.image(path: "assets/images/logo.png");
 
 final TxtStyle headerStyle = TxtStyle()
   ..fontWeight(FontWeight.w900)
