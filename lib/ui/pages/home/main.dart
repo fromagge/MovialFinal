@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oferi/ui/pages/home/homes_screen.dart';
-import 'package:oferi/ui/pages/home/menu.dart';
+import 'package:oferi/ui/pages/home/menu_page.dart';
 import 'package:oferi/ui/pages/home/notification_page.dart';
 import 'profile_page.dart';
 
