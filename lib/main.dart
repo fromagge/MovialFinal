@@ -1,6 +1,5 @@
 import 'firebase_options.dart';
 import 'package:division/division.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
@@ -17,15 +16,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseAuth.instance.authStateChanges().listen((User? user) async {
-    final prefs = await SharedPreferences.getInstance();
-    if (user == null) {
-      await prefs.setBool('isLoggedIn', false);
-    } else {
-      await prefs.setBool('isLoggedIn', true);
-    }
-  });
 
+  final prefs = await SharedPreferences.getInstance();
+
+  await prefs.setBool('isLoggedIn', true);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
   runApp(const Oferi());
