@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "666453903271",
+    "project_id": "oferi-final",
+    "storage_bucket": "oferi-final.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666453903271:android:66153e272e82e714d89882",
+        "android_client_info": {
+          "package_name": "com.example.oferi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "666453903271-hqu3ufnuq6qbl2f3g060dnfk851qf3vl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDV1FMHY0twH_8VevGEgSbAucYZJrZ1f3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "666453903271-hqu3ufnuq6qbl2f3g060dnfk851qf3vl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "666453903271-09naak68glokbip41rrjajto6lb713jt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.oferi"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666453903271:android:ac0d14ac17b2d7a3d89882",
+        "android_client_info": {
+          "package_name": "com.example.oferi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "666453903271-mcu3tnbqrfe1guqkt3t801nurj5e97f9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.oferi",
+            "certificate_hash": "36ec59ea445ead4df1a7d6da9b7f23fa29d57de5"
+          }
+        },
+        {
+          "client_id": "666453903271-hqu3ufnuq6qbl2f3g060dnfk851qf3vl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDV1FMHY0twH_8VevGEgSbAucYZJrZ1f3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "666453903271-hqu3ufnuq6qbl2f3g060dnfk851qf3vl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "666453903271-09naak68glokbip41rrjajto6lb713jt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.oferi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

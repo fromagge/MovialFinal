@@ -1,15 +1,31 @@
+import 'firebase_options.dart';
 import 'package:division/division.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:oferi/ui/pages/home/main.dart';
 import 'package:oferi/ui/pages/loading/index.dart';
 import 'package:oferi/ui/pages/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FirebaseAuth.instance.authStateChanges().listen((User? user) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (user == null) {
+      await prefs.setBool('isLoggedIn', false);
+    } else {
+      await prefs.setBool('isLoggedIn', true);
+    }
+  });
+
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
   runApp(const Oferi());
@@ -70,6 +86,7 @@ class Oferi extends StatelessWidget {
               case ConnectionState.done:
                 if (snapshot.hasData) {
                   EasyLoading.dismiss();
+
                   if (snapshot.data?.getBool("isLoggedIn") ?? false) {
                     return const Home();
                   }
