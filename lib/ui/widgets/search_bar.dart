@@ -56,7 +56,7 @@ class _SearchBar extends State<SearchBar> {
                           style: ParentStyle()..ripple(true),
                           gesture: Gestures()
                             ..onTap(() {
-                              Get.to(CheckoutPage());
+                              Get.to(const CheckoutPage());
                             }),
                           child: const Icon(Icons.shopping_cart)))
                 ],

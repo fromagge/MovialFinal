@@ -11,6 +11,12 @@ class _LocationSelect extends State<LocationSelect> {
   late TextEditingController textController;
 
   @override
+  void initState() {
+    super.initState();
+    textController = TextEditingController(text: 'Search');
+  }
+
+  @override
   void dispose() {
     textController.dispose();
     super.dispose();
