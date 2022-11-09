@@ -6,6 +6,7 @@ class LoaderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Parent(style: ParentStyle()));
+    //return Scaffold(body: Parent(style: ParentStyle()));
+    return const Text("CARGANDO");
   }
 }
