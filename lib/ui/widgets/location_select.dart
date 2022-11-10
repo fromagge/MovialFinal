@@ -1,6 +1,8 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../styles/colors.dart';
+
 class LocationSelect extends StatefulWidget {
   const LocationSelect({super.key});
   @override
@@ -29,7 +31,7 @@ class _LocationSelect extends State<LocationSelect> {
           ..padding(bottom: 12)
           ..ripple(true),
         child: Row(children: <Widget>[
-          const Icon(Icons.edit_location_outlined, size: 20),
+          const Icon(Icons.location_pin, size: 20, color: Color(0xFF42006E)),
           Txt("Barranquilla",
               style: TxtStyle()
                 ..bold()

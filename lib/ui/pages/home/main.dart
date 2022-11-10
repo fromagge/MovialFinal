@@ -58,7 +58,7 @@ class _Home extends State<Home> {
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
+              icon: Icon(Icons.shopping_cart),
               label: "",
             ),
             BottomNavigationBarItem(

@@ -5,9 +5,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:oferi/domain/entities/drink.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:oferi/ui/widgets/carrousel.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
 
 class ItemPage extends StatefulWidget {
   const ItemPage({super.key, required this.drink});

@@ -43,6 +43,10 @@ class _SearchBar extends State<SearchBar> {
                       child: CupertinoSearchTextField(
                         controller: textController,
                         itemSize: 16,
+                        itemColor: const Color(0xFF42006E),
+                        backgroundColor: Colors.white,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
                         style: const TextStyle(
                           fontSize: 16,
                         ),
@@ -50,15 +54,6 @@ class _SearchBar extends State<SearchBar> {
                         onSubmitted: ((value) =>
                             Get.to(() => Result(search: value))),
                       )),
-                  Expanded(
-                      flex: 1,
-                      child: Parent(
-                          style: ParentStyle()..ripple(true),
-                          gesture: Gestures()
-                            ..onTap(() {
-                              Get.to(const CheckoutPage());
-                            }),
-                          child: const Icon(Icons.shopping_cart)))
                 ],
               )
             ])),
