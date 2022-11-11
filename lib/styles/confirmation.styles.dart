@@ -27,4 +27,4 @@ final inputSingleDigit = TxtStyle()
   ..borderRadius(all: 3)
   ..maxLines(1)
   ..editable(enable: true, placeholder: "O")
-  ..border(all: 1, color: Colors.grey[500]!);
+  ..border(all: 1, color: Colors.grey[505]!);
