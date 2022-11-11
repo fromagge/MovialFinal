@@ -1,4 +1,5 @@
 import 'package:division/division.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../styles/colors.dart';
@@ -31,7 +32,8 @@ class _LocationSelect extends State<LocationSelect> {
           ..padding(bottom: 12)
           ..ripple(true),
         child: Row(children: <Widget>[
-          const Icon(Icons.location_pin, size: 20, color: Color(0xFF42006E)),
+          const Icon(CupertinoIcons.location_solid,
+              size: 28, color: Color(0xFF42006E)),
           Txt("Barranquilla",
               style: TxtStyle()
                 ..bold()
