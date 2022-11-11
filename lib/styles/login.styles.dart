@@ -29,7 +29,7 @@ final emailField = TextFormField(
         style: BorderStyle.none,
       ),
     ),
-    hintStyle: TextStyle(color: Colors.grey[500]),
+    hintStyle: TextStyle(color: Colors.grey[505]),
     hintText: "Email",
     filled: true,
     fillColor: Colors.grey[200],

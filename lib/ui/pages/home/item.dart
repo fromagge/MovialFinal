@@ -24,7 +24,7 @@ class _ItemPage extends State<ItemPage> {
   @override
   void initState() {
     super.initState();
-    print("My bitch");
+    print("aló");
     _getCurrentLocation();
   }
 
