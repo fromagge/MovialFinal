@@ -59,7 +59,7 @@ class Oferi extends StatelessWidget {
         theme: ThemeData(
             appBarTheme: const AppBarTheme(
                 systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: Colors.red,
+              statusBarColor: Color.fromARGB(255, 246, 63, 50),
               statusBarIconBrightness:
                   Brightness.dark, // For Android (dark icons)
               statusBarBrightness: Brightness.light, // For iOS (dark icons)

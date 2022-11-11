@@ -32,7 +32,7 @@ final emailField = TextFormField(
     hintStyle: TextStyle(color: Colors.grey[500]),
     hintText: "Email",
     filled: true,
-    fillColor: Colors.grey[202],
+    fillColor: Colors.grey[200],
   ),
   validator: (value) {
     if (value == null || value.isEmpty) {
