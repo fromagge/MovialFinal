@@ -46,7 +46,7 @@ class _Home extends State<Home> {
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: Color(0xFF42006E),
+          unselectedItemColor: const Color(0xFF42006E),
           showSelectedLabels: false,
           showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,

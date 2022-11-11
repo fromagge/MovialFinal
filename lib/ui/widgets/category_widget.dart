@@ -1,7 +1,8 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class CategoryList extends StatelessWidget {
+  //TODO: El arreglo Categorias debe ir en el controlador:
+  static const categorias = ["Precio", "Cercanía", "Calidad"];
   const CategoryList({super.key});
 
   @override
@@ -11,26 +12,29 @@ class CategoryList extends StatelessWidget {
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        itemCount: 10,
+        itemCount: categorias.length,
         itemBuilder: (BuildContext context, int index) =>
-            Center(child: categoryButtonWidget(index.toString())),
+            Center(child: categoryButtonWidget(categorias[index])),
       ),
     );
   }
 
-  Widget categoryButtonWidget(String a) {
-    return Row(children: [
-      const SizedBox(
-        width: 15,
-        height: 20,
-      ),
-      ElevatedButton(
+  Widget categoryButtonWidget(String categoryName) {
+    double buttonWidth = categoryName.length * 14;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.black26,
-            fixedSize: const Size.fromWidth(100)),
+            backgroundColor: const Color(0xFFD9D9D9),
+            fixedSize: Size.fromWidth(buttonWidth),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20))),
         onPressed: () => {},
-        child: Text('Categoria $a'),
+        child: Text(
+          categoryName,
+          style: const TextStyle(color: Colors.black),
+        ),
       ),
-    ]);
+    );
   }
 }
