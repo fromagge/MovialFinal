@@ -2,43 +2,21 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:oferi/ui/pages/login/login_page.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class LoadingPage extends StatefulWidget {
+  const LoadingPage({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return SplashState();
+    return LoadingState();
   }
 }
 
-class SplashState extends State<SplashScreen> {
-  //TODO: Asignar tiempo en base a la conexión de la base de datos
-  int milliseconds = 2000;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    startTime();
-  }
-
+class LoadingState extends State<LoadingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: initScreen(context),
     );
-  }
-
-  startTime() async {
-    var duration = Duration(milliseconds: milliseconds);
-    return Timer(duration, pushReplacement);
-  }
-
-  pushReplacement() {
-    if (mounted) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const LoginPage()));
-    }
   }
 
   initScreen(BuildContext context) {
