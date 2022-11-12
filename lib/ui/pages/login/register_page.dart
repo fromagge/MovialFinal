@@ -47,8 +47,8 @@ class _RegisterForm extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    const double divider = 20;
-    const double textFieldHeight = 55;
+    const double divider = 10;
+    const double textFieldHeight = 0;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -140,9 +140,6 @@ class _RegisterForm extends State<RegisterPage> {
                         const SizedBox(
                           height: divider,
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -169,7 +166,7 @@ class _RegisterForm extends State<RegisterPage> {
                           ],
                         ),
                         const SizedBox(
-                          height: divider,
+                          height: divider + 7,
                         ),
                         DefaultButtonWidget(
                             label: "Registrarme",
