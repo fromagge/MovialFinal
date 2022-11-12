@@ -1,13 +1,12 @@
 name: oferi
 description: A new Flutter project.
 
-
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.2 <3.0.0'
+  sdk: ">=2.18.2 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -27,7 +26,7 @@ dependencies:
   http: ^0.13.5
   carousel_slider: ^4.1.1
   adaptive_dialog: ^1.8.0+1
-  google_sign_in: '^4.5.1'
+  google_sign_in: "^4.5.1"
   permission: ^0.1.7
 
   # The following adds the Cupertino Icons font to your application.
@@ -57,12 +56,12 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/logo.png
-    
-
+    - assets/images/logo_a.jpeg
+    - assets/images/logo_b.jpeg
+    - assets/images/icon_a.jpeg
+    - assets/images/icon_b.jpeg

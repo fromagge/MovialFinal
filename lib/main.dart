@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/pages/home/main.dart';
 import 'package:oferi/ui/pages/loading/index.dart';
-import 'package:oferi/ui/pages/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -22,7 +21,7 @@ void main() async {
 
   final prefs = await SharedPreferences.getInstance();
 
-  await prefs.setBool('isLoggedIn', true);
+  await prefs.setBool('isLoggedIn', false);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
   runApp(const Oferi());
@@ -87,7 +86,7 @@ class Oferi extends StatelessWidget {
                   if (snapshot.data?.getBool("isLoggedIn") ?? false) {
                     return const Home();
                   }
-                  return const LoginForm();
+                  return const Home();
                 }
 
                 return const Txt("Fatal error");

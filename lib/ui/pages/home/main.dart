@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oferi/ui/pages/home/homes_screen.dart';
 import 'package:oferi/ui/pages/home/menu_page.dart';
@@ -38,31 +39,33 @@ class _Home extends State<Home> {
   }
 
   Widget bottomNavBar(BuildContext context) {
+    const double iconsize = 30;
     return Scaffold(
         key: const Key('navBar'),
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: Colors.grey,
+          unselectedItemColor: const Color(0xFF42006E),
           showSelectedLabels: false,
           showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.menu),
+              icon: Icon(Icons.menu, size: iconsize),
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home_filled, size: iconsize),
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
+              icon: Icon(Icons.shopping_cart, size: iconsize),
               label: "",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon:
+                  Icon(CupertinoIcons.person_crop_circle, size: iconsize + 2.5),
               label: "",
             ),
           ],
