@@ -1,4 +1,4 @@
-import 'package:oferi/ui/pages/login/login_page.dart';
+import 'package:oferi/ui/pages/login/register.dart';
 
 import 'firebase_options.dart';
 import 'package:division/division.dart';
@@ -11,6 +11,7 @@ import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/pages/home/main.dart';
 import 'package:oferi/ui/pages/loading/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -85,7 +86,7 @@ class Oferi extends StatelessWidget {
                   if (snapshot.data?.getBool("isLoggedIn") ?? false) {
                     return const Home();
                   }
-                  return const LoginPage();
+                  return const Home();
                 }
 
                 return const Txt("Fatal error");
