@@ -8,7 +8,7 @@ import 'package:oferi/main.dart';
 import 'package:oferi/ui/pages/home/homes_screen.dart';
 import 'package:oferi/ui/pages/home/menu_page.dart';
 import 'package:oferi/ui/pages/home/profile_page.dart';
-import 'package:oferi/ui/pages/home/result.dart';
+import 'package:oferi/ui/pages/home/result_page.dart';
 import 'package:oferi/ui/widgets/menu%20widgets/notification_card.dart';
 
 class NotificationPage extends StatelessWidget {
@@ -18,22 +18,27 @@ class NotificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //HomeController controller = Get.find();
     //UserController userController = Get.find();
-    return ListView(children: [
-      CupertinoPageScaffold(
-          child: Align(
-        alignment: Alignment.topCenter,
-        child: Parent(
-          style: ParentStyle()..padding(all: 13),
-          child: Column(children: [menuTitle(context), notificationList()]),
-        ),
-      ))
-    ]);
+    return CupertinoPageScaffold(
+      backgroundColor: Colors.green,
+      child: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 50),
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: Parent(
+              style: ParentStyle()..padding(all: 10),
+              child: Column(children: [title(context), notificationList()]),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   Widget notificationList() {
     return ListView.builder(
       physics: const ClampingScrollPhysics(),
-      padding: EdgeInsets.zero,
+      padding: const EdgeInsets.symmetric(vertical: 10),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemCount: 20,
@@ -49,18 +54,26 @@ class NotificationPage extends StatelessWidget {
     //);
   }
 
-  Widget menuTitle(BuildContext context) {
-    return Parent(
-        style: ParentStyle()
-          ..padding(bottom: 12)
-          ..ripple(true),
-        child: Row(children: <Widget>[
-          const Icon(Icons.notifications, size: 20),
-          Txt("Notificaciones",
-              style: TxtStyle()
-                ..bold()
-                ..margin(left: 5)
-                ..fontSize(22)),
-        ]));
+  Widget title(BuildContext context) {
+    return Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      const Icon(
+        CupertinoIcons.arrow_left_circle,
+        size: 40,
+        color: Color(0xFF42006E),
+      ),
+      Txt("Notificaciones",
+          style: TxtStyle()
+            ..textColor(const Color(0xFF42006E))
+            ..bold()
+            ..margin(left: 10)
+            ..fontSize(30)),
+      Container(
+          padding: const EdgeInsets.symmetric(horizontal: 80),
+          child: const Icon(
+            CupertinoIcons.bell_fill,
+            size: 40,
+            color: Color(0xFF42006E),
+          )),
+    ]);
   }
 }

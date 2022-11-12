@@ -21,16 +21,6 @@ class NotificationCard extends StatelessWidget {
     return Center(
       child: Dismissible(
         key: UniqueKey(),
-        background: Container(
-            color: Colors.red,
-            alignment: Alignment.centerLeft,
-            child: const Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: Text(
-                "Borrando",
-                style: TextStyle(color: Colors.white),
-              ),
-            )),
         onDismissed: (direction) {
           // Remove the item from the data source.
           //userController.deleteUser(user.id);
@@ -38,7 +28,7 @@ class NotificationCard extends StatelessWidget {
         child: Card(
           key: Key(title),
           child: Row(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Expanded(
                 child: ListTile(
@@ -47,13 +37,9 @@ class NotificationCard extends StatelessWidget {
                       width: 30.0,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage("assets/images/logo.png"),
+                            image: AssetImage("assets/images/logo_a.jpeg"),
                             fit: BoxFit.contain),
-                      )
-                      //   radius: 30.0,
-                      //   backgroundColor: Colors.transparent,
-                      //   child: ClipOval(child: Image.network(user.picture)),
-                      ),
+                      )),
                   title: Text(
                     title,
                     style: const TextStyle(color: Colors.orange),
