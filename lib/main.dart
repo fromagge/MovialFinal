@@ -1,3 +1,5 @@
+import 'package:oferi/ui/pages/login/register.dart';
+
 import 'firebase_options.dart';
 import 'package:division/division.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,6 +12,7 @@ import 'package:oferi/ui/pages/home/main.dart';
 import 'package:oferi/ui/pages/loading/index.dart';
 import 'package:oferi/ui/pages/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,13 +1,13 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:oferi/domain/entities/drink.dart';
+import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/pages/home/item.dart';
 
 class ItemCard extends StatelessWidget {
-  const ItemCard({super.key, required this.drink});
+  const ItemCard({super.key, required this.product});
 
-  final Drink drink;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class ItemCard extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10.0, bottom: 6.0),
               child: SizedBox(
                 height: 75,
-                child: thumbnail(drink.imgUrl),
+                child: thumbnail(product.imgUrl),
               )),
           Parent(
               style: ParentStyle()
@@ -28,12 +28,12 @@ class ItemCard extends StatelessWidget {
                 ..offset(4, 0),
               gesture: Gestures()
                 ..onTap(() {
-                  Get.to(ItemPage(drink: drink));
+                  Get.to(ItemPage(product: product));
                 }),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Txt(drink.name,
+                    Txt(product.name,
                         style: TxtStyle()
                           ..padding(all: 0)
                           ..fontSize(14)
@@ -51,6 +51,7 @@ class ItemCard extends StatelessWidget {
   }
 
   Widget thumbnail(url) {
+    print(url);
     return ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Image.network(

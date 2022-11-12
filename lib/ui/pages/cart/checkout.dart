@@ -2,7 +2,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:oferi/domain/entities/drink.dart';
+import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/widgets/item_cart.dart';
 
 class CheckoutPage extends StatefulWidget {
@@ -129,34 +129,7 @@ class _CheckoutPage extends State<CheckoutPage> {
                                     ..fontSize(18)),
                             ]),
                       ),
-                      Column(
-                        children: [
-                          ItemCart(
-                              drink: Drink(
-                                  id: "123123",
-                                  name: "Piña colada",
-                                  imgUrl:
-                                      "https://media.istockphoto.com/photos/pia-colada-cocktail-picture-id665567494?k=20&m=665567494&s=612x612&w=0&h=xWoN6E1r9CtgIy6v6jlkhmpQFqtsVYltlz9cVv0ZUvc=")),
-                          ItemCart(
-                              drink: Drink(
-                                  id: "123123",
-                                  name: "Bloody Mary",
-                                  imgUrl:
-                                      "https://lastfm.freetls.fastly.net/i/u/770x0/a5eebec6f210efdaa4cb62ed287d9954.jpg")),
-                          ItemCart(
-                              drink: Drink(
-                                  id: "123123",
-                                  name: "Moscow Mule",
-                                  imgUrl:
-                                      "https://d3gz3j27p2eka6.cloudfront.net/sites/default/files/styles/image_gallery_xl/public/images/node/article/complete%20moscow-mule-served-in-a-mug.jpg?itok=HOpsEyxK")),
-                          ItemCart(
-                              drink: Drink(
-                                  id: "123123",
-                                  name: "Don Julio",
-                                  imgUrl:
-                                      "https://elamigodelanoche.com/wp-content/uploads/2018/10/TEQUILA-DON-JULIO-BLANCO-750-ML-Web.jpg"))
-                        ],
-                      ),
+                      Column(children: []),
                       Txt("Buy now",
                           gesture: Gestures()
                             ..onTap(() async {
