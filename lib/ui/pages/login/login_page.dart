@@ -4,6 +4,7 @@ import 'package:oferi/ui/pages/home/main.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/textfield_widget.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,7 +16,29 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginForm extends State<LoginPage> {
-  GlobalKey<FormState> _key = GlobalKey<FormState>();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
+
+  final List<FocusNode> _focusNodes = [
+    FocusNode(),
+    FocusNode(),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    for (var node in _focusNodes) {
+      node.addListener(() {
+        setState(() {});
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    _focusNodes.clear();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,50 +71,59 @@ class _LoginForm extends State<LoginPage> {
                   ),
                   Form(
                     key: _key,
-                    autovalidateMode: AutovalidateMode.always,
+                    autovalidateMode: AutovalidateMode.disabled,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 12),
                       child: Column(children: [
                         DefaultTextWidget(
-                            label: "Nombre de usuario",
-                            textInputType: TextInputType.text,
-                            validator: checkFieldEmpty),
+                          myFocusNode: _focusNodes[0],
+                          label: "Nombre de usuario",
+                          textInputType: TextInputType.text,
+                          validator: checkFieldEmpty,
+                        ),
                         const SizedBox(height: 10),
                         DefaultTextWidget(
-                            label: "Contraseña",
-                            obscureText: true,
-                            textInputType: TextInputType.text,
-                            validator: checkSafePassword),
+                          myFocusNode: _focusNodes[1],
+                          label: "Contraseña",
+                          obscureText: true,
+                          textInputType: TextInputType.text,
+                          validator: checkSafePassword,
+                        ),
                         const SizedBox(
                           height: 30,
                         ),
                         DefaultButtonWidget(
+                            label: "Iniciar Sesión",
                             onPressed: () {
                               if (_key.currentState!.validate()) {
+                                //TODO: Confirmar inicio de sesion en base de datos.
+                                //TODO: Reparar el metodo de dispose para que no lance error cuando se cambia de pagina y evitar
+                                // memory leaks.
+                                //TODO: Evitar que el usuario vuelva al login cuando utilize el boton de regreso;
+                                //dispose();
                                 Get.to(() => const Home());
                               }
                             },
-                            label: "Iniciar Sesión",
                             buttonColor: const Color(0xFF42006E)),
                         const SizedBox(
                           height: 20,
                         ),
                         DefaultButtonWidget(
-                          onPressed: () {
-                            if (_key.currentState!.validate()) {
-                              Get.to(() => const Home());
-                            }
-                          },
                           label: "Registrarse",
+                          onPressed: () {
+                            //TODO: Get.to(Register_Page)
+                          },
                           textColor: const Color(0xFF42006E),
                           buttonColor: const Color(0XFFFAF2C8),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         TextButton(
-                          onPressed: () => {},
+                          onPressed: () => {
+                            //TODO: Get.to(Reset_Password_Page)
+                          },
                           child: const Text(
                             "¿Olvidaste tú contraseña?",
                             style: TextStyle(
@@ -110,6 +142,7 @@ class _LoginForm extends State<LoginPage> {
     );
   }
 
+// TODO: FYI Si se hace return null, significa que los criterios de validación se han cumplido
   String? checkFieldEmpty(String? value) {
     if (value == null || value.isEmpty) {
       return '*Llenar este campo es obligatorio';
