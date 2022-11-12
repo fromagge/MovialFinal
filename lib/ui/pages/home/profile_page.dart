@@ -8,20 +8,6 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Txt("Logout",
-            gesture: Gestures()
-              ..onTap(() async {
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.setBool('isLoggedIn', false);
-
-                SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-              }),
-            style: TxtStyle()
-              ..borderRadius(all: 16)
-              ..textColor(Colors.white)
-              ..fontSize(24)
-              ..background.color(Colors.black)
-              ..padding(vertical: 20, horizontal: 30)));
+    return Container();
   }
 }
