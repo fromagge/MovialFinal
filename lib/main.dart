@@ -1,3 +1,4 @@
+import 'package:oferi/ui/pages/login/login_page.dart';
 import 'package:oferi/ui/pages/login/register.dart';
 
 import 'firebase_options.dart';
@@ -86,7 +87,7 @@ class Oferi extends StatelessWidget {
                   if (snapshot.data?.getBool("isLoggedIn") ?? false) {
                     return const Home();
                   }
-                  return const Home();
+                  return const LoginPage();
                 }
 
                 return const Txt("Fatal error");

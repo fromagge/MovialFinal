@@ -8,7 +8,6 @@ import 'package:oferi/main.dart';
 import 'package:oferi/ui/pages/home/homes_screen.dart';
 import 'package:oferi/ui/pages/home/menu_page.dart';
 import 'package:oferi/ui/pages/home/profile_page.dart';
-import 'package:oferi/ui/pages/home/result.dart';
 import 'package:oferi/ui/widgets/menu%20widgets/notification_card.dart';
 
 class NotificationPage extends StatelessWidget {
