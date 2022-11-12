@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:oferi/domain/entities/drink.dart';
-import 'package:oferi/ui/pages/loading/index.dart';
+import 'package:oferi/ui/pages/loading/loader_widget.dart';
 import 'package:oferi/ui/widgets/item_card.dart';
 
 Future fetchResource() async {
@@ -60,7 +60,7 @@ class _ListItem extends State<ListItem> {
             default:
               return const Txt("Fatal error");
           }
-          return const LoaderPage();
+          return const LoaderWidget();
         });
   }
 }

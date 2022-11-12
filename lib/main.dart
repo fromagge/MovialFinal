@@ -1,3 +1,4 @@
+import 'package:oferi/ui/pages/loading/splass_screen_page.dart';
 import 'package:oferi/ui/pages/login/login_page.dart';
 
 import 'firebase_options.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/pages/home/main.dart';
-import 'package:oferi/ui/pages/loading/index.dart';
+import 'package:oferi/ui/pages/loading/loader_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -38,7 +39,7 @@ void configLoading() {
     ..backgroundColor = Colors.green
     ..indicatorColor = Colors.yellow
     ..textColor = Colors.yellow
-    ..maskColor = Colors.black.withOpacity(0.5)
+    ..maskColor = Colors.orange.withOpacity(0.5)
     ..userInteractions = true
     ..dismissOnTap = false;
 }
@@ -74,7 +75,7 @@ class Oferi extends StatelessWidget {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
                 EasyLoading.show();
-                return const LoaderPage();
+                return const LoaderWidget();
 
               case ConnectionState.active:
               case ConnectionState.done:
@@ -84,7 +85,7 @@ class Oferi extends StatelessWidget {
                   if (snapshot.data?.getBool("isLoggedIn") ?? false) {
                     return const Home();
                   }
-                  return const LoginPage();
+                  return SplashScreen();
                 }
 
                 return const Txt("Fatal error");

@@ -47,7 +47,7 @@ class _RegisterForm extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    const double divider = 7;
+    const double divider = 20;
     const double textFieldHeight = 55;
     return Scaffold(
       body: SingleChildScrollView(
@@ -152,6 +152,7 @@ class _RegisterForm extends State<RegisterPage> {
                                 value: checked,
                                 onChanged: (newValue) {
                                   setState(() {
+                                    //TODO: Controlador de checked para notificaciones
                                     checked = newValue;
                                   });
                                 }),
@@ -168,7 +169,7 @@ class _RegisterForm extends State<RegisterPage> {
                           ],
                         ),
                         const SizedBox(
-                          height: divider * 3,
+                          height: divider,
                         ),
                         DefaultButtonWidget(
                             label: "Registrarme",
@@ -182,7 +183,7 @@ class _RegisterForm extends State<RegisterPage> {
                             },
                             buttonColor: const Color(0xFF42006E)),
                         const SizedBox(
-                          height: divider * 4,
+                          height: divider * 2,
                         )
                       ],
                     ),
