@@ -18,10 +18,10 @@ class NotificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //HomeController controller = Get.find();
     //UserController userController = Get.find();
-    return CupertinoPageScaffold(
-      backgroundColor: Colors.green,
-      child: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 50),
+    return SafeArea(
+        child: Scaffold(
+      body: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 0),
         children: [
           Align(
             alignment: Alignment.topCenter,
@@ -32,7 +32,7 @@ class NotificationPage extends StatelessWidget {
           )
         ],
       ),
-    );
+    ));
   }
 
   Widget notificationList() {
@@ -56,19 +56,23 @@ class NotificationPage extends StatelessWidget {
 
   Widget title(BuildContext context) {
     return Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-      const Icon(
-        CupertinoIcons.arrow_left_circle,
-        size: 40,
-        color: Color(0xFF42006E),
+      IconButton(
+        padding: const EdgeInsets.all(2),
+        icon: const Icon(CupertinoIcons.arrow_left_circle),
+        iconSize: 45,
+        color: const Color(0xFF42006E),
+        onPressed: () {},
       ),
-      Txt("Notificaciones",
-          style: TxtStyle()
-            ..textColor(const Color(0xFF42006E))
-            ..bold()
-            ..margin(left: 10)
-            ..fontSize(30)),
+      const Padding(
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+          child: Text("Notificaciones",
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF42006E)))),
       Container(
-          padding: const EdgeInsets.symmetric(horizontal: 80),
+          width: 20,
+          padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 6),
           child: const Icon(
             CupertinoIcons.bell_fill,
             size: 40,

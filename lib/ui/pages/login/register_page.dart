@@ -178,7 +178,6 @@ class _RegisterForm extends State<RegisterPage> {
                                 //TODO: Reparar el metodo de dispose para que no lance error cuando se cambia de pagina y evitar
                                 // memory leaks.
                                 //dispose();
-
                               }
                             },
                             buttonColor: const Color(0xFF42006E)),

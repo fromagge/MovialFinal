@@ -60,12 +60,11 @@ class Oferi extends StatelessWidget {
         theme: ThemeData(
             appBarTheme: const AppBarTheme(
                 systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: Colors.red,
               statusBarIconBrightness:
                   Brightness.dark, // For Android (dark icons)
               statusBarBrightness: Brightness.light, // For iOS (dark icons)
             )),
-            primaryColor: Colors.blue,
+            primaryColor: Colors.purple,
             inputDecorationTheme: const InputDecorationTheme(
                 labelStyle: TextStyle(color: Colors.redAccent))),
         builder: EasyLoading.init(),

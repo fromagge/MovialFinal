@@ -11,7 +11,28 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-        children: const [SearchBar(), CategoryList(), ListItem(), Carousel()]);
+    return Scaffold(
+      body: SafeArea(
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              const SliverAppBar(
+                toolbarHeight: 35,
+                backgroundColor: Color(0xFF42006E),
+              ),
+            ];
+          },
+          body: Center(
+              child: ListView(
+            children: const [
+              SearchBar(),
+              CategoryList(),
+              ListItem(),
+              Carousel(),
+            ],
+          )),
+        ),
+      ),
+    );
   }
 }

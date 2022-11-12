@@ -41,19 +41,21 @@ class _SearchBar extends State<SearchBar> {
                   Expanded(
                       flex: 8,
                       child: CupertinoSearchTextField(
-                        controller: textController,
-                        itemSize: 16,
-                        itemColor: const Color(0xFF42006E),
-                        backgroundColor: Colors.white,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20)),
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                        placeholder: 'Search',
-                        onSubmitted: ((value) =>
-                            Get.to(() => Result(search: value))),
-                      )),
+                          controller: textController,
+                          itemSize: 16,
+                          itemColor: const Color(0xFF42006E),
+                          backgroundColor: Colors.white,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20)),
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                          placeholder: 'Search',
+                          onSubmitted: ((value) => Get.to(
+                              () => Result(search: value),
+                              duration: const Duration(milliseconds: 200),
+                              transition: Transition.fadeIn,
+                              curve: Curves.easeInOut)))),
                 ],
               )
             ])),
