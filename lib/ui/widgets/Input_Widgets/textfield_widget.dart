@@ -5,6 +5,7 @@ class DefaultTextWidget extends StatelessWidget {
   final TextInputType textInputType;
   final bool obscureText;
   String? Function(String?)? validator;
+
   DefaultTextWidget({
     super.key,
     required this.label,
@@ -31,10 +32,11 @@ class DefaultTextWidget extends StatelessWidget {
                 obscureText: obscureText,
                 keyboardType: textInputType,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    errorStyle: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w400)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  errorStyle: const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.w400),
+                ),
                 validator: validator,
               ),
             ]));
