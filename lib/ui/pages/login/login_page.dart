@@ -4,7 +4,7 @@ import 'package:oferi/ui/pages/home/main.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/textfield_widget.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
+import 'package:oferi/ui/pages/login/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -42,14 +42,15 @@ class _LoginForm extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Scaffold(
+        body: SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
         child: Center(
           child: SizedBox(
             width: 500,
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
@@ -82,7 +83,9 @@ class _LoginForm extends State<LoginPage> {
                           textInputType: TextInputType.text,
                           validator: checkFieldEmpty,
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         DefaultTextWidget(
                           myFocusNode: _focusNodes[1],
                           label: "Contraseña",
@@ -112,7 +115,10 @@ class _LoginForm extends State<LoginPage> {
                         DefaultButtonWidget(
                           label: "Registrarse",
                           onPressed: () {
-                            //TODO: Get.to(Register_Page)
+                            Get.to(() => const RegisterPage(),
+                                duration: const Duration(milliseconds: 500),
+                                transition: Transition.downToUp,
+                                curve: Curves.easeInOutExpo);
                           },
                           textColor: const Color(0xFF42006E),
                           buttonColor: const Color(0XFFFAF2C8),
@@ -139,7 +145,7 @@ class _LoginForm extends State<LoginPage> {
           ),
         ),
       ),
-    );
+    ));
   }
 
 // TODO: FYI Si se hace return null, significa que los criterios de validación se han cumplido
