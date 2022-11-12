@@ -1,6 +1,5 @@
-import 'package:oferi/ui/pages/loading/splass_screen_page.dart';
+import 'package:oferi/ui/pages/loading/loading_page.dart';
 import 'package:oferi/ui/pages/login/login_page.dart';
-
 import 'firebase_options.dart';
 import 'package:division/division.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/pages/home/main.dart';
-import 'package:oferi/ui/pages/loading/loader_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -33,8 +31,8 @@ void configLoading() {
     ..displayDuration = const Duration(milliseconds: 1000)
     ..indicatorType = EasyLoadingIndicatorType.dualRing
     ..loadingStyle = EasyLoadingStyle.dark
-    ..indicatorSize = 45.0
-    ..radius = 10.0
+    ..indicatorSize = 50.0
+    ..radius = 20.0
     ..progressColor = Colors.yellow
     ..backgroundColor = Colors.green
     ..indicatorColor = Colors.yellow
@@ -59,33 +57,30 @@ class Oferi extends StatelessWidget {
     return GetMaterialApp(
         title: 'Oferi',
         theme: ThemeData(
-            appBarTheme: const AppBarTheme(
-                systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarIconBrightness:
-                  Brightness.dark, // For Android (dark icons)
-              statusBarBrightness: Brightness.light, // For iOS (dark icons)
-            )),
-            primaryColor: Colors.purple,
-            inputDecorationTheme: const InputDecorationTheme(
-                labelStyle: TextStyle(color: Colors.redAccent))),
+          appBarTheme: const AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarIconBrightness:
+                Brightness.dark, // For Android (dark icons)
+            statusBarBrightness: Brightness.light, // For iOS (dark icons)
+          )),
+          primaryColor: Colors.purple,
+        ),
         builder: EasyLoading.init(),
         home: FutureBuilder(
           future: SharedPreferences.getInstance(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
-                EasyLoading.show();
-                return const LoaderWidget();
+                return const LoadingPage();
 
-              case ConnectionState.active:
               case ConnectionState.done:
                 if (snapshot.hasData) {
-                  EasyLoading.dismiss();
+                  // EasyLoading.dismiss();
 
                   if (snapshot.data?.getBool("isLoggedIn") ?? false) {
                     return const Home();
                   }
-                  return SplashScreen();
+                  return const LoginPage();
                 }
 
                 return const Txt("Fatal error");

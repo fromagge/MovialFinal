@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:oferi/ui/pages/home/homes_screen.dart';
+import 'package:oferi/ui/pages/home/home_page.dart';
 import 'package:oferi/ui/pages/home/menu_page.dart';
 import 'package:oferi/ui/pages/home/notification_page.dart';
 import 'profile_page.dart';
@@ -17,7 +17,7 @@ class _Home extends State<Home> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     MenuPage(),
-    HomeScreen(),
+    HomePage(),
     NotificationPage(),
     ProfilePage(),
   ];

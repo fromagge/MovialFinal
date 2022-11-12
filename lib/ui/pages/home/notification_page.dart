@@ -5,7 +5,7 @@ import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:oferi/main.dart';
-import 'package:oferi/ui/pages/home/homes_screen.dart';
+import 'package:oferi/ui/pages/home/home_page.dart';
 import 'package:oferi/ui/pages/home/menu_page.dart';
 import 'package:oferi/ui/pages/home/profile_page.dart';
 import 'package:oferi/ui/pages/home/result_page.dart';
