@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:oferi/ui/pages/main/main.dart';
+import 'package:oferi/ui/pages/main/main_page.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/textfield_widget.dart';
 import 'package:get/get.dart';
@@ -17,15 +17,13 @@ class LoginPage extends StatefulWidget {
 
 class _LoginForm extends State<LoginPage> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
-
-  final List<FocusNode> _focusNodes = [
-    FocusNode(),
-    FocusNode(),
-  ];
+  final int _nrOfNodes = 2;
+  late final List<FocusNode> _focusNodes;
 
   @override
   void initState() {
     super.initState();
+    _focusNodes = List.generate(_nrOfNodes, (_) => FocusNode());
     for (var node in _focusNodes) {
       node.addListener(() {
         setState(() {});

@@ -16,21 +16,16 @@ class RegisterPage extends StatefulWidget {
 class _RegisterForm extends State<RegisterPage> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   bool? checked = true;
-
-  final List<FocusNode> _focusNodes = [
-    FocusNode(),
-    FocusNode(),
-    FocusNode(),
-    FocusNode(),
-    FocusNode(),
-    FocusNode(),
-    FocusNode(),
-    FocusNode(),
-  ];
+  // Número de elementos al cual deseas concentrarte
+  final int _nrOfNodes = 7;
+  late final List<FocusNode> _focusNodes;
 
   @override
   void initState() {
     super.initState();
+
+    _focusNodes = List.generate(_nrOfNodes, (_) => FocusNode());
+
     for (var node in _focusNodes) {
       node.addListener(() {
         setState(() {});
