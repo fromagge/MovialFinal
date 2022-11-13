@@ -30,13 +30,19 @@ class Carousel extends StatelessWidget {
               enlargeCenterPage: true,
               disableCenter: true),
           items: images
-              .map((item) => Parent(
+              .map(
+                (item) => Parent(
                   style: ParentStyle(),
-                  child: Image.network(
-                    item,
-                    fit: BoxFit.cover,
-                    height: 400,
-                  )))
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    child: Image.network(
+                      item,
+                      fit: BoxFit.cover,
+                      height: 400,
+                    ),
+                  ),
+                ),
+              )
               .toList(),
         ));
   }

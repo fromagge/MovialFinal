@@ -26,7 +26,7 @@ class LoadingState extends State<LoadingPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset("assets/images/logo_a.jpeg"),
+            Image.asset("assets/images/oferi/logo_a.jpeg"),
             const Padding(padding: EdgeInsets.only(top: 20.0)),
             const Text(
               "Cargando",

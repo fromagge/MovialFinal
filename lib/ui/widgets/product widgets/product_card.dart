@@ -4,8 +4,8 @@ import 'package:get/route_manager.dart';
 import 'package:oferi/domain/entities/drink.dart';
 import 'package:oferi/ui/pages/main/home/item.dart';
 
-class ItemCard extends StatelessWidget {
-  const ItemCard({super.key, required this.drink});
+class ProductCard extends StatelessWidget {
+  const ProductCard({super.key, required this.drink});
 
   final Drink drink;
 

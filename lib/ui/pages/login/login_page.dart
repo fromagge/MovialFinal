@@ -60,7 +60,7 @@ class _LoginForm extends State<LoginPage> {
                         decoration: const BoxDecoration(
                             image: DecorationImage(
                           image: AssetImage(
-                            "assets/images/logo_b.jpeg",
+                            "assets/images/oferi/logo_b.jpeg",
                           ),
                           fit: BoxFit.cover,
                         )),

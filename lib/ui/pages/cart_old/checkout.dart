@@ -3,7 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:oferi/domain/entities/drink.dart';
-import 'package:oferi/ui/widgets/item_cart.dart';
+import 'package:oferi/ui/widgets/shopping_cart.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});

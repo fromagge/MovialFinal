@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CategoryList extends StatelessWidget {
-  //TODO: El arreglo Categorias debe ir en el controlador:
-  static const categorias = ["Precio", "Cercanía", "Calidad"];
+  //TODO: El array Categorias debe ir en el controlador:
+  static const categorias = [
+    "Relevancia",
+    "Precio",
+    "Cercanía",
+  ];
   const CategoryList({super.key});
 
   @override
@@ -20,9 +24,9 @@ class CategoryList extends StatelessWidget {
   }
 
   Widget categoryButtonWidget(String categoryName) {
-    double buttonWidth = categoryName.length * 14;
+    double buttonWidth = categoryName.length * 13;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.only(left: 24),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFD9D9D9),
@@ -34,7 +38,8 @@ class CategoryList extends StatelessWidget {
         },
         child: Text(
           categoryName,
-          style: const TextStyle(color: Colors.black),
+          style:
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
     );

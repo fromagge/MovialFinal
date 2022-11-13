@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oferi/ui/widgets/item_list.dart';
+import 'package:oferi/ui/widgets/product%20widgets/product_list.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/search_bar.dart';
-import 'package:oferi/ui/widgets/category_widget.dart';
+import 'package:oferi/ui/widgets/Input_Widgets/category_widget.dart';
 
 class Result extends StatelessWidget {
   const Result({Key? key, required this.search}) : super(key: key);
@@ -15,12 +15,10 @@ class Result extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           scrollDirection: Axis.vertical,
-          children: const [
+          children: [
             SearchBar(),
             CategoryList(),
-            ListItem(
-              direction: Axis.vertical,
-            ),
+            ListProduct(),
           ],
         ),
       ),
