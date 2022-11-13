@@ -79,7 +79,7 @@ class HorizList extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         child: MasonryGridView.count(
-            shrinkWrap: false,
+            shrinkWrap: true,
             crossAxisCount: columns,
             physics: const ClampingScrollPhysics(),
             scrollDirection: Axis.vertical,

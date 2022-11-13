@@ -14,35 +14,31 @@ class Result extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NestedScrollView(
-      headerSliverBuilder: (context, innerBoxIsScrolled) {
-        return [
-          SliverAppBar(
-            toolbarHeight: 150,
-            leadingWidth: 40,
-            leading: IconButton(
-              icon: const Icon(
-                CupertinoIcons.arrow_left_circle,
-                size: 45,
-              ),
-              iconSize: 50,
-              onPressed: () {
-                Get.back();
-              },
-            ),
-            title: Container(
-              child: Column(
-                children: [
-                  SearchBar(),
-                  CategoryList(),
-                ],
-              ),
-            ),
-            backgroundColor: Color(0xFF42006E),
-          ),
-        ];
-      },
-      body: ListProduct(),
-    );
+    return SafeArea(
+        child: MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: NestedScrollView(
+                headerSliverBuilder: (context, innerBoxIsScrolled) {
+                  return [
+                    SliverAppBar(
+                      toolbarHeight: 90,
+                      leadingWidth: 40,
+                      leading: IconButton(
+                        icon: const Icon(
+                          CupertinoIcons.arrow_left_circle,
+                          size: 45,
+                        ),
+                        iconSize: 50,
+                        onPressed: () {
+                          Get.back();
+                        },
+                      ),
+                      title: SearchBar(),
+                      backgroundColor: Color(0xFF42006E),
+                    ),
+                  ];
+                },
+                body: ListView(children: [CategoryList(), ListProduct()]))));
   }
 }

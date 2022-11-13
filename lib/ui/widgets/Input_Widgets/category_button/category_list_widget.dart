@@ -5,7 +5,7 @@ class CategoryList extends StatelessWidget {
   List<String> categorias = [
     "Relevancia",
     "Precio",
-    "Cercanía",
+    "Distancia",
   ];
   final double fontsize;
 
@@ -13,7 +13,8 @@ class CategoryList extends StatelessWidget {
 
   @override
   build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       height: 50,
       child: ListView.builder(
         shrinkWrap: true,
