@@ -33,53 +33,42 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-            systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-          statusBarBrightness: Brightness.dark, // For iOS (dark icons)
-        )),
-        primaryColor: Colors.purple,
+    const double iconsize = 30;
+    return Scaffold(
+      key: const Key('navBar'),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      home: bottomNavBar(context),
+      bottomNavigationBar: bottomNavBar(context, iconsize),
     );
   }
 
-  Widget bottomNavBar(BuildContext context) {
-    const double iconsize = 30;
-    return Scaffold(
-        key: const Key('navBar'),
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: const Color(0xFF42006E),
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          type: BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu, size: iconsize),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_filled, size: iconsize),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart, size: iconsize),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon:
-                  Icon(CupertinoIcons.person_crop_circle, size: iconsize + 2.5),
-              label: "",
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.black,
-          onTap: _onItemTapped,
-        ));
+  Widget bottomNavBar(BuildContext context, double iconsize) {
+    return BottomNavigationBar(
+        unselectedItemColor: const Color(0xFF42006E),
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        type: BottomNavigationBarType.fixed,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu, size: iconsize),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_filled, size: iconsize),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart, size: iconsize),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.person_crop_circle, size: iconsize + 2.5),
+            label: "",
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.black,
+        onTap: _onItemTapped);
   }
 }
