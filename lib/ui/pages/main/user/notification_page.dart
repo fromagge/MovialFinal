@@ -13,9 +13,9 @@ class NotificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //HomeController controller = Get.find();
     //UserController userController = Get.find();
-    return SafeArea(
-        child: Scaffold(
-      body: ListView(
+    return Scaffold(
+        body: SafeArea(
+      child: ListView(
         padding: const EdgeInsets.symmetric(vertical: 0),
         children: [
           Align(

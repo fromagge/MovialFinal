@@ -2,7 +2,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:oferi/domain/entities/drink.dart';
-import 'package:oferi/ui/pages/main/home/item.dart';
+import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 
 class ItemCart extends StatelessWidget {
   const ItemCart({super.key, required this.drink});

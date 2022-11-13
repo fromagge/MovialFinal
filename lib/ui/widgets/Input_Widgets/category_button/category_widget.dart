@@ -9,10 +9,10 @@ class categoryButtonWidget extends StatelessWidget {
 
   @override
   build(BuildContext context) {
-    double buttonWidth = fontsize + categoryName.length * 13;
+    double buttonWidth = fontsize + categoryName.length * 12;
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.only(left: 2, right: 8),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFD9D9D9),

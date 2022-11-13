@@ -2,7 +2,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:oferi/domain/entities/drink.dart';
-import 'package:oferi/ui/pages/main/home/item.dart';
+import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 
 class ProductCard extends StatelessWidget {
   final Drink drink;
@@ -16,6 +16,7 @@ class ProductCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         Get.to(
+          //Cuando el producto es seleccionado
           () => ItemPage(drink: drink),
         );
       },
@@ -60,7 +61,7 @@ class ProductCard extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(
-                        width: 120,
+                        width: 112,
                         child: Text(
                           "\$ ${drink.price}",
                           style: TextStyle(fontSize: 20),

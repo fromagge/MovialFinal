@@ -61,7 +61,7 @@ class Oferi extends StatelessWidget {
               systemOverlayStyle: SystemUiOverlayStyle(
             statusBarIconBrightness:
                 Brightness.dark, // For Android (dark icons)
-            statusBarBrightness: Brightness.light, // For iOS (dark icons)
+            statusBarBrightness: Brightness.dark, // For iOS (dark icons)
           )),
           primaryColor: Colors.purple,
         ),

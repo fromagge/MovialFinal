@@ -19,10 +19,13 @@ class Result extends StatelessWidget {
         return [
           SliverAppBar(
             toolbarHeight: 150,
-            leadingWidth: 30,
+            leadingWidth: 40,
             leading: IconButton(
-              icon: Icon(CupertinoIcons.arrow_left_circle),
-              iconSize: 45,
+              icon: const Icon(
+                CupertinoIcons.arrow_left_circle,
+                size: 45,
+              ),
+              iconSize: 50,
               onPressed: () {
                 Get.back();
               },

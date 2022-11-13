@@ -16,14 +16,15 @@ class CartPage extends StatelessWidget {
       ),dasdasasd
     );*/ // adadsasddasasdasd
     return Scaffold(
-      body: ListView(
+        body: SafeArea(
+      child: ListView(
         padding: const EdgeInsets.all(15),
         children: [
           title(context),
           generateList(),
         ],
       ),
-    );
+    ));
   }
 
   Widget generateList() {
