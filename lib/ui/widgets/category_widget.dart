@@ -29,7 +29,9 @@ class CategoryList extends StatelessWidget {
             fixedSize: Size.fromWidth(buttonWidth),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20))),
-        onPressed: () => {},
+        onPressed: () => {
+          //Cuando sea presionado debe mantener el focusNode encima y cambiar de color
+        },
         child: Text(
           categoryName,
           style: const TextStyle(color: Colors.black),

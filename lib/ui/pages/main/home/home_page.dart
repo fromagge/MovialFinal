@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:oferi/ui/widgets/category_widget.dart';
 import 'package:oferi/ui/widgets/item_list.dart';
-import 'package:oferi/ui/widgets/search_bar.dart';
+import 'package:oferi/ui/widgets/Input_Widgets/search_bar.dart';
 
-import '../../widgets/carrousel.dart';
+import 'package:oferi/ui/widgets/carrousel.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

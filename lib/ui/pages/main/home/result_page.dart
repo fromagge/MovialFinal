@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oferi/ui/widgets/item_list.dart';
-import 'package:oferi/ui/widgets/search_bar.dart';
+import 'package:oferi/ui/widgets/Input_Widgets/search_bar.dart';
 import 'package:oferi/ui/widgets/category_widget.dart';
 
 class Result extends StatelessWidget {

@@ -1,14 +1,9 @@
 import 'package:division/division.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:oferi/main.dart';
-import 'package:oferi/ui/pages/home/home_page.dart';
-import 'package:oferi/ui/pages/home/menu_page.dart';
-import 'package:oferi/ui/pages/home/profile_page.dart';
-import 'package:oferi/ui/pages/home/result_page.dart';
+
 import 'package:oferi/ui/widgets/menu%20widgets/notification_card.dart';
 
 class NotificationPage extends StatelessWidget {
@@ -57,11 +52,13 @@ class NotificationPage extends StatelessWidget {
   Widget title(BuildContext context) {
     return Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
       IconButton(
-        padding: const EdgeInsets.all(2),
+        padding: const EdgeInsets.only(bottom: 5),
         icon: const Icon(CupertinoIcons.arrow_left_circle),
         iconSize: 45,
         color: const Color(0xFF42006E),
-        onPressed: () {},
+        onPressed: () {
+          Get.back();
+        },
       ),
       const Padding(
           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),

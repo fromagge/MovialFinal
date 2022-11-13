@@ -42,7 +42,8 @@ class NotificationCard extends StatelessWidget {
                       )),
                   title: Text(
                     title,
-                    style: const TextStyle(color: Colors.orange),
+                    style: const TextStyle(
+                        color: Color(0xFF42006E), fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(
                     subtitle,
@@ -52,12 +53,6 @@ class NotificationCard extends StatelessWidget {
                   enabled: enable,
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  //Get.to(() => UserDetailPage(), arguments: [user, user.id]);
-                },
-                child: Text("more"),
-              )
             ],
           ),
         ),

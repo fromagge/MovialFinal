@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:oferi/ui/pages/home/home_page.dart';
-import 'package:oferi/ui/pages/home/menu_page.dart';
-import 'package:oferi/ui/pages/home/notification_page.dart';
-import 'profile_page.dart';
+import 'package:oferi/ui/pages/main/cart/cart_page.dart';
+import 'package:oferi/ui/pages/main/home/home_page.dart';
+import 'package:oferi/ui/pages/main/menu/menu_page.dart';
+import 'package:oferi/ui/pages/main/user/notification_page.dart';
+import 'package:oferi/ui/pages/main/user/profile_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -18,7 +19,7 @@ class _Home extends State<Home> {
   static const List<Widget> _widgetOptions = <Widget>[
     MenuPage(),
     HomePage(),
-    NotificationPage(),
+    CartPage(),
     ProfilePage(),
   ];
 
@@ -31,11 +32,8 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-          inputDecorationTheme: const InputDecorationTheme(
-              labelStyle: TextStyle(color: Colors.redAccent)),
-        ),
-        home: bottomNavBar(context));
+      home: bottomNavBar(context),
+    );
   }
 
   Widget bottomNavBar(BuildContext context) {
