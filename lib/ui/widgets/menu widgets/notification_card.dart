@@ -37,7 +37,8 @@ class NotificationCard extends StatelessWidget {
                       width: 30.0,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage("assets/images/logo_a.jpeg"),
+                            image:
+                                AssetImage("assets/images/oferi/logo_a.jpeg"),
                             fit: BoxFit.contain),
                       )),
                   title: Text(

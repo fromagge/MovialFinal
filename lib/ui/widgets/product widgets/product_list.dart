@@ -40,27 +40,28 @@ class _ListProduct extends State<ListProduct> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: futureData,
-        builder: (futureData, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              EasyLoading.show();
-              break;
-            case ConnectionState.active:
-            case ConnectionState.done:
-              if (snapshot.hasData) {
-                EasyLoading.dismiss();
+      future: futureData,
+      builder: (futureData, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            EasyLoading.show();
+            break;
+          case ConnectionState.active:
+          case ConnectionState.done:
+            if (snapshot.hasData) {
+              EasyLoading.dismiss();
 
-                var data = json.decode(snapshot.data)["drinks"];
-                data = data.map<Drink>((json) => Drink.fromJson(json)).toList();
-                return HorizList(data: data);
-              }
-              break;
-            default:
-              return const Txt("Fatal error");
-          }
-          return const LoaderWidget();
-        });
+              var data = json.decode(snapshot.data)["drinks"];
+              data = data.map<Drink>((json) => Drink.fromJson(json)).toList();
+              return HorizList(data: data);
+            }
+            break;
+          default:
+            return const Txt("Fatal error");
+        }
+        return const LoaderWidget();
+      },
+    );
   }
 }
 
@@ -68,7 +69,7 @@ class HorizList extends StatelessWidget {
   const HorizList({super.key, required this.data});
 
   final double size = 121;
-  final int rows = 3;
+  final int columns = 2;
   final List data;
 
   @override
@@ -79,7 +80,7 @@ class HorizList extends StatelessWidget {
             height: 800,
             child: GridView.count(
                 shrinkWrap: true,
-                crossAxisCount: rows,
+                crossAxisCount: columns,
                 physics: const ClampingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 crossAxisSpacing: 15,

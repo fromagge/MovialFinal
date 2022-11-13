@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:oferi/ui/pages/cart_old/checkout.dart';
 import 'package:oferi/ui/pages/main/home/result_page.dart';
-import 'package:oferi/ui/widgets/location_select_widget.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({super.key});
@@ -29,19 +28,9 @@ class _SearchBar extends State<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Parent(
-          style: ParentStyle()..padding(all: 13),
-          child: Column(
-            children: [
-              const LocationSelectWidget(),
-              searchBarWidget(),
-            ],
-          ),
-        ),
-      ),
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: searchBarWidget(),
     );
   }
 
@@ -52,13 +41,20 @@ class _SearchBar extends State<SearchBar> {
             border: Border.all(color: Colors.black),
             borderRadius: const BorderRadius.all(Radius.circular(20))),
         controller: textController,
-        itemSize: 16,
+        prefixIcon: const Icon(
+          Icons.search_rounded,
+          size: 40,
+        ),
         itemColor: const Color(0xFF42006E),
         style: const TextStyle(
           fontSize: 20,
         ),
-        placeholder: 'Search',
-        onSubmitted: ((value) => Get.to(() => Result(search: value),
+        placeholder: 'Buscar',
+        onSubmitted: ((value) => Get.to(
+            () => Result(
+                  //TODO: guardar value en controlador
+                  search: value,
+                ),
             duration: const Duration(milliseconds: 200),
             transition: Transition.fadeIn,
             curve: Curves.easeInOut)));

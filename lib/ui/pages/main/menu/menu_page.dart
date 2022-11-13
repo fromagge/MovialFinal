@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:oferi/ui/widgets/Input_Widgets/category_widget.dart';
+import 'package:oferi/ui/widgets/Input_Widgets/category_button/category_widget.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
