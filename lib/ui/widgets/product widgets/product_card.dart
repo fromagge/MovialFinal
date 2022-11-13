@@ -5,57 +5,94 @@ import 'package:oferi/domain/entities/drink.dart';
 import 'package:oferi/ui/pages/main/home/item.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.drink});
-
   final Drink drink;
+
+  ProductCard({super.key, required this.drink});
+
+  bool markedFavorite = true;
 
   @override
   Widget build(BuildContext context) {
-    return Parent(
-        style: ParentStyle()
-          ..border(all: 1.0, color: Colors.grey.shade400)
-          ..borderRadius(all: 10.0),
-        child: Column(children: [
-          Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 6.0),
-              child: SizedBox(
-                height: 75,
-                child: thumbnail(drink.imgUrl),
-              )),
-          Parent(
-              style: ParentStyle()
-                ..padding(left: 18, right: 21, top: 0)
-                ..offset(4, 0),
-              gesture: Gestures()
-                ..onTap(() {
-                  Get.to(ItemPage(drink: drink));
-                }),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return InkWell(
+      onTap: () {
+        Get.to(
+          () => ItemPage(drink: drink),
+        );
+      },
+      child: Container(
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(width: 2, color: Color(0xFFE4E0E0))),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  thumbnail(drink.imgUrl),
+                  Container(
+                    margin: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.white),
+                    child: IconButton(
+                      icon: const Icon(Icons.favorite_outline_sharp,
+                          color: Colors.red),
+                      iconSize: 30,
+                      onPressed: () {},
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
+                drink.name,
+                style: TextStyle(fontSize: 18),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: Row(
                   children: [
-                    Txt(drink.name,
-                        style: TxtStyle()
-                          ..padding(all: 0)
-                          ..fontSize(14)
-                          ..height(15)),
-                    Parent(
-                      style: ParentStyle()..ripple(true),
-                      child: const Icon(
-                        Icons.favorite_border,
-                        color: Colors.red,
-                        size: 16,
-                      ),
-                    )
-                  ]))
-        ]));
+                    SizedBox(
+                        width: 120,
+                        child: Text(
+                          "\$ ${drink.price}",
+                          style: TextStyle(fontSize: 20),
+                        )),
+                    Container(
+                        child: IconButton(
+                      icon: const Icon(Icons.add_circle,
+                          color: Color(0xFF42006E)),
+                      iconSize: 35,
+                      onPressed: () {},
+                    ))
+                  ],
+                ),
+              )
+            ],
+          )),
+    );
   }
 
   Widget thumbnail(url) {
     return ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: Image.network(
-          url,
-          scale: 1,
-        ));
+      borderRadius: BorderRadius.circular(15),
+      child: SizedBox(
+        width: double.infinity,
+        height: 200,
+        child: FittedBox(
+          fit: BoxFit.fill,
+          child: Image.network(
+            url,
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -7,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:oferi/domain/entities/drink.dart';
 import 'package:oferi/ui/pages/loading/loader_widget.dart';
 import 'package:oferi/ui/widgets/product%20widgets/product_card.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 Future fetchResource() async {
   final response = await http.get(
@@ -39,53 +39,55 @@ class _ListProduct extends State<ListProduct> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: futureData,
-      builder: (futureData, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-            EasyLoading.show();
-            break;
-          case ConnectionState.active:
-          case ConnectionState.done:
-            if (snapshot.hasData) {
-              EasyLoading.dismiss();
+    return Container(
+      padding: EdgeInsets.only(bottom: 20),
+      child: FutureBuilder(
+        future: futureData,
+        builder: (futureData, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              EasyLoading.show();
+              break;
+            case ConnectionState.active:
+            case ConnectionState.done:
+              if (snapshot.hasData) {
+                EasyLoading.dismiss();
 
-              var data = json.decode(snapshot.data)["drinks"];
-              data = data.map<Drink>((json) => Drink.fromJson(json)).toList();
-              return HorizList(data: data);
-            }
-            break;
-          default:
-            return const Txt("Fatal error");
-        }
-        return const LoaderWidget();
-      },
+                var data = json.decode(snapshot.data)["drinks"];
+                data = data.map<Drink>((json) => Drink.fromJson(json)).toList();
+                return HorizList(data: data);
+              }
+              break;
+            default:
+              return const Txt("Fatal error");
+          }
+          return const LoaderWidget();
+        },
+      ),
     );
   }
 }
 
 class HorizList extends StatelessWidget {
-  const HorizList({super.key, required this.data});
+  HorizList({super.key, required this.data});
 
-  final double size = 121;
   final int columns = 2;
   final List data;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.only(left: 13.0, right: 13.0, top: 10.0),
-        child: SizedBox(
-            height: 800,
-            child: GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: columns,
-                physics: const ClampingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                crossAxisSpacing: 15,
-                childAspectRatio: 0.9,
-                mainAxisSpacing: 9,
-                children: data.map((e) => ProductCard(drink: e)).toList())));
+    return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        child: MasonryGridView.count(
+            shrinkWrap: false,
+            crossAxisCount: columns,
+            physics: const ClampingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            crossAxisSpacing: 15,
+            itemCount: data.length,
+            mainAxisSpacing: 17,
+            itemBuilder: (context, index) {
+              return ProductCard(drink: data[index]);
+            }));
   }
 }
