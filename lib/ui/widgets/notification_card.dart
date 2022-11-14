@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../domain/entities/item.dart';
+import '../../domain/entities/item.dart';
 
 class NotificationCard extends StatelessWidget {
   final String title;

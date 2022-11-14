@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/category_button/category_list_widget.dart';
-import 'package:oferi/ui/widgets/product%20widgets/product_card.dart';
+import 'package:oferi/ui/widgets/product%20widgets/product_grid_card.dart';
 import 'package:oferi/ui/widgets/product%20widgets/product_grid.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/search_bar.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/category_button/category_widget.dart';

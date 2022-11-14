@@ -49,13 +49,15 @@ class _ItemPage extends State<ProductDetailedPage> {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Txt(
-                          style: TxtStyle()
-                            ..fontSize(60)
-                            ..alignmentContent.center(true)
-                            ..fontWeight(FontWeight.bold)
-                            ..textAlign.left(true),
-                          product.name),
+                      Flexible(
+                          flex: 2,
+                          child: Txt(
+                              style: TxtStyle()
+                                ..fontSize(60)
+                                ..alignmentContent.center(true)
+                                ..fontWeight(FontWeight.bold)
+                                ..textAlign.left(true),
+                              product.name)),
                       Txt(
                           style: TxtStyle()
                             ..fontSize(32)

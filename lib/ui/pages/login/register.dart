@@ -3,6 +3,7 @@ import 'package:oferi/ui/pages/main/home/home_page.dart';
 import 'package:oferi/ui/utils/validator.dart';
 
 // Define a custom Form widget.
+//TODO: ELIMINAR ESTA CLASE CUANDO AUTHENTICATION CONTROLLER ESTE HECHO
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
 

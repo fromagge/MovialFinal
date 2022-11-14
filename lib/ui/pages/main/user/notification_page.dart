@@ -3,8 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:oferi/ui/widgets/menu%20widgets/title_widget.dart';
 
-import 'package:oferi/ui/widgets/menu%20widgets/notification_card.dart';
+import 'package:oferi/ui/widgets/notification_card.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -22,7 +23,14 @@ class NotificationPage extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Parent(
               style: ParentStyle()..padding(all: 10),
-              child: Column(children: [title(context), notificationList()]),
+              child: Column(children: [
+                const TitleWidget(
+                  title: "Notificaciones",
+                  icon: CupertinoIcons.bell_fill,
+                  iconSize: 35,
+                ),
+                notificationList(),
+              ]),
             ),
           )
         ],
@@ -47,34 +55,5 @@ class NotificationPage extends StatelessWidget {
       },
     );
     //);
-  }
-
-  Widget title(BuildContext context) {
-    return Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-      IconButton(
-        padding: const EdgeInsets.only(bottom: 5),
-        icon: const Icon(Icons.arrow_circle_left_outlined),
-        iconSize: 45,
-        color: const Color(0xFF42006E),
-        onPressed: () {
-          Get.back();
-        },
-      ),
-      const Padding(
-          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-          child: Text("Notificaciones",
-              style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF42006E)))),
-      Container(
-          width: 20,
-          padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 6),
-          child: const Icon(
-            CupertinoIcons.bell_fill,
-            size: 40,
-            color: Color(0xFF42006E),
-          )),
-    ]);
   }
 }

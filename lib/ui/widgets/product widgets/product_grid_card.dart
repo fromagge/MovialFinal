@@ -3,10 +3,10 @@ import 'package:get/route_manager.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductGridCard extends StatelessWidget {
   final Product product;
 
-  ProductCard({super.key, required this.product});
+  ProductGridCard({super.key, required this.product});
 
   bool markedFavorite = true;
 
