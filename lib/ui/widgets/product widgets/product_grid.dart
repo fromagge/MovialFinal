@@ -19,15 +19,15 @@ Future fetchResource() async {
   }
 }
 
-class ListProduct extends StatefulWidget {
-  const ListProduct({Key? key}) : super(key: key);
+class ProductGrid extends StatefulWidget {
+  const ProductGrid({Key? key}) : super(key: key);
 
   @override
-  State<ListProduct> createState() => _ListProduct();
+  State<ProductGrid> createState() => _ProductGrid();
 }
 
-class _ListProduct extends State<ListProduct> {
-  _ListProduct();
+class _ProductGrid extends State<ProductGrid> {
+  _ProductGrid();
 
   late Future futureData;
 
