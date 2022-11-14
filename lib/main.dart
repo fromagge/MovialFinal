@@ -1,7 +1,6 @@
 import 'package:oferi/ui/pages/loading/loading_page.dart';
 import 'package:oferi/ui/pages/login/login_page.dart';
 import 'package:oferi/ui/pages/login/register.dart';
-
 import 'firebase_options.dart';
 import 'package:division/division.dart';
 import 'package:firebase_core/firebase_core.dart';
