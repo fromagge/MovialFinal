@@ -1,6 +1,5 @@
-import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:oferi/ui/pages/home/main.dart';
+import 'package:oferi/ui/pages/main/home/home_page.dart';
 import 'package:oferi/ui/utils/validator.dart';
 
 // Define a custom Form widget.
@@ -23,7 +22,7 @@ class _RegisterForm extends State<RegisterForm> {
   void _handleRegister() {
     if (_formKey.currentState!.validate()) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Home()));
+          context, MaterialPageRoute(builder: (context) => const HomePage()));
     }
   }
 

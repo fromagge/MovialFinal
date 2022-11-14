@@ -1,13 +1,12 @@
-import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:oferi/domain/entities/drink.dart';
+import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 
 class ProductCard extends StatelessWidget {
-  final Drink drink;
+  final Product product;
 
-  ProductCard({super.key, required this.drink});
+  ProductCard({super.key, required this.product});
 
   bool markedFavorite = true;
 
@@ -17,7 +16,7 @@ class ProductCard extends StatelessWidget {
       onTap: () {
         Get.to(
           //Cuando el producto es seleccionado
-          () => ProductDetailedPage(drink: drink),
+          () => ProductDetailedPage(product: product),
         );
       },
       child: Container(
@@ -31,7 +30,7 @@ class ProductCard extends StatelessWidget {
               Stack(
                 alignment: Alignment.topRight,
                 children: [
-                  thumbnail(drink.imgUrl),
+                  thumbnail(product.imgUrl),
                   Container(
                     margin: EdgeInsets.all(5),
                     decoration: BoxDecoration(
@@ -50,7 +49,7 @@ class ProductCard extends StatelessWidget {
                 height: 15,
               ),
               Text(
-                drink.name,
+                product.name,
                 style: TextStyle(fontSize: 18),
               ),
               const SizedBox(
@@ -63,7 +62,7 @@ class ProductCard extends StatelessWidget {
                     SizedBox(
                         width: 112,
                         child: Text(
-                          "\$ ${drink.price}",
+                          "\$ ${product.price}",
                           style: TextStyle(fontSize: 20),
                         )),
                     Container(

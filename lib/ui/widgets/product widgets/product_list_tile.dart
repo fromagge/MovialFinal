@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:oferi/domain/entities/drink.dart';
 
 class ProductListTile extends StatelessWidget {
   ProductListTile({super.key});

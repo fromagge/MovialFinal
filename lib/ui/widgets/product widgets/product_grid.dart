@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,6 @@ import 'package:oferi/ui/pages/loading/loader_widget.dart';
 import 'package:oferi/ui/widgets/product%20widgets/product_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:oferi/domain/entities/product.dart';
-import 'package:oferi/ui/widgets/item_card.dart';
 
 Future fetchResource() async {
   final response = await http.get(
@@ -89,7 +87,7 @@ class HorizList extends StatelessWidget {
             itemCount: data.length,
             mainAxisSpacing: 17,
             itemBuilder: (context, index) {
-              return ProductCard(drink: data[index]);
+              return ProductCard(product: data[index]);
             }));
   }
 }
