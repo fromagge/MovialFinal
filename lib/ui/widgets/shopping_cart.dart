@@ -27,7 +27,7 @@ class ItemCart extends StatelessWidget {
               ..offset(4, 0),
             gesture: Gestures()
               ..onTap(() {
-                Get.to(ItemPage(drink: drink));
+                Get.to(ProductDetailedPage(drink: drink));
               }),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

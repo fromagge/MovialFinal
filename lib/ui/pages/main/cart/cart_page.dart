@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:oferi/ui/widgets/Input_Widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/product%20widgets/product_list_tile.dart';
 
 class CartPage extends StatelessWidget {
@@ -9,21 +10,27 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /* return showMaterialModalBottomSheet(
-      context: context,
-      builder: (context) => SingleChildScrollView(
-        controller: ModalScrollController.of(context),
-        child: Container(),
-      ),dasdasasd
-    );*/ // adadsasddasasdasd
     return Scaffold(
         backgroundColor: Color(0xFFF3D9FA),
         body: SafeArea(
-          child: ListView(
-            padding: const EdgeInsets.all(15),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
             children: [
-              title(context),
-              generateList(context),
+              ListView(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(15),
+                children: [
+                  title(context),
+                  generateList(context),
+                ],
+              ),
+              SizedBox(
+                  width: 315,
+                  child: DefaultButtonWidget(
+                      edgeInset: EdgeInsets.only(bottom: 10),
+                      label: "Ir a pagar",
+                      onPressed: () {},
+                      buttonColor: Color(0xFF42006E)))
             ],
           ),
         ));
@@ -34,7 +41,7 @@ class CartPage extends StatelessWidget {
       physics: const ClampingScrollPhysics(),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      itemCount: 100,
+      itemCount: 20,
       separatorBuilder: (context, index) {
         return ProductListTile();
       },
@@ -51,7 +58,7 @@ Widget title(BuildContext context) {
     children: <Widget>[
       IconButton(
         padding: const EdgeInsets.only(bottom: 5),
-        icon: const Icon(CupertinoIcons.arrow_left_circle),
+        icon: const Icon(Icons.arrow_circle_left_outlined),
         iconSize: 40,
         color: const Color(0xFF42006E),
         onPressed: () {

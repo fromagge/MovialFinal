@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:oferi/domain/entities/drink.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:oferi/ui/pages/cart_old/checkout.dart';
 import 'package:oferi/ui/widgets/carrousel.dart';
+import 'package:get/get.dart';
 
-class ItemPage extends StatefulWidget {
-  const ItemPage({super.key, required this.drink});
+class ProductDetailedPage extends StatefulWidget {
+  const ProductDetailedPage({super.key, required this.drink});
 
   final Drink drink;
 
@@ -15,7 +17,7 @@ class ItemPage extends StatefulWidget {
   _ItemPage createState() => _ItemPage(drink);
 }
 
-class _ItemPage extends State<ItemPage> {
+class _ItemPage extends State<ProductDetailedPage> {
   _ItemPage(this.drink);
   final Drink drink;
   late GoogleMapController mapController;
@@ -102,7 +104,7 @@ class _ItemPage extends State<ItemPage> {
                       ..onTap(() async {
                         EasyLoading.showSuccess(
                           "Added to cart",
-                        ).then((value) => Navigator.pop(context));
+                        ).then((value) => Get.to(CheckoutPage()));
                       }),
                     style: TxtStyle()
                       ..ripple(true)

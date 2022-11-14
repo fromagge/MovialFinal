@@ -53,7 +53,7 @@ class NotificationPage extends StatelessWidget {
     return Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
       IconButton(
         padding: const EdgeInsets.only(bottom: 5),
-        icon: const Icon(CupertinoIcons.arrow_left_circle),
+        icon: const Icon(Icons.arrow_circle_left_outlined),
         iconSize: 45,
         color: const Color(0xFF42006E),
         onPressed: () {

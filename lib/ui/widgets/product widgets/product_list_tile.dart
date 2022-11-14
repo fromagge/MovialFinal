@@ -16,7 +16,7 @@ class ProductListTile extends StatelessWidget {
         child: Container(
           color: Colors.white,
           padding: EdgeInsets.symmetric(horizontal: 7, vertical: 10),
-          height: height / 4,
+          height: height / 5,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

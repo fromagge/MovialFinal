@@ -17,7 +17,7 @@ class ProductCard extends StatelessWidget {
       onTap: () {
         Get.to(
           //Cuando el producto es seleccionado
-          () => ItemPage(drink: drink),
+          () => ProductDetailedPage(drink: drink),
         );
       },
       child: Container(
