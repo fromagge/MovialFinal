@@ -1,12 +1,15 @@
 import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
-import 'package:oferi/domain/entities/drink.dart';
 import 'package:oferi/ui/pages/loading/loader_widget.dart';
 import 'package:oferi/ui/widgets/product%20widgets/product_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:oferi/domain/entities/product.dart';
+import 'package:oferi/ui/widgets/item_card.dart';
 
 Future fetchResource() async {
   final response = await http.get(
@@ -27,43 +30,42 @@ class ProductGrid extends StatefulWidget {
 }
 
 class _ProductGrid extends State<ProductGrid> {
-  _ProductGrid();
-
-  late Future futureData;
+  CollectionReference products =
+      FirebaseFirestore.instance.collection('products');
 
   @override
   void initState() {
     super.initState();
-    futureData = fetchResource();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(bottom: 20),
-      child: FutureBuilder(
-        future: futureData,
-        builder: (futureData, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              EasyLoading.show();
-              break;
-            case ConnectionState.active:
-            case ConnectionState.done:
-              if (snapshot.hasData) {
-                EasyLoading.dismiss();
+    return FutureBuilder<QuerySnapshot>(
+      future: products.limit(10).get(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            EasyLoading.show();
+            break;
+          case ConnectionState.active:
+          case ConnectionState.done:
+            if (snapshot.hasData) {
+              EasyLoading.dismiss();
+              List<Product> data = [];
+              for (var doc in snapshot.data!.docs) {
+                var json = doc.data() as Map<String, dynamic>;
 
-                var data = json.decode(snapshot.data)["drinks"];
-                data = data.map<Drink>((json) => Drink.fromJson(json)).toList();
-                return HorizList(data: data);
+                data.add(Product.fromJson(json));
               }
-              break;
-            default:
-              return const Txt("Fatal error");
-          }
-          return const LoaderWidget();
-        },
-      ),
+
+              return HorizList(data: data);
+            }
+            break;
+          default:
+            return const Txt("Fatal error");
+        }
+        return const LoaderWidget();
+      },
     );
   }
 }

@@ -1,13 +1,13 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:oferi/domain/entities/drink.dart';
+import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 
 class ItemCart extends StatelessWidget {
-  const ItemCart({super.key, required this.drink});
+  const ItemCart({super.key, required this.product});
 
-  final Drink drink;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class ItemCart extends StatelessWidget {
               child: SizedBox(
                 height: 75,
                 width: 75,
-                child: thumbnail(drink.imgUrl),
+                child: thumbnail(product.imgUrl),
               )),
           Parent(
             style: ParentStyle()
@@ -27,11 +27,11 @@ class ItemCart extends StatelessWidget {
               ..offset(4, 0),
             gesture: Gestures()
               ..onTap(() {
-                Get.to(ProductDetailedPage(drink: drink));
+                Get.to(ProductDetailedPage(product: product));
               }),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Txt(drink.name,
+              Txt(product.name,
                   style: TxtStyle()
                     ..padding(all: 0)
                     ..fontSize(14)
@@ -56,7 +56,7 @@ class ItemCart extends StatelessWidget {
                         ..fontWeight(FontWeight.w900)
                         ..fontSize(15)
                         ..textAlign.right(true),
-                      '\$ ${drink.price!.toStringAsFixed(2)}')
+                      '\$ ${product.price!.toStringAsFixed(2)}')
                 ],
               ))
         ]));

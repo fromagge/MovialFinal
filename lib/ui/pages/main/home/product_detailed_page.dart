@@ -2,45 +2,29 @@ import 'package:division/division.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:oferi/domain/entities/drink.dart';
+import 'package:oferi/domain/entities/product.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:oferi/ui/pages/cart_old/checkout.dart';
 import 'package:oferi/ui/widgets/carrousel.dart';
 import 'package:get/get.dart';
 
 class ProductDetailedPage extends StatefulWidget {
-  const ProductDetailedPage({super.key, required this.drink});
+  const ProductDetailedPage({super.key, required this.product});
 
-  final Drink drink;
+  final Product product;
 
   @override
-  _ItemPage createState() => _ItemPage(drink);
+  _ItemPage createState() => _ItemPage(product);
 }
 
 class _ItemPage extends State<ProductDetailedPage> {
-  _ItemPage(this.drink);
-  final Drink drink;
+  _ItemPage(this.product);
+  final Product product;
   late GoogleMapController mapController;
-  LatLng _currentPosition = LatLng(11.0195, -74.850);
 
   @override
   void initState() {
     super.initState();
-    print("aló");
-    _getCurrentLocation();
-  }
-
-  _getCurrentLocation() {
-    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
-        .then((Position position) {
-      print(_currentPosition);
-      print(position);
-      setState(() {
-        _currentPosition = LatLng(position.latitude, position.longitude);
-      });
-    }).catchError((e) {
-      print(e);
-    });
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -54,7 +38,7 @@ class _ItemPage extends State<ProductDetailedPage> {
       style: ParentStyle()..padding(top: 40),
       child: Column(children: [
         Carousel(
-          images: [drink.imgUrl],
+          images: [product.imgUrl],
         ),
         Parent(
             style: ParentStyle()
@@ -71,14 +55,14 @@ class _ItemPage extends State<ProductDetailedPage> {
                             ..alignmentContent.center(true)
                             ..fontWeight(FontWeight.bold)
                             ..textAlign.left(true),
-                          drink.name),
+                          product.name),
                       Txt(
                           style: TxtStyle()
                             ..fontSize(32)
                             ..alignmentContent.center(true)
                             ..fontWeight(FontWeight.bold)
                             ..textAlign.left(true),
-                          '\$ ${drink.price!.toStringAsFixed(2)}'),
+                          '\$ ${product.price!.toStringAsFixed(2)}'),
                     ]),
                 Txt(
                     style: TxtStyle()
@@ -95,7 +79,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                           onMapCreated: _onMapCreated,
                           mapType: MapType.normal,
                           initialCameraPosition: CameraPosition(
-                            target: _currentPosition,
+                            target: LatLng(product.latitude, product.longitude),
                             zoom: 15.0,
                           )),
                     )),
