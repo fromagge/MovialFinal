@@ -1,21 +1,33 @@
 import 'package:flutter/material.dart';
 
-class categoryButtonWidget extends StatelessWidget {
-  FocusNode? myFocusNode;
+class CategoryButtonWidget extends StatelessWidget {
   final String categoryName;
   final double fontsize;
-  categoryButtonWidget(
-      {super.key, required this.categoryName, this.fontsize = 17});
+  final double sizeFactor;
+
+  const CategoryButtonWidget(
+      {super.key,
+      required this.categoryName,
+      this.fontsize = 17,
+      this.sizeFactor = 1});
 
   @override
   build(BuildContext context) {
-    double buttonWidth = fontsize + categoryName.length * 12;
+    double buttonWidth = sizeFactor * (fontsize + categoryName.length * 12);
 
     return Container(
-      padding: EdgeInsets.only(left: 2, right: 8),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.05),
+          blurRadius: 1,
+          spreadRadius: 0.1,
+          offset: const Offset(0, 3),
+        )
+      ]),
+      margin: const EdgeInsets.all(3.5),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFD9D9D9),
+            backgroundColor: Colors.white.withOpacity(0.88),
             fixedSize: Size.fromWidth(buttonWidth),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20))),

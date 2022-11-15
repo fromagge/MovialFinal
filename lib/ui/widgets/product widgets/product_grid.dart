@@ -1,13 +1,17 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:oferi/ui/pages/loading/loader_widget.dart';
+import 'package:oferi/ui/pages/main/main_page.dart';
 import 'package:oferi/ui/widgets/product%20widgets/product_grid_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:oferi/domain/entities/product.dart';
+import 'package:loggy/loggy.dart';
 
 Future fetchResource() async {
   final response = await http.get(
@@ -44,6 +48,14 @@ class _ProductGrid extends State<ProductGrid> {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             EasyLoading.show();
+
+            Future.delayed(
+              const Duration(seconds: 4),
+              () async {
+                await EasyLoading.showError("Error");
+              },
+            );
+
             break;
           case ConnectionState.active:
           case ConnectionState.done:
@@ -62,7 +74,8 @@ class _ProductGrid extends State<ProductGrid> {
           default:
             return const Txt("Fatal error");
         }
-        return const LoaderWidget();
+        //WIDGET WHILE LOADING
+        return LoaderWidget();
       },
     );
   }

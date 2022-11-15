@@ -12,8 +12,10 @@ import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/pages/main/main_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:loggy/loggy.dart';
 
 void main() async {
+  Loggy.initLoggy();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

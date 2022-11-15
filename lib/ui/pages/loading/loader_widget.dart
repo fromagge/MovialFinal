@@ -6,7 +6,7 @@ class LoaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //return Scaffold(body: Parent(style: ParentStyle()));
-    return const Text("CARGANDO");
+    //Widget para mostrar cuando esta cargando
+    return Container();
   }
 }
