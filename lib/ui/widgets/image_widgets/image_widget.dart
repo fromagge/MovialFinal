@@ -44,33 +44,5 @@ class ImageWidget extends StatelessWidget {
         ),
       ),
     );
-    /*return ClipRRect(
-      borderRadius: BorderRadius.circular(15),
-      child: SizedBox(
-        width: double.infinity,
-        height: 200,
-        child: FittedBox(
-          fit: BoxFit.fill,
-          child: Image.network(
-            url,
-            fit: BoxFit.fill,
-            loadingBuilder: (BuildContext context, Widget child,
-                ImageChunkEvent? loadingProgress) {
-              if (loadingProgress == null) return child;
-              return Center(
-                child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
-                      : null,
-                ),
-              );
-            },
-          ),
-
-          //Image.network(url),
-        ),
-      ),
-    );*/
   }
 }

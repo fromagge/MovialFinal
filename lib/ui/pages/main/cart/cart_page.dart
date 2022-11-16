@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
 import 'package:oferi/ui/widgets/product_widgets/product_list_tile.dart';
@@ -12,7 +13,7 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFF3D9FA),
+        backgroundColor: const Color(0xFFF3D9FA),
         body: SafeArea(
           child: Stack(
             alignment: Alignment.bottomCenter,
@@ -32,10 +33,12 @@ class CartPage extends StatelessWidget {
               SizedBox(
                   width: 315,
                   child: DefaultButtonWidget(
-                      edgeInset: EdgeInsets.only(bottom: 10),
+                      edgeInset: const EdgeInsets.only(bottom: 10),
                       label: "Ir a pagar",
-                      onPressed: () {},
-                      buttonColor: Color(0xFF42006E)))
+                      onPressed: () {
+                        Get.to(() => const CheckoutPage());
+                      },
+                      buttonColor: const Color(0xFF42006E)))
             ],
           ),
         ));
