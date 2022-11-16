@@ -3,8 +3,9 @@ import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/pages/cart_old/checkout.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
-import 'package:oferi/ui/widgets/Input_Widgets/button_widget.dart';
-import 'package:oferi/ui/widgets/Input_Widgets/textfield_widget.dart';
+import 'package:oferi/ui/utils/validator.dart';
+import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
+import 'package:oferi/ui/widgets/input_widgets/textfield_widget.dart';
 import 'package:get/get.dart';
 import 'package:oferi/ui/pages/login/register_page.dart';
 
@@ -81,7 +82,8 @@ class _LoginForm extends State<LoginPage> {
                           myFocusNode: _focusNodes[0],
                           label: "Nombre de usuario",
                           textInputType: TextInputType.text,
-                          validator: checkFieldEmpty,
+                          validator: (value) =>
+                              Validator.validateUserName(value ?? ""),
                         ),
                         const SizedBox(
                           height: 10,
@@ -89,9 +91,10 @@ class _LoginForm extends State<LoginPage> {
                         DefaultTextWidget(
                           myFocusNode: _focusNodes[1],
                           label: "Contraseña",
-                          obscureText: true,
+                          showPassword: true,
                           textInputType: TextInputType.text,
-                          validator: checkSafePassword,
+                          validator: (value) =>
+                              Validator.validatePassword(value ?? ""),
                         ),
                         const SizedBox(
                           height: 30,
@@ -144,25 +147,5 @@ class _LoginForm extends State<LoginPage> {
         ),
       ),
     ));
-  }
-
-// TODO: FYI Si se hace return null, significa que los criterios de validación se han cumplido
-  String? checkFieldEmpty(String? value) {
-    if (value == null || value.isEmpty) {
-      return '*Llenar este campo es obligatorio';
-    }
-    return null;
-  }
-
-//TODO: Arreglar esta funcion de validación para contraseña con regEx para mejor seguridad.
-  String? checkSafePassword(String? value) {
-    if (checkFieldEmpty(value) != null) {
-      return checkFieldEmpty(value);
-    }
-
-    if (value != null && value.contains("hola")) {
-      return 'RIP';
-    }
-    return null;
   }
 }

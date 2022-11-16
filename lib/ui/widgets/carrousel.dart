@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:division/division.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:oferi/ui/widgets/image_widgets/image_widget.dart';
 
 const imgDefault = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -52,12 +53,8 @@ class _CarouselState extends State<Carousel> {
                   return Parent(
                       style: ParentStyle(),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: Image.network(
-                          image,
-                          fit: BoxFit.cover,
-                        ),
-                      ));
+                          borderRadius: BorderRadius.circular(30),
+                          child: ImageWidget(imageUrl: image)));
                 }).toList(),
                 options: CarouselOptions(
                     padEnds: true,

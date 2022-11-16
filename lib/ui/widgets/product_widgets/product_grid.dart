@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:oferi/ui/pages/loading/loader_widget.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
-import 'package:oferi/ui/widgets/product%20widgets/product_grid_card.dart';
+import 'package:oferi/ui/widgets/product_widgets/product_grid_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:loggy/loggy.dart';

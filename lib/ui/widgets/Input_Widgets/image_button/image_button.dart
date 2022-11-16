@@ -31,7 +31,7 @@ class ImageButton extends StatelessWidget {
             ),
             onTap: () {
               //Filtrar por categoria en controlador
-              Get.to(Result(search: text));
+              Get.to(() => Result(search: text));
             },
           ),
           Text(

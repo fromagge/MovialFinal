@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:oferi/ui/widgets/menu%20widgets/title_widget.dart';
+import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
 
 import 'package:oferi/ui/widgets/notification_card.dart';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oferi/ui/widgets/image_widgets/image_widget.dart';
 
 class ProductListTile extends StatelessWidget {
   ProductListTile({super.key});
@@ -13,20 +14,20 @@ class ProductListTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: Container(
           color: Colors.white,
-          padding: EdgeInsets.symmetric(horizontal: 7, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 10),
           height: height / 5,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: width / 2 - 40,
-                child:
-                    thumbnail("https://images4.alphacoders.com/936/936378.jpg"),
-              ),
+                  width: width / 2 - 40,
+                  child: const ImageWidget(
+                      imageUrl:
+                          "https://images4.alphacoders.com/936/936378.jpg")),
               const SizedBox(
                 width: 10,
               ),
-              Container(
+              SizedBox(
                 width: width / 2 - 40,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

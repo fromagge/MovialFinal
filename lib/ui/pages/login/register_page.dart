@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
-import 'package:oferi/ui/widgets/Input_Widgets/button_widget.dart';
-import 'package:oferi/ui/widgets/Input_Widgets/textfield_widget.dart';
+import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
+import 'package:oferi/ui/widgets/input_widgets/textfield_widget.dart';
 import 'package:get/get.dart';
-import 'package:oferi/ui/widgets/menu%20widgets/title_widget.dart';
+import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
+import 'package:oferi/ui/utils/validator.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -44,7 +45,6 @@ class _RegisterForm extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     const double divider = 10;
-    const double textFieldHeight = 0;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -68,72 +68,73 @@ class _RegisterForm extends State<RegisterPage> {
                       child: Column(
                         children: [
                           DefaultTextWidget(
-                            height: textFieldHeight,
                             myFocusNode: _focusNodes[0],
                             label: "Nombre(s)",
                             textInputType: TextInputType.text,
-                            validator: checkFieldEmpty,
+                            validator: (value) =>
+                                Validator.validateText(value ?? ""),
                           ),
                           const SizedBox(
                             height: divider,
                           ),
                           DefaultTextWidget(
-                            height: textFieldHeight,
                             myFocusNode: _focusNodes[1],
                             label: "Apellidos",
-                            obscureText: true,
+                            showPassword: true,
                             textInputType: TextInputType.text,
-                            validator: checkSafePassword,
+                            validator: (value) =>
+                                Validator.validateText(value ?? ""),
                           ),
                           const SizedBox(
                             height: divider,
                           ),
                           DefaultTextWidget(
-                            height: textFieldHeight,
                             myFocusNode: _focusNodes[2],
                             label: "Celular",
                             textInputType: TextInputType.text,
-                            validator: checkFieldEmpty,
+                            validator: (value) =>
+                                Validator.validatePhoneNumber(value ?? ""),
                           ),
                           const SizedBox(
                             height: divider,
                           ),
                           DefaultTextWidget(
-                            height: textFieldHeight,
                             myFocusNode: _focusNodes[3],
                             label: "Correo Electrónico",
                             textInputType: TextInputType.text,
-                            validator: checkFieldEmpty,
+                            validator: (value) =>
+                                Validator.validateEmail(value ?? ""),
                           ),
                           const SizedBox(
                             height: divider,
                           ),
                           DefaultTextWidget(
-                            height: textFieldHeight,
                             myFocusNode: _focusNodes[4],
                             label: "País/Ciudad",
                             textInputType: TextInputType.text,
-                            validator: checkFieldEmpty,
+                            validator: (value) =>
+                                Validator.validateText(value ?? ""),
                           ),
                           const SizedBox(
                             height: divider,
                           ),
                           DefaultTextWidget(
-                            height: textFieldHeight,
                             myFocusNode: _focusNodes[5],
                             label: "Nombre de usuario",
                             textInputType: TextInputType.text,
-                            validator: checkFieldEmpty,
+                            validator: (value) =>
+                                Validator.validateUserName(value ?? ""),
                           ),
                           const SizedBox(
                             height: divider,
                           ),
                           DefaultTextWidget(
-                            height: textFieldHeight,
                             myFocusNode: _focusNodes[6],
                             label: "Establecer una contraseña",
+                            showPassword: true,
                             textInputType: TextInputType.text,
-                            validator: checkFieldEmpty,
+                            validator: (value) =>
+                                Validator.validatePassword(value ?? ""),
                           ),
                           const SizedBox(
                             height: divider,
@@ -214,24 +215,4 @@ class _RegisterForm extends State<RegisterPage> {
                 ..fontSize(42)),
         ]));
   }
-}
-
-// TODO: FYI Si se hace return null, significa que los criterios de validación se han cumplido
-String? checkFieldEmpty(String? value) {
-  if (value == null || value.isEmpty) {
-    return '*Llenar este campo es obligatorio';
-  }
-  return null;
-}
-
-//TODO: Arreglar esta funcion de validación para contraseña con regEx para mejor seguridad.
-String? checkSafePassword(String? value) {
-  if (checkFieldEmpty(value) != null) {
-    return checkFieldEmpty(value);
-  }
-
-  if (value != null && value.contains("hola")) {
-    return 'RIP';
-  }
-  return null;
 }

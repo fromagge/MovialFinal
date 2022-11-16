@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:oferi/ui/widgets/Input_Widgets/image_button/image_button_grid.dart';
-import 'package:oferi/ui/widgets/Input_Widgets/search_bar.dart';
+import 'package:oferi/ui/widgets/input_widgets/image_button/image_button_grid.dart';
+import 'package:oferi/ui/widgets/input_widgets/search_bar.dart';
 import 'package:division/division.dart';
 import 'package:oferi/ui/widgets/location_select_widget.dart';
 import 'package:oferi/ui/widgets/carrousel.dart';

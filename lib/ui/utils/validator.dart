@@ -27,7 +27,7 @@ class Validator {
     }
   }
 
-  static String? validateName(String value) {
+  static String? validateUserName(String value) {
     if (value.length < 3) {
       return '🚩 Username is too short.';
     } else {
@@ -37,7 +37,7 @@ class Validator {
 
   static String? validateText(String value) {
     if (value.isEmpty) {
-      return '🚩 Text is too short.';
+      return '🚩 Field is empty.';
     } else {
       return null;
     }
