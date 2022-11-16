@@ -10,14 +10,15 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
-              const SliverAppBar(
+              SliverAppBar(
                 automaticallyImplyLeading: false,
-                toolbarHeight: 50,
+                toolbarHeight: height / 24,
                 backgroundColor: Color(0xFF42006E),
               ),
             ];

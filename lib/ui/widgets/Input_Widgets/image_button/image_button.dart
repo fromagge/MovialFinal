@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class ImageButton extends StatelessWidget {
   final String text;
-
-  const ImageButton({super.key, required this.text});
+  final String imgPath;
+  final Color color;
+  const ImageButton(
+      {super.key,
+      required this.text,
+      required this.imgPath,
+      this.color = const Color(0xFF42006E)});
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +18,14 @@ class ImageButton extends StatelessWidget {
         children: [
           Ink(
               decoration: const ShapeDecoration(
-                color: Colors.amber,
                 shape: CircleBorder(),
               ),
-              child: IconButton(
-                icon: const Icon(Icons.brush),
-                iconSize: 85,
-                color: Colors.white,
-                onPressed: () {},
+              child: CircleAvatar(
+                backgroundColor: color,
+                radius: 50.0,
+                child: Container(
+                    padding: const EdgeInsets.all(15),
+                    child: Image(image: AssetImage(imgPath))),
               )),
           Text(
             text,

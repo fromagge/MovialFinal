@@ -10,10 +10,10 @@ class DefaultTextWidget extends StatelessWidget {
 
   DefaultTextWidget({
     super.key,
-    required this.label,
+    this.label = "",
     this.obscureText = false,
-    required this.textInputType,
-    required this.validator,
+    this.textInputType = TextInputType.text,
+    this.validator,
     this.myFocusNode,
     this.height = 0,
   });
@@ -38,8 +38,11 @@ class DefaultTextWidget extends StatelessWidget {
               contentPadding: EdgeInsets.only(
                   top: height / 2, bottom: height / 2, left: 10),
               filled: true,
-              fillColor:
-                  myFocusNode!.hasFocus ? Colors.white : Color(0XFFD9D9D9),
+              fillColor: myFocusNode != null
+                  ? myFocusNode!.hasFocus
+                      ? Colors.white
+                      : Colors.grey.shade200
+                  : Colors.white,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),

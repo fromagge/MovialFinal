@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
-import 'package:oferi/ui/pages/main/main_page.dart';
+import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:loggy/loggy.dart';
@@ -82,7 +82,7 @@ class Oferi extends StatelessWidget {
                   // EasyLoading.dismiss();
 
                   if (snapshot.data?.getBool("isLoggedIn") ?? false) {
-                    return const Home();
+                    return const NavBar();
                   }
                   return const LoginPage();
                 }

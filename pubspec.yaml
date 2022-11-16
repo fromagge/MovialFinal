@@ -64,7 +64,6 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/oferi/logo_a.jpeg
-    - assets/images/oferi/logo_b.jpeg
-    - assets/images/oferi/icon_a.jpeg
-    - assets/images/oferi/icon_b.jpeg
+    - assets/images/oferi/
+    - assets/images/icons/
+    - assets/images/logo/

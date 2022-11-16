@@ -1,21 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:oferi/ui/pages/main/cart/cart_page.dart';
 import 'package:oferi/ui/pages/main/home/home_page.dart';
 import 'package:oferi/ui/pages/main/menu/menu_page.dart';
-import 'package:oferi/ui/pages/main/user/notification_page.dart';
 import 'package:oferi/ui/pages/main/user/profile_page.dart';
-import 'package:flutter/services.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class NavBar extends StatefulWidget {
+  const NavBar({super.key});
 
   @override
-  _Home createState() => _Home();
+  _NavBar createState() => _NavBar();
 }
 
-class _Home extends State<Home> {
+class _NavBar extends State<NavBar> {
   int _selectedIndex = 1;
 
   static const List<Widget> _widgetOptions = <Widget>[

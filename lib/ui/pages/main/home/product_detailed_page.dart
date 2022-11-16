@@ -6,6 +6,7 @@ import 'package:oferi/domain/entities/product.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:oferi/ui/pages/cart_old/checkout.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/button_widget.dart';
+import 'package:oferi/ui/widgets/Input_Widgets/textfield_widget.dart';
 import 'package:oferi/ui/widgets/carrousel.dart';
 import 'package:get/get.dart';
 import 'package:oferi/ui/widgets/menu%20widgets/title_widget.dart';
@@ -41,11 +42,13 @@ class _ItemPage extends State<ProductDetailedPage> {
           alignment: Alignment.bottomCenter,
           children: [
             SingleChildScrollView(
-              padding: const EdgeInsets.all(0),
+              physics: const ClampingScrollPhysics(),
+              padding: EdgeInsets.only(top: 5),
               child: Column(children: [
-                TitleWidget(
+                const TitleWidget(
+                  titleSize: 26,
                   title: "Detalles del Producto",
-                  arrowSize: 50,
+                  arrowSize: 40,
                 ),
                 Carousel(
                   infiniteScroll: false,
@@ -59,35 +62,51 @@ class _ItemPage extends State<ProductDetailedPage> {
                       ..alignmentContent.center(true),
                     child: Column(
                       children: [
-                        Container(
-                          color: Colors.yellow,
-                          child: Txt(
-                              style: TxtStyle()
-                                ..padding(horizontal: 0)
-                                ..alignment.center()
-                                ..maxLines(5)
-                                ..fontSize(32.5)
-                                ..fontWeight(FontWeight.bold)
-                                ..textAlign.left(true),
-                              "Chaleco Usado de Cuero (Todavia funcional)"),
+                        Txt(
+                            style: TxtStyle()
+                              ..margin(top: 5)
+                              ..alignment.center()
+                              ..maxLines(5)
+                              ..fontSize(26)
+                              ..fontWeight(FontWeight.bold)
+                              ..textAlign.left(true),
+                            "Chaleco Usado de Cuero (Todavia funcional)"),
+                        Txt(
+                            style: TxtStyle()
+                              ..fontSize(26)
+                              ..padding(right: 5)
+                              ..alignment.centerRight()
+                              ..fontWeight(FontWeight.bold)
+                              ..textAlign.left(true),
+                            '\$ ${product.price!.toStringAsFixed(2)}'),
+                        Txt(
+                          "Descripcion del producto:",
+                          style: TxtStyle()
+                            ..fontSize(20)
+                            ..bold()
+                            ..textColor(const Color(0xFF42006E))
+                            ..alignment.centerLeft()
+                            ..margin(top: 20, bottom: 0)
+                            ..textAlign.justify(true),
                         ),
-                        Container(
-                            color: Colors.amber,
-                            child: Txt(
-                                style: TxtStyle()
-                                  ..fontSize(30)
-                                  ..alignment.centerRight()
-                                  ..fontWeight(FontWeight.bold)
-                                  ..textAlign.left(true),
-                                '\$ ${product.price!.toStringAsFixed(2)}')),
                         Txt(
                             style: TxtStyle()
                               ..fontSize(20)
-                              ..margin(top: 20, bottom: 40)
+                              ..margin(top: 20, bottom: 20)
                               ..textAlign.justify(true),
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pretium massa ipsum, convallis dignissim elit placerat vitae. Maecenas nec interdum dui. Mauris eleifend, massa sit amet tincidunt pharetra, est mauris suscipit mauris, ac bibendum massa neque non nulla. Ut lorem odio, vehicula sed dui a, sagittis consequat augue. Donec porttitor quam vel nibh aliquet auctor. Vestibulum lobortis a eros non dictum. Pellentesque placerat semper mauris suscipit molestie."),
+                        Txt(
+                          "Ubicación:",
+                          style: TxtStyle()
+                            ..fontSize(20)
+                            ..bold()
+                            ..textColor(const Color(0xFF42006E))
+                            ..alignment.centerLeft()
+                            ..margin(top: 10, bottom: 15)
+                            ..textAlign.justify(true),
+                        ),
                         ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(30),
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height / 4,
@@ -100,6 +119,19 @@ class _ItemPage extends State<ProductDetailedPage> {
                                     zoom: 15.0,
                                   )),
                             )),
+                        Txt(
+                          "Preguntas y respuestas",
+                          style: TxtStyle()
+                            ..fontSize(20)
+                            ..bold()
+                            ..textColor(const Color(0xFF42006E))
+                            ..alignment.centerLeft()
+                            ..margin(top: 20, bottom: 15)
+                            ..textAlign.justify(true),
+                        ),
+                        DefaultTextWidget(
+                          height: 100,
+                        ),
                         Container(
                           height: 120,
                         )
@@ -109,15 +141,15 @@ class _ItemPage extends State<ProductDetailedPage> {
             ),
             Container(
               color: Colors.white,
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: DefaultButtonWidget(
                   label: "Agregar al carrito",
                   onPressed: () {
                     EasyLoading.showSuccess(
                       "Agregado al carrito",
-                    ).then((value) => Get.to(CheckoutPage()));
+                    ).then((value) => Get.to(const CheckoutPage()));
                   },
-                  buttonColor: Color(0xFFFF545F)),
+                  buttonColor: const Color(0xFFFF545F)),
             )
           ],
         ),

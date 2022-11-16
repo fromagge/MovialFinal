@@ -23,7 +23,8 @@ class CartPage extends StatelessWidget {
                 children: [
                   const TitleWidget(
                     title: "Mi Carrito",
-                    titleSize: 30,
+                    titleSize: 26,
+                    arrowSize: 40,
                   ),
                   generateList(context),
                 ],

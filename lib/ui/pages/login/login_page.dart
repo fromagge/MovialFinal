@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/pages/cart_old/checkout.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
-import 'package:oferi/ui/pages/main/main_page.dart';
+import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/textfield_widget.dart';
 import 'package:get/get.dart';
@@ -103,7 +103,7 @@ class _LoginForm extends State<LoginPage> {
                                 //TODO: Confirmar inicio de sesion en base de datos.
                                 //TODO: Evitar que el usuario vuelva al login cuando utilize el boton de regreso;
                                 //dispose();
-                                Get.to(() => const Home());
+                                Get.to(() => const NavBar());
                               }
                             },
                             buttonColor: const Color(0xFF42006E)),
