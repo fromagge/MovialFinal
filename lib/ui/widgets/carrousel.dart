@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:division/division.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 
 const imgDefault = [
@@ -11,7 +12,7 @@ const imgDefault = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
 
-class Carousel extends StatelessWidget {
+class Carousel extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   final List<String> images;
 
@@ -19,31 +20,53 @@ class Carousel extends StatelessWidget {
       : images = images ?? imgDefault;
 
   @override
+  State<Carousel> createState() => _CarouselState();
+}
+
+class _CarouselState extends State<Carousel> {
+  int _currentIndex = 0;
+  CarouselController controller = CarouselController();
+  @override
+  void initState() {
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
-    return Parent(
-        style: ParentStyle()..padding(vertical: 30),
-        child: CarouselSlider(
+    return Column(
+      children: [
+        CarouselSlider(
+          carouselController: controller,
+          items: imgDefault.map((image) {
+            return Parent(
+                style: ParentStyle(),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: Image.network(
+                    image,
+                    fit: BoxFit.cover,
+                    height: 400,
+                  ),
+                ));
+          }).toList(),
           options: CarouselOptions(
               autoPlay: false,
-              aspectRatio: 2.0,
-              initialPage: 2,
+              aspectRatio: 1.50,
+              initialPage: _currentIndex,
               enlargeCenterPage: true,
-              disableCenter: true),
-          items: images
-              .map(
-                (item) => Parent(
-                  style: ParentStyle(),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Image.network(
-                      item,
-                      fit: BoxFit.cover,
-                      height: 400,
-                    ),
-                  ),
-                ),
-              )
-              .toList(),
-        ));
+              disableCenter: true,
+              onPageChanged: (val, _) {
+                setState(() {
+                  _currentIndex = val;
+                  controller.jumpToPage(val);
+                });
+              }),
+        ),
+        DotsIndicator(
+          decorator: DotsDecorator(activeColor: Colors.black.withOpacity(0.6)),
+          dotsCount: imgDefault.length,
+          position: _currentIndex.toDouble(),
+        )
+      ],
+    );
   }
 }
