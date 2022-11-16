@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
               LocationSelectWidget(),
               SearchBar(),
               ImageButtonGrid(),
-              Carousel(),
+              Carousel(aspectRatio: 2),
             ],
           )),
         ),

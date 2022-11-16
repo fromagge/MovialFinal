@@ -15,8 +15,15 @@ const imgDefault = [
 class Carousel extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   final List<String> images;
-
-  const Carousel({super.key, List<String>? images})
+  final double aspectRatio;
+  final bool pageSnapping;
+  final bool infiniteScroll;
+  const Carousel(
+      {super.key,
+      List<String>? images,
+      this.aspectRatio = 1.5,
+      this.pageSnapping = true,
+      this.infiniteScroll = true})
       : images = images ?? imgDefault;
 
   @override
@@ -25,6 +32,7 @@ class Carousel extends StatefulWidget {
 
 class _CarouselState extends State<Carousel> {
   int _currentIndex = 0;
+
   CarouselController controller = CarouselController();
   @override
   void initState() {
@@ -34,32 +42,64 @@ class _CarouselState extends State<Carousel> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CarouselSlider(
-          carouselController: controller,
-          items: imgDefault.map((image) {
-            return Parent(
-                style: ParentStyle(),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Image.network(
-                    image,
-                    fit: BoxFit.cover,
-                    height: 400,
-                  ),
-                ));
-          }).toList(),
-          options: CarouselOptions(
-              autoPlay: false,
-              aspectRatio: 1.50,
-              initialPage: _currentIndex,
-              enlargeCenterPage: true,
-              disableCenter: true,
-              onPageChanged: (val, _) {
-                setState(() {
-                  _currentIndex = val;
-                  controller.jumpToPage(val);
-                });
-              }),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              child: CarouselSlider(
+                carouselController: controller,
+                items: imgDefault.map((image) {
+                  return Parent(
+                      style: ParentStyle(),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: Image.network(
+                          image,
+                          fit: BoxFit.cover,
+                        ),
+                      ));
+                }).toList(),
+                options: CarouselOptions(
+                    padEnds: true,
+                    pageSnapping: widget.pageSnapping,
+                    scrollPhysics: const BouncingScrollPhysics(),
+                    autoPlay: false,
+                    enableInfiniteScroll: widget.infiniteScroll,
+                    viewportFraction: 0.79,
+                    aspectRatio: widget.aspectRatio,
+                    initialPage: _currentIndex,
+                    enlargeCenterPage: true,
+                    disableCenter: true,
+                    onPageChanged: (val, _) {
+                      setState(() {
+                        _currentIndex = val;
+                      });
+                    }),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 330),
+              child: IconButton(
+                icon: Icon(Icons.arrow_forward_ios),
+                iconSize: 25,
+                color: Color(0xFF42006E),
+                onPressed: () {
+                  controller.nextPage();
+                },
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 330),
+              child: IconButton(
+                icon: Icon(Icons.arrow_back_ios_outlined),
+                iconSize: 25,
+                color: Color(0xFF42006E),
+                onPressed: () {
+                  controller.previousPage();
+                },
+              ),
+            ),
+          ],
         ),
         DotsIndicator(
           decorator: DotsDecorator(activeColor: Colors.black.withOpacity(0.6)),

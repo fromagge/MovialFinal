@@ -41,13 +41,16 @@ class _ItemPage extends State<ProductDetailedPage> {
           alignment: Alignment.bottomCenter,
           children: [
             SingleChildScrollView(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(0),
               child: Column(children: [
                 TitleWidget(
                   title: "Detalles del Producto",
                   arrowSize: 50,
                 ),
                 Carousel(
+                  infiniteScroll: false,
+                  pageSnapping: false,
+                  aspectRatio: 1.2,
                   images: [product.imgUrl],
                 ),
                 Parent(
