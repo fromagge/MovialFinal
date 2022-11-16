@@ -2,7 +2,7 @@ import 'package:division/division.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:oferi/ui/pages/cart_old/checkout.dart';
+import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/pages/main/home/result_page.dart';
 
 class SearchBar extends StatefulWidget {

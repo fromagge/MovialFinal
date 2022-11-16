@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oferi/domain/entities/product.dart';
-import 'package:oferi/ui/pages/cart_old/checkout.dart';
+import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:oferi/ui/utils/validator.dart';

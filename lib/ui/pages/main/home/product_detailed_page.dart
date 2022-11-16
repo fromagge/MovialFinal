@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:oferi/ui/pages/cart_old/checkout.dart';
+import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/input_widgets/textfield_widget.dart';
 import 'package:oferi/ui/widgets/carrousel.dart';
