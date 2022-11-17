@@ -2,14 +2,17 @@ import 'package:division/division.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:oferi/ui/pages/main/cart/cart_page.dart';
 import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/input_widgets/textfield_widget.dart';
 import 'package:oferi/ui/widgets/carrousel.dart';
 import 'package:get/get.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class ProductDetailedPage extends StatefulWidget {
   const ProductDetailedPage({super.key, required this.product});
@@ -43,7 +46,7 @@ class _ItemPage extends State<ProductDetailedPage> {
           body: SafeArea(
             child: SingleChildScrollView(
               physics: const ClampingScrollPhysics(),
-              padding: EdgeInsets.only(top: 5),
+              padding: const EdgeInsets.only(top: 5),
               child: Column(children: [
                 const TitleWidget(
                   titleSize: 26,
@@ -175,9 +178,8 @@ class _ItemPage extends State<ProductDetailedPage> {
           child: DefaultButtonWidget(
               label: "Agregar al carrito",
               onPressed: () {
-                EasyLoading.showSuccess(
-                  "Agregado al carrito",
-                ).then((value) => Get.to(const CheckoutPage()));
+                EasyLoading.showSuccess("Agregado al carrito");
+                //TODO: AGREGAR PRODUCTO AL CARRITO EN EL CONTROLADOR
               },
               buttonColor: const Color(0xFFFF545F)),
         )
@@ -186,17 +188,14 @@ class _ItemPage extends State<ProductDetailedPage> {
   }
 }
 
-
-/*
-  Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(10),
-              child: DefaultButtonWidget(
-                  label: "Agregar al carrito",
-                  onPressed: () {
-                    EasyLoading.showSuccess(
-                      "Agregado al carrito",
-                    ).then((value) => Get.to(const CheckoutPage()));
-                  },
-                  buttonColor: const Color(0xFFFF545F)),
-            )*/
+Future<dynamic> showCartSheet(double height, context) {
+  return showMaterialModalBottomSheet(
+    backgroundColor: Colors.transparent,
+    elevation: 0.5,
+    useRootNavigator: false,
+    context: context,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+    builder: (context) =>
+        SizedBox(height: height * 0.72, child: const CartPage()),
+  );
+}

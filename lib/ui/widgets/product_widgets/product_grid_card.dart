@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/route_manager.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 import 'package:oferi/ui/widgets/image_widgets/image_widget.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class ProductGridCard extends StatefulWidget {
   final Product product;
 
-  ProductGridCard({super.key, required this.product});
+  const ProductGridCard({super.key, required this.product});
 
   @override
   State<ProductGridCard> createState() => _ProductGridCardState();
@@ -21,9 +23,12 @@ class _ProductGridCardState extends State<ProductGridCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(
-          //Cuando el producto es seleccionado
-          () => ProductDetailedPage(product: widget.product),
+        //Cuando el producto es seleccionado, ir a detalles.
+        PersistentNavBarNavigator.pushNewScreen(
+          context,
+          screen: ProductDetailedPage(product: widget.product),
+          withNavBar: false,
+          pageTransitionAnimation: PageTransitionAnimation.cupertino,
         );
       },
       child: Container(
@@ -51,6 +56,7 @@ class _ProductGridCardState extends State<ProductGridCard> {
                       iconSize: 30,
                       onPressed: () {
                         setState(() {
+                          //TODO: ALMACENAR FAVORITO USANDO EL CONTROLADOR
                           markedFavorite
                               ? markedFavorite = false
                               : markedFavorite = true;
@@ -91,7 +97,10 @@ class _ProductGridCardState extends State<ProductGridCard> {
                           icon: const Icon(Icons.add_circle,
                               color: Color(0xFF42006E)),
                           iconSize: 35,
-                          onPressed: () {},
+                          onPressed: () {
+                            //TODO: ALMACENAR PRODUCTO EN EL CARRITO A TRAVES DEL CONTROLADOR
+                            EasyLoading.showSuccess("Agregado al carrito");
+                          },
                         )
                       ],
                     );

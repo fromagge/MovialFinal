@@ -17,7 +17,7 @@ class ProductListTile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 10),
           height: height / 5,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
                   width: width / 2 - 40,
@@ -28,68 +28,64 @@ class ProductListTile extends StatelessWidget {
                 width: 10,
               ),
               SizedBox(
-                width: width / 2 - 40,
+                width: width / 2 - 10,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
+                      const Expanded(
                           flex: 6,
-                          child: Container(
-                            child: Text(
-                              "Chaqueta de Algodon De La Mejor Calidad En America",
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 3,
-                              style: TextStyle(
-                                  color: Color(0xFF42006E),
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                          child: Text(
+                            "Chaqueta de Algodon De La Mejor Calidad En America",
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                            style: TextStyle(
+                                color: Color(0xFF42006E),
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
                           )),
                       Expanded(
                           flex: 4,
-                          child: Container(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 8,
-                                  child: Container(
-                                    alignment: Alignment.bottomLeft,
-                                    margin:
-                                        EdgeInsets.only(top: 15, bottom: 13),
-                                    child: Text(
-                                      "\$100.115.000",
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                      style: TextStyle(
-                                        color: Color(0xFF42006E),
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 20,
-                                      ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 8,
+                                child: Container(
+                                  alignment: Alignment.bottomLeft,
+                                  margin: const EdgeInsets.only(
+                                      top: 15, bottom: 13),
+                                  child: Text(
+                                    "\$100.115.000",
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      color: Color(0xFF42006E),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 20,
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    margin: EdgeInsets.only(top: 10),
-                                    child: Align(
-                                      child: IconButton(
-                                        padding: EdgeInsets.zero,
-                                        iconSize: 45,
-                                        icon: const Icon(
-                                          Icons.delete_rounded,
-                                          color: Colors.red,
-                                          size: 35,
-                                        ),
-                                        onPressed: () {
-                                          //TODO: Delete Product from Cart
-                                        },
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: Align(
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      iconSize: 45,
+                                      icon: const Icon(
+                                        Icons.delete_rounded,
+                                        color: Colors.red,
+                                        size: 35,
                                       ),
+                                      onPressed: () {
+                                        //TODO: Delete Product from Cart
+                                      },
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
+                                ),
+                              )
+                            ],
                           )),
                     ]),
               )

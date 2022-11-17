@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:oferi/ui/widgets/input_widgets/image_button/image_button_grid.dart';
 import 'package:oferi/ui/widgets/input_widgets/search_bar.dart';
 import 'package:division/division.dart';

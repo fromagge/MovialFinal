@@ -2,12 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oferi/domain/entities/product.dart';
+import 'package:oferi/ui/pages/main/bottom_navbar.dart';
+import 'package:oferi/ui/pages/main/home/home_page.dart';
 import 'package:oferi/ui/widgets/input_widgets/category_button/category_list_widget.dart';
 import 'package:oferi/ui/widgets/product_widgets/product_grid_card.dart';
 import 'package:oferi/ui/widgets/product_widgets/product_grid.dart';
 import 'package:oferi/ui/widgets/input_widgets/search_bar.dart';
 import 'package:oferi/ui/widgets/input_widgets/category_button/category_button_widget.dart';
 import 'package:get/get.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class Result extends StatelessWidget {
   Result({Key? key, required this.search}) : super(key: key);
@@ -49,7 +52,7 @@ class Result extends StatelessWidget {
                         ),
                         iconSize: 50,
                         onPressed: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                       ),
                       title: SearchBar(),

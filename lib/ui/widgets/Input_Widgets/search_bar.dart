@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/pages/main/home/result_page.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({super.key});
@@ -36,27 +37,29 @@ class _SearchBar extends State<SearchBar> {
 
   Widget searchBarWidget() {
     return CupertinoSearchTextField(
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.black),
-            borderRadius: const BorderRadius.all(Radius.circular(20))),
-        controller: textController,
-        prefixIcon: const Icon(
-          Icons.search_rounded,
-          size: 40,
-        ),
-        itemColor: const Color(0xFF42006E),
-        style: const TextStyle(
-          fontSize: 20,
-        ),
-        placeholder: 'Buscar',
-        onSubmitted: ((value) => Get.to(
-            () => Result(
-                  //TODO: guardar value en controlador
-                  search: value,
-                ),
-            duration: const Duration(milliseconds: 200),
-            transition: Transition.fadeIn,
-            curve: Curves.easeInOut)));
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.black),
+          borderRadius: const BorderRadius.all(Radius.circular(20))),
+      controller: textController,
+      prefixIcon: const Icon(
+        Icons.search_rounded,
+        size: 40,
+      ),
+      itemColor: const Color(0xFF42006E),
+      style: const TextStyle(
+        fontSize: 20,
+      ),
+      placeholder: 'Buscar',
+      onSubmitted: ((searchText) {
+        PersistentNavBarNavigator.pushNewScreen(
+          context,
+          screen: Result(
+            search: searchText,
+          ),
+          pageTransitionAnimation: PageTransitionAnimation.cupertino,
+        );
+      }),
+    );
   }
 }

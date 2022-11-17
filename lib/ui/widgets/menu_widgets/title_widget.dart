@@ -29,7 +29,7 @@ class TitleWidget extends StatelessWidget {
           iconSize: arrowSize,
           color: const Color(0xFF42006E),
           onPressed: () {
-            Get.back();
+            Navigator.pop(context);
           },
         ),
         Padding(

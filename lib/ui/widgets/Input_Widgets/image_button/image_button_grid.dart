@@ -51,7 +51,7 @@ class ImageButtonGrid extends StatelessWidget {
   List<Widget> imageList() {
     return List.generate(_nrOfButtons, (index) {
       return ImageButton(
-        text: categorias[index],
+        searchText: categorias[index],
         imgPath: imgPaths[index],
         color: colors[index % 3],
       );
