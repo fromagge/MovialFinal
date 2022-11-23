@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:loggy/loggy.dart';
 
 class CategoryButtonWidget extends StatelessWidget {
   final String categoryName;
   final double fontsize;
   final double sizeFactor;
+  final bool isSelected;
+  void Function()? onPressed;
 
-  const CategoryButtonWidget(
-      {super.key,
-      required this.categoryName,
-      this.fontsize = 17,
-      this.sizeFactor = 1});
+  CategoryButtonWidget({
+    super.key,
+    required this.categoryName,
+    this.fontsize = 17,
+    this.sizeFactor = 1,
+    required this.onPressed,
+    required this.isSelected,
+  });
 
   @override
   build(BuildContext context) {
@@ -27,13 +33,13 @@ class CategoryButtonWidget extends StatelessWidget {
       margin: const EdgeInsets.all(3.5),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white.withOpacity(0.88),
+            backgroundColor: isSelected
+                ? const Color(0xFFFAF2C8)
+                : Colors.white.withOpacity(0.88),
             fixedSize: Size.fromWidth(buttonWidth),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20))),
-        onPressed: () => {
-          //Cuando sea presionado debe mantener el focusNode encima y cambiar de color
-        },
+        onPressed: onPressed,
         child: Text(
           categoryName,
           style: TextStyle(

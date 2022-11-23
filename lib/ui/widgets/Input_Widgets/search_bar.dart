@@ -22,12 +22,6 @@ class _SearchBar extends State<SearchBar> {
   }
 
   @override
-  void dispose() {
-    textController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),

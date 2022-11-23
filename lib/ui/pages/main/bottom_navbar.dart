@@ -26,12 +26,7 @@ class _NavBarState extends State<NavBar> {
   }
 
   List<Widget> _buildScreens(BuildContext context) {
-    return [
-      const MenuPage(),
-      const HomePage(),
-      Container(),
-      const ProfilePage()
-    ];
+    return [Container(), const HomePage(), Container(), const ProfilePage()];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
@@ -39,6 +34,10 @@ class _NavBarState extends State<NavBar> {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.menu, size: iconsize, color: Color(0xFF42006E)),
+        onPressed: (value) {
+          double height = MediaQuery.of(context).size.height;
+          showMenuSheet(height, context);
+        },
       ),
       PersistentBottomNavBarItem(
           icon: const Icon(Icons.home_filled,
@@ -56,6 +55,29 @@ class _NavBarState extends State<NavBar> {
             size: iconsize + 2.5, color: Color(0xFF42006E)),
       ),
     ];
+  }
+
+  Future<dynamic> showMenuSheet(double height, BuildContext context) {
+    return showMaterialModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      elevation: 1,
+      useRootNavigator: false,
+      context: context,
+      builder: (context) =>
+          SizedBox(height: height * 0.32, child: const MenuPage()),
+    );
+  }
+
+  Future<dynamic> showCartSheet(double height, BuildContext context) {
+    return showMaterialModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      elevation: 0.5,
+      useRootNavigator: false,
+      context: context,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+      builder: (context) =>
+          SizedBox(height: height * 0.78, child: const CartPage()),
+    );
   }
 
   @override
@@ -92,18 +114,6 @@ class _NavBarState extends State<NavBar> {
       ),
       navBarStyle:
           NavBarStyle.style6, // Choose the nav bar style with this property.
-    );
-  }
-
-  Future<dynamic> showCartSheet(double height, BuildContext context) {
-    return showMaterialModalBottomSheet(
-      backgroundColor: Colors.transparent,
-      elevation: 0.5,
-      useRootNavigator: false,
-      context: context,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-      builder: (context) =>
-          SizedBox(height: height * 0.78, child: const CartPage()),
     );
   }
 }
