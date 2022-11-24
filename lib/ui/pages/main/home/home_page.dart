@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
+import 'package:oferi/ui/pages/main/home/result_page.dart';
 import 'package:oferi/ui/widgets/input_widgets/image_button/image_button_grid.dart';
 import 'package:oferi/ui/widgets/input_widgets/search_bar.dart';
 import 'package:division/division.dart';
 import 'package:oferi/ui/widgets/location_select_widget.dart';
 import 'package:oferi/ui/widgets/carrousel.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,7 +31,18 @@ class HomePage extends StatelessWidget {
               child: ListView(
             children: [
               LocationSelectWidget(),
-              SearchBar(),
+              SearchBar(
+                onSubmitted: (searchText) {
+                  logInfo("Buscando: $searchText");
+                  PersistentNavBarNavigator.pushNewScreen(
+                    context,
+                    screen: Result(
+                      search: searchText,
+                    ),
+                    pageTransitionAnimation: PageTransitionAnimation.fade,
+                  );
+                },
+              ),
               ImageButtonGrid(),
               Carousel(aspectRatio: 2),
             ],

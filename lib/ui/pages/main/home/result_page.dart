@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loggy/loggy.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:oferi/ui/pages/main/home/home_page.dart';
@@ -55,8 +56,12 @@ class Result extends StatelessWidget {
                           Navigator.pop(context);
                         },
                       ),
-                      title: SearchBar(),
-                      backgroundColor: Color(0xFF42006E),
+                      title: SearchBar(
+                        onSubmitted: (searchText) {
+                          logInfo("Buscando de nuevo: $searchText");
+                        },
+                      ),
+                      backgroundColor: const Color(0xFF42006E),
                     ),
                     SliverList(
                       delegate: SliverChildListDelegate.fixed(

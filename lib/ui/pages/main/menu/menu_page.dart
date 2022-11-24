@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:loggy/loggy.dart';
+import 'package:oferi/ui/pages/main/menu/favorites_page.dart';
+import 'package:oferi/ui/pages/main/menu/product_history_page.dart';
+import 'package:oferi/ui/pages/main/menu/sell_product_page.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -16,17 +20,27 @@ class MenuPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              child: menuIcon("Vender", Icons.add_circle_rounded, Icons.add),
+              child: menuIcon(
+                "Vender",
+                Icons.add_circle_rounded,
+                Icons.add,
+                context,
+              ),
             ),
             Container(
                 child: menuIcon(
               "Historial de Compra",
               CupertinoIcons.clock,
               CupertinoIcons.clock_solid,
+              context,
             )),
             Container(
-              child: menuIcon("Mis Favoritos", CupertinoIcons.heart_circle_fill,
-                  CupertinoIcons.heart_circle),
+              child: menuIcon(
+                "Mis Favoritos",
+                CupertinoIcons.heart_circle_fill,
+                CupertinoIcons.heart_circle,
+                context,
+              ),
             )
           ],
         ),
@@ -53,18 +67,33 @@ class MenuPage extends StatelessWidget {
   }*/
   }
 
-  Widget menuIcon(String label, IconData innerIcon, IconData outerIcon) {
+  Widget menuIcon(String label, IconData innerIcon, IconData outerIcon,
+      BuildContext context) {
     return InkWell(
       splashColor: Colors.transparent,
       onTap: () {
         if (label.contains("Vender")) {
           logInfo("esto es venta");
+          PersistentNavBarNavigator.pushNewScreen(
+            context,
+            screen: const SellProductPage(),
+            pageTransitionAnimation: PageTransitionAnimation.fade,
+          );
         } else {
           if (label.contains("Historial de Compra")) {
-            logInfo("esto es historial");
+            PersistentNavBarNavigator.pushNewScreen(
+              context,
+              screen: const ProductHistoryPage(),
+              pageTransitionAnimation: PageTransitionAnimation.fade,
+            );
           } else {
             if (label.contains("Mis Favoritos")) {
               logInfo("esto es favoritos");
+              PersistentNavBarNavigator.pushNewScreen(
+                context,
+                screen: const FavoritesPage(),
+                pageTransitionAnimation: PageTransitionAnimation.fade,
+              );
             }
           }
         }

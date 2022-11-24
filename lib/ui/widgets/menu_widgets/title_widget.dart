@@ -35,8 +35,7 @@ class TitleWidget extends StatelessWidget {
             if (onPressed == null) {
               Navigator.pop(context);
             } else {
-              onPressed;
-              logInfo(onPressed);
+              onPressed!();
             }
           },
         ),
@@ -47,7 +46,7 @@ class TitleWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: titleSize,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF42006E),
+              color: const Color(0xFF42006E),
             ),
           ),
         ),
