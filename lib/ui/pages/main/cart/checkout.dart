@@ -3,9 +3,13 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:oferi/ui/pages/main/bottom_navbar.dart';
+import 'package:oferi/ui/pages/main/home/home_page.dart';
+import 'package:oferi/ui/pages/main/user/profile_page.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
 import 'package:oferi/ui/widgets/shopping_cart.dart';
 import 'package:oferi/domain/entities/product.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});
@@ -21,7 +25,7 @@ class _CheckoutPage extends State<CheckoutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-          padding: EdgeInsets.all(3),
+          padding: const EdgeInsets.all(4),
           child: SafeArea(
               child: Column(children: [
             Parent(
@@ -49,7 +53,7 @@ class _CheckoutPage extends State<CheckoutPage> {
                                   style: TxtStyle()
                                     ..textColor(Colors.grey.shade700)
                                     ..fontWeight(FontWeight.w400)
-                                    ..fontSize(15.5)),
+                                    ..fontSize(17.5)),
                             ],
                           ),
                           IconButton(
@@ -63,19 +67,12 @@ class _CheckoutPage extends State<CheckoutPage> {
                       "",
                       style: TxtStyle()..padding(top: 10),
                     ),
-                    Txt("",
-                        style: TxtStyle()
-                          ..width(500)
-                          ..height(150)
-                          ..margin(top: 15)
-                          ..borderRadius(all: 15)
-                          ..background.color(Colors.grey)),
                     Parent(
                       style: ParentStyle()..margin(top: 15, bottom: 10),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Txt("Delivery",
+                            Txt("Envio",
                                 style: TxtStyle()
                                   ..fontWeight(FontWeight.w900)
                                   ..fontSize(18)),
@@ -89,41 +86,6 @@ class _CheckoutPage extends State<CheckoutPage> {
                                   ..fontWeight(FontWeight.w600)
                                   ..ripple(true))
                           ]),
-                    ),
-                    Row(
-                      children: [
-                        Txt("",
-                            style: TxtStyle()
-                              ..width(50)
-                              ..height(50)
-                              ..margin(right: 10)
-                              ..borderRadius(all: 50)
-                              ..background.color(Colors.grey)),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Txt("Debit **3493",
-                                style: TxtStyle()..fontWeight(FontWeight.w800)),
-                            Txt("PEPE JOHN")
-                          ],
-                        ),
-                        Expanded(
-                          child: Parent(style: ParentStyle()),
-                        ),
-                        Parent(
-                          style: ParentStyle(),
-                          child: Row(children: [
-                            Txt("No. of Instalments ",
-                                style: TxtStyle()
-                                  ..fontSize(12)
-                                  ..textColor(Colors.grey)
-                                  ..margin(right: 10)),
-                            Txt("1",
-                                style: TxtStyle()..fontWeight(FontWeight.w900))
-                          ]),
-                        )
-                      ],
                     ),
                     Parent(
                       style: ParentStyle()..margin(top: 25, bottom: 10),
@@ -162,7 +124,7 @@ class _CheckoutPage extends State<CheckoutPage> {
                                 cancelLabel: "No",
                                 context: context,
                                 builder: ((context, child) =>
-                                    confirmationValue()));
+                                    confirmationValue(context)));
                           }),
                         style: TxtStyle()
                           ..ripple(true)
@@ -183,23 +145,102 @@ class _CheckoutPage extends State<CheckoutPage> {
   }
 }
 
-Widget confirmationValue() => Center(
-        child: Parent(
-      style: ParentStyle()
-        ..background.color(Colors.white)
-        ..width(200)
-        ..borderRadius(all: 10)
-        ..height(200),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Txt("Want to see you shipment tracking number?",
-              style: TxtStyle()
-                ..fontWeight(FontWeight.w900)
-                ..fontSize(23)
-                ..textAlign.center(true)),
-          Row(children: [Txt("Yes"), Txt("No")])
-        ],
+Widget confirmationValue(BuildContext context) => Center(
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 50),
+        width: 270,
+        height: 250,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Parent(
+              style: ParentStyle()
+                ..background.color(Colors.white)
+                ..borderRadius(all: 10)
+                ..height(135),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    child: Txt(
+                      "Su compra ha sido aprobada",
+                      style: TxtStyle()
+                        ..textColor(const Color(0xFF42006E).withOpacity(0.75))
+                        ..fontSize(17)
+                        ..textAlign.center(),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(15),
+                    child: Txt("¿Desea Recibir la guía de pedido?",
+                        style: TxtStyle()
+                          ..textColor(const Color(0xFF42006E))
+                          ..fontWeight(FontWeight.w500)
+                          ..fontSize(25)
+                          ..textAlign.center(true)),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 15),
+              width: 200,
+              height: 40,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        PersistentNavBarNavigator.pushNewScreen(
+                          context,
+                          screen: const NavBar(),
+                          withNavBar: true,
+                          pageTransitionAnimation: PageTransitionAnimation.fade,
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          backgroundColor: Colors.white,
+                          minimumSize: const Size(120, 50)),
+                      child: const Text(
+                        "NO",
+                        style: TextStyle(
+                          color: Color(0xFF42006E),
+                          fontSize: 25,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: const ProfilePage(),
+                            withNavBar: false,
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.cupertino,
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                            backgroundColor: const Color(0xFF42006E),
+                            minimumSize: const Size(120, 50)),
+                        child: const Text(
+                          "SI",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        )),
+                  ]),
+            )
+          ],
+        ),
       ),
-    ));
+    );
