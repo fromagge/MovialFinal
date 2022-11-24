@@ -1,14 +1,10 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
-import 'package:oferi/ui/pages/main/home/home_page.dart';
-import 'package:oferi/ui/pages/main/user/profile_page.dart';
+import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
-import 'package:oferi/ui/widgets/shopping_cart.dart';
-import 'package:oferi/domain/entities/product.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class CheckoutPage extends StatefulWidget {
@@ -20,6 +16,14 @@ class CheckoutPage extends StatefulWidget {
 
 class _CheckoutPage extends State<CheckoutPage> {
   _CheckoutPage();
+
+  late int current;
+
+  @override
+  void initState() {
+    super.initState();
+    current = -1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +49,7 @@ class _CheckoutPage extends State<CheckoutPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Txt("Dirección:",
-                                  style: TxtStyle()
-                                    ..padding(bottom: 10)
-                                    ..fontSize(19)),
+                              menuLabel("Dirección"),
                               Txt("Calle 76#34b-125 Edificio Omero",
                                   style: TxtStyle()
                                     ..textColor(Colors.grey.shade700)
@@ -63,86 +64,130 @@ class _CheckoutPage extends State<CheckoutPage> {
                                 size: 28,
                               ))
                         ]),
-                    Txt(
-                      "",
-                      style: TxtStyle()..padding(top: 10),
+                    menuLabel("Envío"),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 7),
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.all(10),
+                        child: generateProductList(),
+                      ),
                     ),
                     Parent(
-                      style: ParentStyle()..margin(top: 15, bottom: 10),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Txt("Envio",
-                                style: TxtStyle()
-                                  ..fontWeight(FontWeight.w900)
-                                  ..fontSize(18)),
-                            Txt("3 to 5 days",
-                                gesture: Gestures()
-                                  ..onTap(() {
-                                    EasyLoading.showError(
-                                        "You cannot change your past");
-                                  }),
-                                style: TxtStyle()
-                                  ..fontWeight(FontWeight.w600)
-                                  ..ripple(true))
-                          ]),
+                      style: ParentStyle()
+                        ..margin(top: 15, bottom: 15)
+                        ..alignment.centerLeft(),
+                      child: Txt("Método de pago",
+                          style: TxtStyle()
+                            ..fontWeight(FontWeight.w400)
+                            ..fontSize(20)),
                     ),
-                    Parent(
-                      style: ParentStyle()..margin(top: 25, bottom: 10),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Txt("Products",
-                                style: TxtStyle()
-                                  ..fontWeight(FontWeight.w900)
-                                  ..fontSize(18)),
-                          ]),
+                    Row(
+                      children: [
+                        brandButton("assets/images/icons/brands/PSE.png", 0),
+                        brandButton(
+                            "assets/images/icons/brands/mastercard.png", 1),
+                        brandButton("assets/images/icons/brands/visa.png", 2),
+                      ],
                     ),
-                    Parent(
-                      style: ParentStyle()..margin(top: 15, bottom: 15),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Txt("Método de pago",
-                                style: TxtStyle()
-                                  ..fontWeight(FontWeight.w900)
-                                  ..fontSize(18)),
-                            Txt("Change",
-                                style: TxtStyle()
-                                  ..fontWeight(FontWeight.w900)
-                                  ..ripple(true))
-                          ]),
-                    ),
-                    Column(children: []),
-                    Txt("Buy now",
-                        gesture: Gestures()
-                          ..onTap(() async {
-                            showOkCancelAlertDialog(
-                                message: "",
-                                title: "Want to see your shipment guide?",
-                                okLabel: "Yes",
-                                cancelLabel: "No",
-                                context: context,
-                                builder: ((context, child) =>
-                                    confirmationValue(context)));
-                          }),
-                        style: TxtStyle()
-                          ..ripple(true)
-                          ..borderRadius(all: 15.0)
-                          ..fontSize(20)
-                          ..padding(vertical: 15.0, horizontal: 20.0)
-                          ..margin(bottom: 300)
-                          ..background.color(Colors.black)
-                          ..textColor(Colors.white)
-                          ..width(400)
-                          ..margin(top: 20)
-                          ..textAlign.center(true)),
                     Txt("", style: TxtStyle()..padding(top: 30)),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: RichText(
+                              text: TextSpan(
+                                  style: DefaultTextStyle.of(context).style,
+                                  children: [
+                                    TextSpan(
+                                        text: "TOTAL:",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.grey.shade600,
+                                            fontWeight: FontWeight.w600)),
+                                    const TextSpan(text: "\n"),
+                                    TextSpan(
+                                        //TODO: CAMBIAR PRECIO POR EL TOTAL DE LA LISTA DE PRODUCTOS.
+                                        text: "\$ 101.235.000",
+                                        style: TextStyle(
+                                            fontSize: 23,
+                                            fontWeight: FontWeight.w400)),
+                                  ]),
+                            ),
+                          ),
+                          Expanded(
+                            child: DefaultButtonWidget(
+                                label: "Pagar",
+                                onPressed: () {
+                                  {
+                                    showOkCancelAlertDialog(
+                                        context: context,
+                                        builder: ((context, child) =>
+                                            confirmationValue(context)));
+                                  }
+                                },
+                                buttonColor: const Color(0xFFFF545F)),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 )),
           ]))),
     );
   }
+
+  var selected = List.generate(3, (index) => false);
+  Widget brandButton(String path, int index) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          if (current != index) {
+            selected.setAll(0, [false, false, false]);
+            selected[index] = true;
+          }
+          current = index;
+          if (index == 0) {
+          } else {
+            if (index == 1) {
+            } else {
+              if (index == 2) {}
+            }
+          }
+          logInfo("$current method of payment");
+        });
+      },
+      borderRadius: BorderRadius.circular(50),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+              color: selected[index] ? Colors.blue : Colors.transparent,
+              width: 2),
+          borderRadius: const BorderRadius.all(Radius.circular(50)),
+        ),
+        width: 110,
+        height: 80,
+        child: FittedBox(
+          fit: BoxFit.contain,
+          child: Image(
+            image: AssetImage(path),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget menuLabel(String label) {
+  return Parent(
+    style: ParentStyle()
+      ..margin(top: 15, bottom: 15)
+      ..alignment.centerLeft(),
+    child: Txt(label,
+        style: TxtStyle()
+          ..fontWeight(FontWeight.w400)
+          ..fontSize(20)),
+  );
 }
 
 Widget confirmationValue(BuildContext context) => Center(
@@ -216,15 +261,7 @@ Widget confirmationValue(BuildContext context) => Center(
                       ),
                     ),
                     ElevatedButton(
-                        onPressed: () {
-                          PersistentNavBarNavigator.pushNewScreen(
-                            context,
-                            screen: const ProfilePage(),
-                            withNavBar: false,
-                            pageTransitionAnimation:
-                                PageTransitionAnimation.cupertino,
-                          );
-                        },
+                        onPressed: () {},
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12)),
@@ -244,3 +281,20 @@ Widget confirmationValue(BuildContext context) => Center(
         ),
       ),
     );
+
+Widget generateProductList() {
+  return ListView.separated(
+    physics: const ClampingScrollPhysics(),
+    scrollDirection: Axis.vertical,
+    shrinkWrap: true,
+    itemCount: 20,
+    itemBuilder: (context, index) {
+      return Container(
+        child: const Text("HOLA"),
+      );
+    },
+    separatorBuilder: (BuildContext context, int index) {
+      return const SizedBox(height: 12);
+    },
+  );
+}

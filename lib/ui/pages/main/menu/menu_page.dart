@@ -70,9 +70,9 @@ class MenuPage extends StatelessWidget {
         }
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        margin: EdgeInsets.symmetric(horizontal: 25, vertical: 7),
         width: 400,
-        height: 45,
+        height: 55,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,22 +82,22 @@ class MenuPage extends StatelessWidget {
                 Icon(
                   innerIcon,
                   color: Color(0xFFFF545F),
-                  size: 40,
+                  size: 50,
                 ),
                 Icon(
                   outerIcon,
                   color: Colors.white,
-                  size: 40,
+                  size: 50,
                 ),
               ],
             ),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+              margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               child: Text(
                 label,
                 style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 22,
                   color: Colors.white,
                 ),
               ),
