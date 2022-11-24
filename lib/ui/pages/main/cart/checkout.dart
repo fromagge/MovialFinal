@@ -1,9 +1,11 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
+import 'package:oferi/ui/widgets/input_widgets/textfield_widget.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -50,21 +52,52 @@ class _CheckoutPage extends State<CheckoutPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               menuLabel("Dirección"),
-                              Txt("Calle 76#34b-125 Edificio Omero",
-                                  style: TxtStyle()
-                                    ..textColor(Colors.grey.shade700)
-                                    ..fontWeight(FontWeight.w400)
-                                    ..fontSize(17.5)),
+                              SizedBox(
+                                width: 320,
+                                height: 40,
+                                child: TextFormField(
+                                  style: const TextStyle(fontSize: 20),
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.only(
+                                      top: 15,
+                                      bottom: 10,
+                                      left: 10,
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
+                                    ),
+                                    errorStyle: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              )
                             ],
                           ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.edit,
-                                size: 28,
-                              ))
                         ]),
-                    menuLabel("Envío"),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        menuLabel("Envío"),
+                        const Text("Envio de 1 a 3 días hábiles",
+                            style: TextStyle(
+                                color: Color.fromARGB(125, 0, 0, 0),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 18)),
+                        Container(
+                          height: 7,
+                        ),
+                        const Text("\$ 7.000",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400, fontSize: 18)),
+                      ],
+                    ),
+                    menuLabel("Productos:"),
                     Container(
                       margin: const EdgeInsets.only(bottom: 7),
                       child: SingleChildScrollView(
@@ -186,17 +219,16 @@ Widget menuLabel(String label) {
     child: Txt(label,
         style: TxtStyle()
           ..fontWeight(FontWeight.w400)
-          ..fontSize(20)),
+          ..fontSize(22)),
   );
 }
 
 Widget confirmationValue(BuildContext context) => Center(
       child: Container(
-        margin: const EdgeInsets.only(bottom: 50),
+        margin: const EdgeInsets.only(bottom: 15),
         width: 270,
         height: 250,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Parent(
@@ -206,7 +238,6 @@ Widget confirmationValue(BuildContext context) => Center(
                 ..height(135),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     margin: const EdgeInsets.only(top: 10),
@@ -287,11 +318,41 @@ Widget generateProductList() {
     physics: const ClampingScrollPhysics(),
     scrollDirection: Axis.vertical,
     shrinkWrap: true,
-    itemCount: 20,
+    itemCount: 10,
     itemBuilder: (context, index) {
-      return Container(
-        child: const Text("HOLA"),
-      );
+      return SizedBox(
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          RichText(
+            text: TextSpan(
+                style: DefaultTextStyle.of(context).style,
+                children: const [
+                  TextSpan(
+                      text: "Nombre del Producto",
+                      style: TextStyle(
+                          color: Color.fromARGB(125, 0, 0, 0),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16)),
+                  TextSpan(text: "\n"),
+                  TextSpan(
+                      text: "precio del producto",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
+                ]),
+          ),
+          SizedBox(
+            width: 50,
+            height: 65,
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: CachedNetworkImage(
+                  imageUrl:
+                      "https://http2.mlstatic.com/D_NQ_NP_2X_838347-MLA46153270316_052021-V.webp"),
+            ),
+          )
+        ],
+      ));
     },
     separatorBuilder: (BuildContext context, int index) {
       return const SizedBox(height: 12);
