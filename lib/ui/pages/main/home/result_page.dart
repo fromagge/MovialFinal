@@ -72,6 +72,8 @@ class Result extends StatelessWidget {
                 },
                 body:
                     //ProductGrid()
+
+                    //FOR TEST ONLY DOWN HERE ...
                     ListView(
                   shrinkWrap: true,
                   children: [

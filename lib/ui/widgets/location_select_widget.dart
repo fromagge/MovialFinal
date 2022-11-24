@@ -2,7 +2,7 @@ import 'package:division/division.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:oferi/ui/pages/main/user/notification_page.dart';
+import 'package:oferi/ui/pages/main/home/notification_page.dart';
 import '../styles/colors.dart';
 
 class LocationSelectWidget extends StatefulWidget {
