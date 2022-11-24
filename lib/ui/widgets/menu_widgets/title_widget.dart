@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 
 class TitleWidget extends StatelessWidget {
   final String title;
@@ -8,6 +9,7 @@ class TitleWidget extends StatelessWidget {
   final double? iconSize;
   final double? titleSize;
   final Color? color;
+  final void Function()? onPressed;
 
   const TitleWidget(
       {super.key,
@@ -16,7 +18,8 @@ class TitleWidget extends StatelessWidget {
       this.arrowSize = 45,
       this.color = const Color(0xFF42006E),
       this.iconSize = 40,
-      this.titleSize = 30});
+      this.titleSize = 30,
+      this.onPressed});
 
   @override
   build(BuildContext context) {
@@ -29,7 +32,12 @@ class TitleWidget extends StatelessWidget {
           iconSize: arrowSize,
           color: const Color(0xFF42006E),
           onPressed: () {
-            Navigator.pop(context);
+            if (onPressed == null) {
+              Navigator.pop(context);
+            } else {
+              onPressed;
+              logInfo(onPressed);
+            }
           },
         ),
         Padding(

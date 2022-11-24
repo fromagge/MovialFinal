@@ -4,6 +4,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
+import 'package:oferi/ui/pages/main/cart/package_delivery_tracking.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/input_widgets/textfield_widget.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
@@ -292,7 +293,15 @@ Widget confirmationValue(BuildContext context) => Center(
                       ),
                     ),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          PersistentNavBarNavigator.pushNewScreen(
+                            context,
+                            screen: PackageDeliveryTrackingPage(),
+                            withNavBar: true,
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.fade,
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12)),
