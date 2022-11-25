@@ -76,8 +76,7 @@ class _NavBarState extends State<NavBar> {
       useRootNavigator: false,
       context: context,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-      builder: (context) =>
-          SizedBox(height: height * 0.78, child: const CartPage()),
+      builder: (context) => SizedBox(height: height * 0.78, child: CartPage()),
     );
   }
 

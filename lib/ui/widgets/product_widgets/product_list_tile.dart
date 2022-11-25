@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/widgets/image_widgets/image_widget.dart';
 
 class ProductListTile extends StatelessWidget {
-  ProductListTile({super.key});
+  final Product product;
+  ProductListTile({super.key, required this.product});
 
   bool markedFavorite = true;
 
@@ -21,9 +23,7 @@ class ProductListTile extends StatelessWidget {
             children: [
               SizedBox(
                   width: width / 2 - 40,
-                  child: const ImageWidget(
-                      imageUrl:
-                          "https://images4.alphacoders.com/936/936378.jpg")),
+                  child: ImageWidget(imageUrl: product.imgUrl)),
               const SizedBox(
                 width: 10,
               ),
@@ -32,10 +32,10 @@ class ProductListTile extends StatelessWidget {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Expanded(
+                      Expanded(
                           flex: 6,
                           child: Text(
-                            "Chaqueta de Algodon De La Mejor Calidad En America",
+                            product.name,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,
                             style: TextStyle(
@@ -54,7 +54,7 @@ class ProductListTile extends StatelessWidget {
                                   margin: const EdgeInsets.only(
                                       top: 15, bottom: 13),
                                   child: Text(
-                                    "\$100.115.000",
+                                    product.price.toString(),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     style: TextStyle(

@@ -75,20 +75,7 @@ class Result extends StatelessWidget {
                     ),
                   ];
                 },
-                body: ProductGrid(
-                  products: [
-                    product,
-                    product,
-                    product,
-                    product,
-                    product,
-                    product
-                  ],
-                )
-
-                //FOR TEST ONLY DOWN HERE ...
-
-                ),
+                body: ProductGrid()),
           ),
         ),
       ),

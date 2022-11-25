@@ -6,33 +6,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:oferi/ui/controllers/product_controller.dart';
 import 'package:oferi/ui/pages/loading/loader_widget.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:oferi/ui/widgets/product_widgets/product_grid_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:loggy/loggy.dart';
-
-Future fetchResource() async {
-  final response = await http.get(
-      Uri.parse('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=s'));
-
-  if (response.statusCode == 200) {
-    return response.body;
-  } else {
-    throw Exception('Failed to load album');
-  }
-}
+import 'package:oferi/ui/widgets/product_widgets/product_list_tile.dart';
 
 class ProductGrid extends StatefulWidget {
-  final List<Product> products;
-  const ProductGrid({Key? key, required this.products}) : super(key: key);
+  const ProductGrid({Key? key}) : super(key: key);
 
   @override
   State<ProductGrid> createState() => _ProductGrid();
 }
 
 class _ProductGrid extends State<ProductGrid> {
+  ProductController productController = Get.find();
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +32,7 @@ class _ProductGrid extends State<ProductGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return horizList(widget.products);
+    return horizList(productController.products);
   }
 
   Widget horizList(List<Product> products) {

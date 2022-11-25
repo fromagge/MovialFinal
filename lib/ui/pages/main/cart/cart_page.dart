@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:oferi/ui/controllers/product_controller.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
@@ -11,7 +12,8 @@ import "package:flutter/material.dart";
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class CartPage extends StatelessWidget {
-  const CartPage({Key? key}) : super(key: key);
+  CartPage({Key? key}) : super(key: key);
+  ProductController productController = ProductController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,16 +67,30 @@ class CartPage extends StatelessWidget {
   }
 
   Widget generateList() {
-    return ListView.separated(
-      physics: const ClampingScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: 20,
-      itemBuilder: (context, index) {
-        return ProductListTile();
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(height: 12);
+    return GetX<ProductController>(
+      builder: (controller) {
+        if (productController.products.length == 0) {
+          return const Center(
+            child: Text('No products'),
+          );
+        }
+        return ListView.separated(
+          shrinkWrap: true,
+          itemCount: productController.products.length,
+          scrollDirection: Axis.vertical,
+          physics: ClampingScrollPhysics(),
+          itemBuilder: (context, index) {
+            var element = productController.products[index];
+            return ProductListTile(
+              product: element,
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return Container(
+              height: 10,
+            );
+          },
+        );
       },
     );
   }

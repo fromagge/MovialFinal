@@ -195,7 +195,6 @@ Future<dynamic> showCartSheet(double height, context) {
     useRootNavigator: false,
     context: context,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-    builder: (context) =>
-        SizedBox(height: height * 0.72, child: const CartPage()),
+    builder: (context) => SizedBox(height: height * 0.72, child: CartPage()),
   );
 }
