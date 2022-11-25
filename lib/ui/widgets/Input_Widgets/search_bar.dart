@@ -7,7 +7,10 @@ import 'package:oferi/ui/pages/main/home/result_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class SearchBar extends StatefulWidget {
-  const SearchBar({super.key});
+  final void Function(String)? onSubmitted;
+
+  const SearchBar({super.key, this.onSubmitted});
+
   @override
   State<SearchBar> createState() => _SearchBar();
 }
@@ -46,13 +49,9 @@ class _SearchBar extends State<SearchBar> {
       ),
       placeholder: 'Buscar',
       onSubmitted: ((searchText) {
-        PersistentNavBarNavigator.pushNewScreen(
-          context,
-          screen: Result(
-            search: searchText,
-          ),
-          pageTransitionAnimation: PageTransitionAnimation.cupertino,
-        );
+        if (widget.onSubmitted != null) {
+          widget.onSubmitted!(searchText);
+        }
       }),
     );
   }
