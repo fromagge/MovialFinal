@@ -25,16 +25,14 @@ Future fetchResource() async {
 }
 
 class ProductGrid extends StatefulWidget {
-  const ProductGrid({Key? key}) : super(key: key);
+  final List<Product> products;
+  const ProductGrid({Key? key, required this.products}) : super(key: key);
 
   @override
   State<ProductGrid> createState() => _ProductGrid();
 }
 
 class _ProductGrid extends State<ProductGrid> {
-  CollectionReference products =
-      FirebaseFirestore.instance.collection('products');
-
   @override
   void initState() {
     super.initState();
@@ -42,65 +40,26 @@ class _ProductGrid extends State<ProductGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<QuerySnapshot>(
-      future: products.limit(10).get(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-            EasyLoading.show();
-
-            Future.delayed(
-              const Duration(seconds: 4),
-              () async {
-                await EasyLoading.showError("Error");
-              },
-            );
-
-            break;
-          case ConnectionState.active:
-          case ConnectionState.done:
-            if (snapshot.hasData) {
-              EasyLoading.dismiss();
-              List<Product> data = [];
-              for (var doc in snapshot.data!.docs) {
-                var json = doc.data() as Map<String, dynamic>;
-
-                data.add(Product.fromJson(json));
-              }
-
-              return HorizList(data: data);
-            }
-            break;
-          default:
-            return const Txt("Fatal error");
-        }
-        //WIDGET WHILE LOADING
-        return LoaderWidget();
-      },
-    );
+    return horizList(widget.products);
   }
-}
 
-class HorizList extends StatelessWidget {
-  HorizList({super.key, required this.data});
+  Widget horizList(List<Product> products) {
+    final int columns = 2;
 
-  final int columns = 2;
-  final List data;
-
-  @override
-  Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        child: MasonryGridView.count(
-            shrinkWrap: true,
-            crossAxisCount: columns,
-            physics: const ClampingScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            crossAxisSpacing: 15,
-            itemCount: data.length,
-            mainAxisSpacing: 17,
-            itemBuilder: (context, index) {
-              return ProductGridCard(product: data[index]);
-            }));
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      child: MasonryGridView.count(
+        shrinkWrap: true,
+        crossAxisCount: columns,
+        physics: const ClampingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        crossAxisSpacing: 15,
+        itemCount: products.length,
+        mainAxisSpacing: 17,
+        itemBuilder: (context, index) {
+          return ProductGridCard(product: products[index]);
+        },
+      ),
+    );
   }
 }

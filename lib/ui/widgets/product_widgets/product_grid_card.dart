@@ -84,7 +84,6 @@ class _ProductGridCardState extends State<ProductGridCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          color: Colors.amber,
                           padding: EdgeInsets.only(
                             left: constraints.minWidth,
                           ),

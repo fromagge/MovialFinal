@@ -30,14 +30,14 @@ class Result extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        body: DefaultTabController(
-          length: 1,
-          child: SafeArea(
-            child: MediaQuery.removePadding(
-              context: context,
-              removeTop: true,
-              child: NestedScrollView(
+      key: _scaffoldKey,
+      body: DefaultTabController(
+        length: 1,
+        child: SafeArea(
+          child: MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: NestedScrollView(
                 floatHeaderSlivers: true,
                 headerSliverBuilder: (context, innerBoxIsScrolled) {
                   return [
@@ -75,48 +75,23 @@ class Result extends StatelessWidget {
                     ),
                   ];
                 },
-                body:
-                    //ProductGrid()
-
-                    //FOR TEST ONLY DOWN HERE ...
-                    ListView(
-                  shrinkWrap: true,
-                  children: [
-                    ProductGridCard(
-                      product: product,
-                    ),
-                    ProductGridCard(
-                      product: product,
-                    ),
-                    ProductGridCard(
-                      product: product,
-                    ),
-                    ProductGridCard(
-                      product: product,
-                    ),
-                    ProductGridCard(
-                      product: product,
-                    ),
-                    ProductGridCard(
-                      product: product,
-                    ),
-                    ProductGridCard(
-                      product: product,
-                    ),
-                    ProductGridCard(
-                      product: product,
-                    ),
-                    ProductGridCard(
-                      product: product,
-                    ),
-                    ProductGridCard(
-                      product: product,
-                    )
+                body: ProductGrid(
+                  products: [
+                    product,
+                    product,
+                    product,
+                    product,
+                    product,
+                    product
                   ],
+                )
+
+                //FOR TEST ONLY DOWN HERE ...
+
                 ),
-              ),
-            ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
