@@ -22,6 +22,7 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
   late List<Purchase> yesterdayPurchases;
   final one = Purchase(
       category: "categoria",
+      address: "Cra 33# 25b - 58",
       imgUrl:
           "https://cdn.shopify.com/s/files/1/0070/7032/files/image5_4578a9e6-2eff-4a5a-8d8c-9292252ec848.jpg?v=1620247043",
       latitude: 50.toDouble(),
@@ -143,14 +144,39 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
                       ),
                       maxLines: 3,
                     ),
-                    Text('Vendedor: ${purchase.seller}'),
-                    const SizedBox(height: 5),
-                    Text(
-                        'Fecha de compra: ${DateFormat('yyyy-MM-dd').format(purchase.purchaseDate)}'),
-                    const SizedBox(height: 3),
-                    Text("Pago por ${purchase.paymentMethod.toLowerCase()}"),
-                    const SizedBox(height: 3),
-                    Text("\$ ${purchase.price!.toInt()}"),
+                    RichText(
+                      text: TextSpan(
+                        style: DefaultTextStyle.of(context).style,
+                        children: [
+                          const TextSpan(
+                              text: 'Dirección: ',
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          TextSpan(text: purchase.address),
+                          const TextSpan(text: '\n'),
+                          const TextSpan(
+                              text: 'Vendedor: ',
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          TextSpan(text: purchase.seller),
+                          const TextSpan(text: '\n'),
+                          const TextSpan(
+                              text: 'Fecha de compra: ',
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          TextSpan(
+                              text: DateFormat('dd/MM/yyyy')
+                                  .format(purchase.purchaseDate)),
+                          const TextSpan(text: '\n'),
+                          const TextSpan(
+                              text: 'Método de pago: ',
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          TextSpan(text: " ${purchase.paymentMethod}"),
+                          const TextSpan(text: '\n'),
+                          const TextSpan(
+                              text: 'Pago: ',
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          TextSpan(text: "\$ ${purchase.price!.toInt()}"),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

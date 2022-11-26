@@ -1,11 +1,10 @@
 import 'package:oferi/domain/entities/product.dart';
-import 'package:oferi/ui/utils/utils.dart';
 
 class Purchase extends Product {
   DateTime purchaseDate;
   DateTime deliveredDate;
   String paymentMethod;
-
+  String address;
   Purchase(
       {name,
       category,
@@ -15,6 +14,7 @@ class Purchase extends Product {
       seller,
       price,
       required this.purchaseDate,
+      required this.address,
       required this.paymentMethod,
       required this.deliveredDate})
       : super(
@@ -38,6 +38,7 @@ class Purchase extends Product {
         purchaseDate: json['purchaseDate'],
         paymentMethod: json['paymentMethod'],
         price: json['price'],
+        address: json['address'],
         deliveredDate: json['deliveredDate']);
   }
   toJson() {
@@ -45,6 +46,7 @@ class Purchase extends Product {
       'name': name,
       'imgUrl': imgUrl,
       'category': category,
+      'address': address,
       'seller': seller,
       'latitud': latitude,
       'longitude': longitude,
