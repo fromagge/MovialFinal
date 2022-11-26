@@ -11,6 +11,7 @@ class AuthenticationController extends GetxController {
 
   // método usado para logearse en la aplicación
   Future<bool> login(email, password) async {
+    logInfo("Auth Controller --> Login de Usuario");
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
@@ -26,7 +27,7 @@ class AuthenticationController extends GetxController {
   }
 
   // método usado para crear un usuario
-  Future<void> signup(names, surnames, phone, country, email, password) async {
+  Future<bool> signup(names, surnames, phone, country, email, password) async {
     try {
       logInfo("Auth Controller --> Registro de Usuario");
       // primero creamos el usuario en el sistema de autenticación de firebase
@@ -39,13 +40,14 @@ class AuthenticationController extends GetxController {
       // userController
       await userController.createUser(
           names, surnames, phone, country, email, userCredential.user!.uid);
-      return Future.value();
+      return true;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
+      return false;
+      /*if (e.code == 'weak-password') {
         return Future.error("The password is too weak");
       } else if (e.code == 'email-already-in-use') {
         return Future.error("The email is taken");
-      }
+      }*/
     }
   }
 

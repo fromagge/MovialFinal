@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/controllers/authentication_controller.dart';
+import 'package:oferi/ui/pages/login/login_page.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/input_widgets/textfield_widget.dart';
 import 'package:get/get.dart';
@@ -173,7 +175,7 @@ class _RegisterForm extends State<RegisterPage> {
                           ),
                           DefaultButtonWidget(
                               label: "Registrarme",
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_key.currentState!.validate()) {
                                   //TODO: Confirmar Registro en base de datos.
                                   var names = textcontrollers[0].text;
@@ -184,13 +186,27 @@ class _RegisterForm extends State<RegisterPage> {
                                   var password = textcontrollers[5].text;
                                   logInfo(
                                       "Intentando registrar $names , $surnames");
-                                  authenticationController.signup(
-                                      names,
-                                      surnames,
-                                      phone,
-                                      country,
-                                      email,
-                                      password);
+                                  bool value =
+                                      await authenticationController.signup(
+                                          names,
+                                          surnames,
+                                          phone,
+                                          country,
+                                          email,
+                                          password);
+                                  logInfo(value);
+                                  if (value) {
+                                    Get.to(() => const LoginPage());
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                "User created succesfully")));
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                "This email is already in use")));
+                                  }
                                 }
                               },
                               buttonColor: const Color(0xFF42006E)),
