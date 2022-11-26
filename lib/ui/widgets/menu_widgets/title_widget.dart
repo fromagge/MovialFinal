@@ -9,36 +9,41 @@ class TitleWidget extends StatelessWidget {
   final double? iconSize;
   final double? titleSize;
   final Color? color;
+  final bool withBackArrow;
   final void Function()? onPressed;
 
-  const TitleWidget(
-      {super.key,
-      this.title = "",
-      this.icon,
-      this.arrowSize = 45,
-      this.color = const Color(0xFF42006E),
-      this.iconSize = 40,
-      this.titleSize = 30,
-      this.onPressed});
+  const TitleWidget({
+    super.key,
+    this.title = "",
+    this.icon,
+    this.arrowSize = 45,
+    this.color = const Color(0xFF42006E),
+    this.iconSize = 40,
+    this.titleSize = 30,
+    this.onPressed,
+    this.withBackArrow = true,
+  });
 
   @override
   build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        IconButton(
-          padding: const EdgeInsets.only(bottom: 5),
-          icon: const Icon(Icons.arrow_circle_left_outlined),
-          iconSize: arrowSize,
-          color: const Color(0xFF42006E),
-          onPressed: () {
-            if (onPressed == null) {
-              Navigator.pop(context);
-            } else {
-              onPressed!();
-            }
-          },
-        ),
+        withBackArrow
+            ? IconButton(
+                padding: const EdgeInsets.only(bottom: 5),
+                icon: const Icon(Icons.arrow_circle_left_outlined),
+                iconSize: arrowSize,
+                color: const Color(0xFF42006E),
+                onPressed: () {
+                  if (onPressed == null) {
+                    Navigator.pop(context);
+                  } else {
+                    onPressed!();
+                  }
+                },
+              )
+            : Container(),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           child: Text(
