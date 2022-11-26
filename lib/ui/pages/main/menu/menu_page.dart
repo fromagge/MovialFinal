@@ -116,7 +116,7 @@ class MenuPage extends StatelessWidget {
       logInfo("esto es venta");
       PersistentNavBarNavigator.pushNewScreen(
         context,
-        screen: const SellProductPage(),
+        screen: SellProduct(),
         pageTransitionAnimation: PageTransitionAnimation.fade,
       );
     } else {
