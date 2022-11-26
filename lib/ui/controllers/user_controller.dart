@@ -66,13 +66,13 @@ class UserController extends GetxController {
   // método para crear un nuevo usuario
   Future<void> createUser(names, surnames, phone, country, email, uid) async {
     logInfo(
-        "Creating user in realTime for $names, $surnames, $phone, $country, $email and $uid");
+        "CreateUser --> Creating user in realTime for $names, $surnames, $phone, $country, $email and $uid");
     try {
       await databaseRef.child('userList').push().set({
         'names': names,
         'surnames': surnames,
         'phone': phone,
-        "country": country,
+        'country': country,
         'email': email,
         'uid': uid
       });

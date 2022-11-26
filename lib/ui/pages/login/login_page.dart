@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/domain/entities/product.dart';
@@ -127,19 +129,19 @@ class _LoginForm extends State<LoginPage> {
                                   if (value) {
                                     PersistentNavBarNavigator.pushNewScreen(
                                       context,
-                                      screen: NavBar(),
+                                      screen: const NavBar(),
                                       pageTransitionAnimation:
                                           PageTransitionAnimation.fade,
                                     );
 
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
-                                            content: Text('Usuario Correcto')));
+                                            content: Text('Login OK')));
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                             content: Text(
-                                                'Usuario o contraseña incorrecto')));
+                                                'Incorrect user or password')));
                                   }
                                 }
                               }

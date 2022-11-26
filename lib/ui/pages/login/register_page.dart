@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
@@ -177,7 +179,6 @@ class _RegisterForm extends State<RegisterPage> {
                               label: "Registrarme",
                               onPressed: () async {
                                 if (_key.currentState!.validate()) {
-                                  //TODO: Confirmar Registro en base de datos.
                                   var names = textcontrollers[0].text;
                                   var surnames = textcontrollers[1].text;
                                   var phone = textcontrollers[2].text;
@@ -194,16 +195,18 @@ class _RegisterForm extends State<RegisterPage> {
                                           country,
                                           email,
                                           password);
+
                                   logInfo(value);
                                   if (value) {
-                                    Get.to(() => const LoginPage());
+                                    //NEVER GETS HERE FOR SOME REASON
+                                    Get.back();
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                             content: Text(
                                                 "User created succesfully")));
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
+                                        const SnackBar(
                                             content: Text(
                                                 "This email is already in use")));
                                   }
