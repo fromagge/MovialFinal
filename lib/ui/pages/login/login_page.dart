@@ -133,10 +133,6 @@ class _LoginForm extends State<LoginPage> {
                                       pageTransitionAnimation:
                                           PageTransitionAnimation.fade,
                                     );
-
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                            content: Text('Login OK')));
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(

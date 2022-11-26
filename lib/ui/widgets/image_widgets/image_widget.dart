@@ -10,7 +10,6 @@ class ImageWidget extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(15),
       child: SizedBox(
-        width: double.infinity,
         height: 200,
         child: FittedBox(
           fit: BoxFit.cover,

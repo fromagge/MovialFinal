@@ -49,7 +49,7 @@ class _CarouselState extends State<Carousel> {
             Container(
               child: CarouselSlider(
                 carouselController: controller,
-                items: imgDefault.map((image) {
+                items: widget.images.map((image) {
                   return Parent(
                       style: ParentStyle(),
                       child: ClipRRect(
@@ -100,7 +100,7 @@ class _CarouselState extends State<Carousel> {
         ),
         DotsIndicator(
           decorator: DotsDecorator(activeColor: Colors.black.withOpacity(0.6)),
-          dotsCount: imgDefault.length,
+          dotsCount: widget.images.length,
           position: _currentIndex.toDouble(),
         )
       ],
