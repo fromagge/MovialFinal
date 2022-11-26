@@ -17,11 +17,6 @@ class AuthenticationController extends GetxController {
           .signInWithEmailAndPassword(email: email, password: password);
       return true;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        return Future.error("User not found");
-      } else if (e.code == 'wrong-password') {
-        return Future.error("Wrong password");
-      }
       return false;
     }
   }
@@ -43,11 +38,6 @@ class AuthenticationController extends GetxController {
       return true;
     } on FirebaseAuthException catch (e) {
       return false;
-      /*if (e.code == 'weak-password') {
-        return Future.error("The password is too weak");
-      } else if (e.code == 'email-already-in-use') {
-        return Future.error("The email is taken");
-      }*/
     }
   }
 
