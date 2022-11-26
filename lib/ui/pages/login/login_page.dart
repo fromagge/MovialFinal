@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:loggy/loggy.dart';
 import 'package:oferi/domain/entities/product.dart';
+import 'package:oferi/ui/controllers/authentication_controller.dart';
 import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/pages/main/home/home_page.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
@@ -24,10 +26,16 @@ class _LoginForm extends State<LoginPage> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final int _nrOfNodes = 2;
   late final List<FocusNode> _focusNodes;
+  late final TextEditingController _emailController;
+  late final TextEditingController _passwordController;
+
+  AuthenticationController authenticationController = Get.find();
 
   @override
   void initState() {
     super.initState();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
     _focusNodes = List.generate(_nrOfNodes, (_) => FocusNode());
     for (var node in _focusNodes) {
       node.addListener(() {
@@ -81,8 +89,9 @@ class _LoginForm extends State<LoginPage> {
                           vertical: 8, horizontal: 12),
                       child: Column(children: [
                         DefaultTextWidget(
+                          controller: _emailController,
                           myFocusNode: _focusNodes[0],
-                          label: "Nombre de usuario",
+                          label: "Correo electrónico",
                           textInputType: TextInputType.text,
                           validator: (value) =>
                               Validator.validateUserName(value ?? ""),
@@ -91,6 +100,7 @@ class _LoginForm extends State<LoginPage> {
                           height: 10,
                         ),
                         DefaultTextWidget(
+                          controller: _passwordController,
                           myFocusNode: _focusNodes[1],
                           label: "Contraseña",
                           showPassword: true,
@@ -103,17 +113,35 @@ class _LoginForm extends State<LoginPage> {
                         ),
                         DefaultButtonWidget(
                             label: "Iniciar Sesión",
-                            onPressed: () {
+                            onPressed: () async {
+                              FocusScope.of(context).requestFocus(FocusNode());
                               if (_key.currentState!.validate()) {
-                                //TODO: Confirmar inicio de sesion en base de datos.
-                                //TODO: Evitar que el usuario vuelva al login cuando utilize el boton de regreso;
-                                //dispose();
-                                PersistentNavBarNavigator.pushNewScreen(
-                                  context,
-                                  screen: NavBar(),
-                                  pageTransitionAnimation:
-                                      PageTransitionAnimation.fade,
-                                );
+                                final form = _key.currentState;
+                                form!.save();
+                                if (form.validate()) {
+                                  var value =
+                                      await authenticationController.login(
+                                          _emailController.text,
+                                          _passwordController.text);
+
+                                  if (value) {
+                                    PersistentNavBarNavigator.pushNewScreen(
+                                      context,
+                                      screen: NavBar(),
+                                      pageTransitionAnimation:
+                                          PageTransitionAnimation.fade,
+                                    );
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text('Usuario Correcto')));
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                'Usuario o contraseña incorrecto')));
+                                  }
+                                }
                               }
                             },
                             buttonColor: const Color(0xFF42006E)),
@@ -123,10 +151,13 @@ class _LoginForm extends State<LoginPage> {
                         DefaultButtonWidget(
                           label: "Registrarse",
                           onPressed: () {
+                            FocusScope.of(context).requestFocus(FocusNode());
                             Get.to(() => const RegisterPage(),
                                 duration: const Duration(milliseconds: 500),
                                 transition: Transition.downToUp,
                                 curve: Curves.easeInOutExpo);
+                            _emailController.clear();
+                            _passwordController.clear();
                           },
                           textColor: const Color(0xFF42006E),
                           buttonColor: const Color(0XFFFAF2C8),

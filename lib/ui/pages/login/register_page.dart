@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
+import 'package:loggy/loggy.dart';
+import 'package:oferi/ui/controllers/authentication_controller.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/input_widgets/textfield_widget.dart';
 import 'package:get/get.dart';
@@ -17,16 +19,20 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterForm extends State<RegisterPage> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
-  bool? checked = true;
+  bool? checked = false;
   // Número de elementos al cual deseas concentrarte
-  final int _nrOfNodes = 7;
+  final int _nroOfForms = 6;
   late final List<FocusNode> _focusNodes;
+  late List<TextEditingController> textcontrollers;
+  AuthenticationController authenticationController = Get.find();
 
   @override
   void initState() {
     super.initState();
 
-    _focusNodes = List.generate(_nrOfNodes, (_) => FocusNode());
+    textcontrollers =
+        List.generate(_nroOfForms, (_) => TextEditingController());
+    _focusNodes = List.generate(_nroOfForms, (_) => FocusNode());
 
     for (var node in _focusNodes) {
       node.addListener(() {
@@ -68,6 +74,7 @@ class _RegisterForm extends State<RegisterPage> {
                       child: Column(
                         children: [
                           DefaultTextWidget(
+                            controller: textcontrollers[0],
                             myFocusNode: _focusNodes[0],
                             label: "Nombre(s)",
                             textInputType: TextInputType.text,
@@ -78,9 +85,9 @@ class _RegisterForm extends State<RegisterPage> {
                             height: divider,
                           ),
                           DefaultTextWidget(
+                            controller: textcontrollers[1],
                             myFocusNode: _focusNodes[1],
                             label: "Apellidos",
-                            showPassword: true,
                             textInputType: TextInputType.text,
                             validator: (value) =>
                                 Validator.validateText(value ?? ""),
@@ -89,6 +96,7 @@ class _RegisterForm extends State<RegisterPage> {
                             height: divider,
                           ),
                           DefaultTextWidget(
+                            controller: textcontrollers[2],
                             myFocusNode: _focusNodes[2],
                             label: "Celular",
                             textInputType: TextInputType.text,
@@ -99,18 +107,9 @@ class _RegisterForm extends State<RegisterPage> {
                             height: divider,
                           ),
                           DefaultTextWidget(
+                            controller: textcontrollers[3],
                             myFocusNode: _focusNodes[3],
-                            label: "Correo Electrónico",
-                            textInputType: TextInputType.text,
-                            validator: (value) =>
-                                Validator.validateEmail(value ?? ""),
-                          ),
-                          const SizedBox(
-                            height: divider,
-                          ),
-                          DefaultTextWidget(
-                            myFocusNode: _focusNodes[4],
-                            label: "País/Ciudad",
+                            label: "País",
                             textInputType: TextInputType.text,
                             validator: (value) =>
                                 Validator.validateText(value ?? ""),
@@ -119,17 +118,22 @@ class _RegisterForm extends State<RegisterPage> {
                             height: divider,
                           ),
                           DefaultTextWidget(
-                            myFocusNode: _focusNodes[5],
-                            label: "Nombre de usuario",
+                            controller: textcontrollers[4],
+                            myFocusNode: _focusNodes[4],
+                            label: "Correo Electrónico",
                             textInputType: TextInputType.text,
                             validator: (value) =>
-                                Validator.validateUserName(value ?? ""),
+                                Validator.validateEmail(value ?? ""),
+                          ),
+                          const SizedBox(
+                            height: divider,
                           ),
                           const SizedBox(
                             height: divider,
                           ),
                           DefaultTextWidget(
-                            myFocusNode: _focusNodes[6],
+                            controller: textcontrollers[5],
+                            myFocusNode: _focusNodes[5],
                             label: "Establecer una contraseña",
                             showPassword: true,
                             textInputType: TextInputType.text,
@@ -172,9 +176,21 @@ class _RegisterForm extends State<RegisterPage> {
                               onPressed: () {
                                 if (_key.currentState!.validate()) {
                                   //TODO: Confirmar Registro en base de datos.
-                                  //TODO: Reparar el metodo de dispose para que no lance error cuando se cambia de pagina y evitar
-                                  // memory leaks.
-                                  //dispose();
+                                  var names = textcontrollers[0].text;
+                                  var surnames = textcontrollers[1].text;
+                                  var phone = textcontrollers[2].text;
+                                  var country = textcontrollers[3].text;
+                                  var email = textcontrollers[4].text;
+                                  var password = textcontrollers[5].text;
+                                  logInfo(
+                                      "Intentando registrar $names , $surnames");
+                                  authenticationController.signup(
+                                      names,
+                                      surnames,
+                                      phone,
+                                      country,
+                                      email,
+                                      password);
                                 }
                               },
                               buttonColor: const Color(0xFF42006E)),

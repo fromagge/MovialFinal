@@ -44,7 +44,7 @@ class Validator {
   }
 
   static String? validatePhoneNumber(String value) {
-    if (value.length != 11) {
+    if (value.length != 10) {
       return '🚩 Phone number is not valid.';
     } else {
       return null;

@@ -20,6 +20,8 @@ class ProfilePage extends StatelessWidget {
             MaterialPageRoute(
                 builder: (BuildContext context) => const LoginPage()),
             (Route<dynamic> route) => false);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("LogOut Correto")));
       },
       child: const Text("Log Out"),
     ));

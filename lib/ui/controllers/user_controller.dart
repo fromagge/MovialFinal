@@ -2,13 +2,13 @@ import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
-import '../../data/model/app_user.dart';
+import '../../domain/entities/user.dart';
 import 'authentication_controller.dart';
 
 // Controlador usado para manejar los usuarios del chat
 class UserController extends GetxController {
   // lista en la que se almacenan los uaurios, la misma es observada por la UI
-  var _users = <AppUser>[].obs;
+  var _users = <User>[].obs;
 
   final databaseRef = FirebaseDatabase.instance.ref();
 
@@ -49,7 +49,7 @@ class UserController extends GetxController {
   // cuando obtenemos un evento con un nuevo usuario lo agregamos a _users
   _onEntryAdded(DatabaseEvent event) {
     final json = event.snapshot.value as Map<dynamic, dynamic>;
-    _users.add(AppUser.fromJson(event.snapshot, json));
+    _users.add(User.fromJson(event.snapshot, json));
   }
 
   // cuando obtenemos un evento con un usuario modificado lo reemplazamos en _users
@@ -60,17 +60,22 @@ class UserController extends GetxController {
     });
 
     final json = event.snapshot.value as Map<dynamic, dynamic>;
-    _users[_users.indexOf(oldEntry)] = AppUser.fromJson(event.snapshot, json);
+    _users[_users.indexOf(oldEntry)] = User.fromJson(event.snapshot, json);
   }
 
   // método para crear un nuevo usuario
-  Future<void> createUser(email, uid) async {
-    logInfo("Creating user in realTime for $email and $uid");
+  Future<void> createUser(names, surnames, phone, country, email, uid) async {
+    logInfo(
+        "Creating user in realTime for $names, $surnames, $phone, $country, $email and $uid");
     try {
-      await databaseRef
-          .child('userList')
-          .push()
-          .set({'email': email, 'uid': uid});
+      await databaseRef.child('userList').push().set({
+        'names': names,
+        'surnames': surnames,
+        'phone': phone,
+        "country": country,
+        'email': email,
+        'uid': uid
+      });
     } catch (error) {
       logError(error);
       return Future.error(error);

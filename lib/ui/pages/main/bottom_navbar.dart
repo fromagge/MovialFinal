@@ -61,11 +61,11 @@ class _NavBarState extends State<NavBar> {
   Future<dynamic> showMenuSheet(double height, BuildContext context) {
     return showMaterialModalBottomSheet(
       backgroundColor: Colors.transparent,
-      elevation: 1,
+      elevation: 0.1,
       useRootNavigator: false,
       context: context,
       builder: (context) =>
-          SizedBox(height: height * 0.32, child: const MenuPage()),
+          SizedBox(height: height * 0.35, child: const MenuPage()),
     );
   }
 

@@ -27,10 +27,12 @@ class _ItemPage extends State<ProductDetailedPage> {
   _ItemPage(this.product);
   final Product product;
   late GoogleMapController mapController;
+  late TextEditingController adressController;
 
   @override
   void initState() {
     super.initState();
+    adressController = TextEditingController();
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -149,6 +151,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                               ..textAlign.justify(true),
                           ),
                           DefaultTextWidget(
+                            controller: adressController,
                             fontSize: 15,
                             maxLines: 5,
                             initialText: "Escribe tu pregunta...",
