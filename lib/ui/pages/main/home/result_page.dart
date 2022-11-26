@@ -18,6 +18,7 @@ class Result extends StatelessWidget {
   final String search;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Product product = Product(
+    id: "123",
     name: "Chaleco de Cuero Sueco Amarillo",
     category: "XD",
     imgUrl:

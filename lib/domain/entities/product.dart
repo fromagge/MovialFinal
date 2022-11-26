@@ -22,6 +22,7 @@ class Product {
       : price = (price == null) ? randomFloat(100) : price;
 
   factory Product.fromJson(Map<String, dynamic> json) {
+    print(json["id"]);
     return Product(
         id: json["id"],
         name: json["name"],

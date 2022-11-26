@@ -21,13 +21,14 @@ class ProductController extends GetxController {
   }
 
   Future<void> getProducts() async {
-    var list =
+    QuerySnapshot list =
         await FirebaseFirestore.instance.collection('products').limit(20).get();
+    print(list);
     List<Product> data = [];
 
-    for (var doc in list.docs) {
-      var json = doc.data() as Map<String, dynamic>;
-
+    for (QueryDocumentSnapshot doc in list.docs) {
+      Map<String, dynamic> json = doc.data() as Map<String, dynamic>;
+      json['id'] = doc.id;
       data.add(Product.fromJson(json));
     }
     _products.value = data;

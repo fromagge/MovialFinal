@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:oferi/ui/controllers/cart_controller.dart';
 import 'package:oferi/ui/pages/main/cart/cart_page.dart';
 import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
@@ -26,6 +27,7 @@ class ProductDetailedPage extends StatefulWidget {
 class _ItemPage extends State<ProductDetailedPage> {
   _ItemPage(this.product);
   final Product product;
+
   late GoogleMapController mapController;
   late TextEditingController questionTextController;
 
@@ -182,7 +184,6 @@ class _ItemPage extends State<ProductDetailedPage> {
               label: "Agregar al carrito",
               onPressed: () {
                 EasyLoading.showSuccess("Agregado al carrito");
-                //TODO: AGREGAR PRODUCTO AL CARRITO EN EL CONTROLADOR
               },
               buttonColor: const Color(0xFFFF545F)),
         )

@@ -6,7 +6,8 @@ class Purchase extends Product {
   String paymentMethod;
   String address;
   Purchase(
-      {name,
+      {id,
+      name,
       category,
       imgUrl,
       latitude,
@@ -18,6 +19,7 @@ class Purchase extends Product {
       required this.paymentMethod,
       required this.deliveredDate})
       : super(
+          id: id,
           name: name,
           category: category,
           imgUrl: imgUrl,

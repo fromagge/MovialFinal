@@ -6,43 +6,31 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/domain/entities/product.dart';
+import 'package:oferi/ui/controllers/authentication_controller.dart';
 
 import '../../domain/entities/cart.dart';
 
 // Controlador usado para manejar los usuarios del chat
 class CartController extends GetxController {
   final databaseReference = FirebaseDatabase.instance.ref();
-
-  var _products = <Product>[].obs;
-  // devolvemos a la UI todos los usuarios excepto el que está logeado en el sistema
-  // esa lista será usada para la pantalla en la que listan los usuarios con los que se
-  // puede comenzar una conversación
-  get products {
-    getProducts();
-    return _products.toList();
-  }
+  final uid = AuthenticationController().getUid();
 
   Future<Cart> getCurrentUserCart() async {
+    DocumentSnapshot cart;
     final cartsRef = FirebaseFirestore.instance.collection('carts');
-    var cart;
 
-    // donde dice user_id debe ir el id con el que se creo que cliente
-    // no sé si se esté guardando
-
-    cart = await cartsRef.doc(USER_ID).get();
+    cart = await cartsRef.doc(uid).get();
 
     if (!cart.exists) {
-      await cartsRef.doc(USER_ID).set({'items': []});
-      return Cart(id: USER_id, items: []);
+      await cartsRef.doc(uid).set({'items': []});
+      return Cart(id: uid, items: []);
     }
 
-    return Cart.fromJson(USER_ID, cart);
+    return Cart.fromJson(uid, cart as Map<String, dynamic>);
   }
 
-  Future<void> getProductsInCart() async {
-    final cartsRef = FirebaseFirestore.instance.collection('carts');
-
-    var cart = await getCurrentUserCart();
+  Future<List<Product>> getProductsInCart() async {
+    Cart cart = await getCurrentUserCart();
 
     List<Product> data = [];
 
@@ -56,13 +44,14 @@ class CartController extends GetxController {
 
       data.add(Product.fromJson(json));
     }
-    _products.value = data;
+
+    return data;
   }
 
   Future<void> addProducToCart(String productId) async {
     final cartsRef = FirebaseFirestore.instance.collection('carts');
-    var product = await FirebaseFirestore.instance
-        .collection('prodcuts')
+    DocumentSnapshot product = await FirebaseFirestore.instance
+        .collection('products')
         .doc(productId)
         .get();
 
@@ -75,7 +64,7 @@ class CartController extends GetxController {
       }
 
       cart.addElementToCart(productId);
-      cartsRef.doc(USER_ID).update({'items': cart.items});
+      cartsRef.doc(uid).update({'items': cart.items});
     } else {
       // Error ? Producto no existe en la base de datos
     }

@@ -24,6 +24,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   late List<Product> favorites;
 
   final one = Product(
+    id: "probando",
     category: "categoria",
     imgUrl:
         "https://cdn.shopify.com/s/files/1/0070/7032/files/image5_4578a9e6-2eff-4a5a-8d8c-9292252ec848.jpg?v=1620247043",
