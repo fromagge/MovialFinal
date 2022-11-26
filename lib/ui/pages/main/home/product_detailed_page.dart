@@ -27,12 +27,12 @@ class _ItemPage extends State<ProductDetailedPage> {
   _ItemPage(this.product);
   final Product product;
   late GoogleMapController mapController;
-  late TextEditingController adressController;
+  late TextEditingController questionTextController;
 
   @override
   void initState() {
     super.initState();
-    adressController = TextEditingController();
+    questionTextController = TextEditingController();
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -77,7 +77,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                                 ..fontSize(26)
                                 ..fontWeight(FontWeight.normal)
                                 ..textAlign.left(true),
-                              "Chaleco Usado de Cuero (Todavia funcional)"),
+                              "${product.name}"),
                           Container(
                             alignment: Alignment.centerRight,
                             child: RichText(
@@ -115,7 +115,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                                 ..fontSize(18)
                                 ..margin(top: 20, bottom: 20)
                                 ..textAlign.justify(true),
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pretium massa ipsum, convallis dignissim elit placerat vitae. Maecenas nec interdum dui. Mauris eleifend, massa sit amet tincidunt pharetra, est mauris suscipit mauris, ac bibendum massa neque non nulla. Ut lorem odio, vehicula sed dui a, sagittis consequat augue. Donec porttitor quam vel nibh aliquet auctor. Vestibulum lobortis a eros non dictum. Pellentesque placerat semper mauris suscipit molestie."),
+                              "agregar descripcion de producto en atributo"),
                           Txt(
                             "Ubicación:",
                             style: TxtStyle()
@@ -151,7 +151,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                               ..textAlign.justify(true),
                           ),
                           DefaultTextWidget(
-                            controller: adressController,
+                            controller: questionTextController,
                             fontSize: 15,
                             maxLines: 5,
                             initialText: "Escribe tu pregunta...",
