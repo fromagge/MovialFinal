@@ -21,11 +21,12 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-        name: json["name"],
-        imgUrl: json['img'].replaceAll("'", '').toString().trim(),
-        category: json['category'],
-        seller: json['seller'],
-        latitude: json['latitude'],
-        longitude: json['longitude']);
+      name: json["name"],
+      imgUrl: json['img'].replaceAll("'", '').toString().trim(),
+      category: json['category'],
+      seller: json['seller'],
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+    );
   }
 }
