@@ -26,7 +26,7 @@ class CartController extends GetxController {
       return Cart(id: uid, items: []);
     }
 
-    return Cart.fromJson(uid, cart as Map<String, dynamic>);
+    return Cart.fromJson(uid, cart.data() as Map<String, dynamic>);
   }
 
   Future<List<Product>> getProductsInCart() async {

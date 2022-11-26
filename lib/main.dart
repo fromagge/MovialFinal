@@ -1,5 +1,6 @@
 import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/controllers/authentication_controller.dart';
+import 'package:oferi/ui/controllers/cart_controller.dart';
 import 'package:oferi/ui/controllers/product_controller.dart';
 import 'package:oferi/ui/controllers/user_controller.dart';
 import 'package:oferi/ui/pages/loading/loading_page.dart';
@@ -58,6 +59,7 @@ class Oferi extends StatelessWidget {
     Get.put(ProductController());
     Get.put(UserController());
     Get.put(AuthenticationController());
+    Get.put(CartController());
 
     WidgetsFlutterBinding.ensureInitialized();
     Loggy.initLoggy(

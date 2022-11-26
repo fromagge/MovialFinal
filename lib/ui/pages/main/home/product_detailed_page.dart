@@ -6,6 +6,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:oferi/ui/controllers/cart_controller.dart';
+import 'package:oferi/ui/controllers/product_controller.dart';
 import 'package:oferi/ui/pages/main/cart/cart_page.dart';
 import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
@@ -30,6 +31,8 @@ class _ItemPage extends State<ProductDetailedPage> {
 
   late GoogleMapController mapController;
   late TextEditingController questionTextController;
+
+  CartController cartController = Get.find();
 
   @override
   void initState() {
@@ -184,6 +187,7 @@ class _ItemPage extends State<ProductDetailedPage> {
               label: "Agregar al carrito",
               onPressed: () {
                 EasyLoading.showSuccess("Agregado al carrito");
+                cartController.addProducToCart(product.id);
               },
               buttonColor: const Color(0xFFFF545F)),
         )

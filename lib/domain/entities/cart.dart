@@ -7,6 +7,8 @@ class Cart {
   Cart({required this.id, required this.items});
 
   factory Cart.fromJson(String id, Map<String, dynamic> json) {
+    print("items are $json");
+    print(json["items"]);
     return Cart(id: id, items: json["items"]);
   }
 
