@@ -1,6 +1,7 @@
 import 'package:oferi/ui/utils/utils.dart';
 
 class Product {
+  String id;
   String name;
   String imgUrl;
   String category;
@@ -10,7 +11,8 @@ class Product {
   double? price;
 
   Product(
-      {required this.name,
+      {required this.id,
+      required this.name,
       required this.imgUrl,
       required this.category,
       required this.seller,
@@ -21,6 +23,7 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
+        id: json["id"],
         name: json["name"],
         imgUrl: json['img'].replaceAll("'", '').toString().trim(),
         category: json['category'],

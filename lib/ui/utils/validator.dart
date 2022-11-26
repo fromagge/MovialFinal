@@ -29,7 +29,7 @@ class Validator {
 
   static String? validateUserName(String value) {
     if (value.length < 3) {
-      return '🚩 Username is too short.';
+      return '🚩 El correo electronico es muy corto.';
     } else {
       return null;
     }
