@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oferi/ui/controllers/cart_controller.dart';
 import 'package:oferi/ui/controllers/product_controller.dart';
@@ -75,39 +76,39 @@ class CartPage extends StatelessWidget {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             EasyLoading.show();
+            logInfo(snapshot.data);
             return Container();
+
           case ConnectionState.done:
+            logInfo(snapshot.data);
+            EasyLoading.dismiss();
             if (snapshot.hasData) {
-              EasyLoading.dismiss();
-              return GetX<ProductController>(
-                builder: (controller) {
-                  var cart = snapshot.data!;
-                  if (cart.length == 0) {
-                    return const Center(
-                      child: Text('No products'),
-                    );
-                  }
-                  return ListView.separated(
-                    shrinkWrap: true,
-                    itemCount: cart.length,
-                    scrollDirection: Axis.vertical,
-                    physics: ClampingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      var element = cart[index];
-                      return ProductListTile(
-                        product: element,
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: 10,
-                      );
-                    },
+              var cart = snapshot.data!;
+              if (cart.length == 0) {
+                return const Center(
+                  child: Text('No products'),
+                );
+              }
+              return ListView.separated(
+                shrinkWrap: true,
+                itemCount: cart.length,
+                scrollDirection: Axis.vertical,
+                physics: ClampingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  var element = cart[index];
+                  return ProductListTile(
+                    product: element,
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return Container(
+                    height: 10,
                   );
                 },
               );
             }
-            break;
+            return Container();
+
           default:
             return Container();
         }

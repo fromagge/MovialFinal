@@ -2,7 +2,10 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
+import 'package:oferi/ui/controllers/cart_controller.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:oferi/ui/pages/main/cart/package_delivery_tracking.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
@@ -20,6 +23,7 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPage extends State<CheckoutPage> {
   _CheckoutPage();
 
+  CartController cartController = Get.find();
   late int current;
 
   @override
@@ -103,7 +107,7 @@ class _CheckoutPage extends State<CheckoutPage> {
                       margin: const EdgeInsets.only(bottom: 7),
                       child: SingleChildScrollView(
                         padding: const EdgeInsets.all(10),
-                        child: generateProductList(),
+                        child: generateProductList(context),
                       ),
                     ),
                     Parent(
@@ -322,49 +326,71 @@ Widget confirmationValue(BuildContext context) => Center(
       ),
     );
 
-Widget generateProductList() {
-  return ListView.separated(
-    physics: const ClampingScrollPhysics(),
-    scrollDirection: Axis.vertical,
-    shrinkWrap: true,
-    itemCount: 10,
-    itemBuilder: (context, index) {
-      return SizedBox(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          RichText(
-            text: TextSpan(
-                style: DefaultTextStyle.of(context).style,
-                children: const [
-                  TextSpan(
-                      text: "Nombre del Producto",
-                      style: TextStyle(
-                          color: Color.fromARGB(125, 0, 0, 0),
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16)),
-                  TextSpan(text: "\n"),
-                  TextSpan(
-                      text: "precio del producto",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w400, fontSize: 16)),
-                ]),
-          ),
-          SizedBox(
-            width: 50,
-            height: 65,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: CachedNetworkImage(
-                  imageUrl:
-                      "https://http2.mlstatic.com/D_NQ_NP_2X_838347-MLA46153270316_052021-V.webp"),
-            ),
-          )
-        ],
-      ));
-    },
-    separatorBuilder: (BuildContext context, int index) {
-      return const SizedBox(height: 12);
+Widget generateProductList(BuildContext context) {
+  return FutureBuilder(
+    future: CartController().getProductsInCart(),
+    builder: (context, snapshot) {
+      switch (snapshot.connectionState) {
+        case ConnectionState.waiting:
+          EasyLoading.show();
+          return Container();
+
+        case ConnectionState.done:
+          if (snapshot.hasData) {
+            var cart = snapshot.data!;
+            // EasyLoading.dismiss();
+            return ListView.separated(
+              physics: const ClampingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: cart.length,
+              itemBuilder: (context, index) {
+                return SizedBox(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.65,
+                      child: RichText(
+                        text: TextSpan(
+                            style: DefaultTextStyle.of(context).style,
+                            children: [
+                              TextSpan(
+                                  text: cart[index].name,
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(125, 0, 0, 0),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16)),
+                              const TextSpan(text: "\n"),
+                              TextSpan(
+                                  text: cart[index].price!.toStringAsFixed(2),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16)),
+                            ]),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 50,
+                      height: 65,
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: CachedNetworkImage(imageUrl: cart[index].imgUrl),
+                      ),
+                    )
+                  ],
+                ));
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(height: 12);
+              },
+            );
+          }
+
+          return const Txt("Fatal error");
+        default:
+          return const Txt("Fatal error");
+      }
     },
   );
 }

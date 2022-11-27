@@ -69,39 +69,39 @@ class Oferi extends StatelessWidget {
     );
 
     return GetMaterialApp(
-        title: 'Oferi',
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-              systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarIconBrightness:
-                Brightness.dark, // For Android (dark icons)
-            statusBarBrightness: Brightness.dark, // For iOS (dark icons)
-          )),
-          primaryColor: Colors.purple,
-        ),
-        builder: EasyLoading.init(),
-        home: FutureBuilder(
-          future: SharedPreferences.getInstance(),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return const LoadingPage();
+      title: 'Oferi',
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+            systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+          statusBarBrightness: Brightness.dark, // For iOS (dark icons)
+        )),
+        primaryColor: Colors.purple,
+      ),
+      builder: EasyLoading.init(),
+      home: FutureBuilder(
+        future: SharedPreferences.getInstance(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return const LoadingPage();
 
-              case ConnectionState.done:
-                if (snapshot.hasData) {
-                  // EasyLoading.dismiss();
+            case ConnectionState.done:
+              if (snapshot.hasData) {
+                // EasyLoading.dismiss();
 
-                  if (snapshot.data?.getBool("isLoggedIn") ?? false) {
-                    return const NavBar();
-                  }
-                  return const LoginPage();
+                if (snapshot.data?.getBool("isLoggedIn") ?? false) {
+                  return const NavBar();
                 }
+                return const LoginPage();
+              }
 
-                return const Txt("Fatal error");
-              default:
-                return const Txt("Fatal error");
-            }
-          },
-        ));
+              return const Txt("Fatal error");
+            default:
+              return const Txt("Fatal error");
+          }
+        },
+      ),
+    );
   }
 }

@@ -31,20 +31,23 @@ class CartController extends GetxController {
 
   Future<List<Product>> getProductsInCart() async {
     Cart cart = await getCurrentUserCart();
+    logInfo(cart);
 
     List<Product> data = [];
 
     for (var item in cart.items) {
-      var product = await FirebaseFirestore.instance
-          .collection('prodcuts')
+      logInfo(item);
+      DocumentSnapshot product = await FirebaseFirestore.instance
+          .collection('products')
           .doc(item)
           .get();
-
+      logInfo("Product $product");
       var json = product.data() as Map<String, dynamic>;
-
+      json["id"] = product.id;
       data.add(Product.fromJson(json));
+      logInfo("JSON ES $json");
     }
-
+    logInfo("DATOS $data");
     return data;
   }
 
