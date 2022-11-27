@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
-import '../../domain/entities/user.dart';
 import 'authentication_controller.dart';
 
 // Controlador usado para manejar los usuarios del chat
@@ -75,6 +75,22 @@ class UserController extends GetxController {
         'country': country,
         'email': email,
         'uid': uid
+      });
+    } catch (error) {
+      logError(error);
+      return Future.error(error);
+    }
+  }
+
+  Future<void> updateUser(names, surnames, phone, country, email, uid) async {
+    try {
+      var currentUser = FirebaseAuth.instance.currentUser;
+      FirebaseDatabase.instance.ref("-Users/${currentUser!.uid}").update({
+        'names': names,
+        'surnames': surnames,
+        'phone': phone,
+        'country': country,
+        'email': email,
       });
     } catch (error) {
       logError(error);

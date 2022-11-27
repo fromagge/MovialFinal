@@ -31,4 +31,15 @@ class Product {
         latitude: json['latitude'],
         longitude: json['longitude']);
   }
+
+  toJson() {
+    return {
+      'name': name,
+      'imgUrl': imgUrl,
+      'category': category,
+      'seller': seller,
+      'latitude': latitude,
+      'longitude': longitude
+    };
+  }
 }

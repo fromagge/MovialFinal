@@ -31,7 +31,10 @@ class Purchase {
     return {
       'purchaseDate': purchaseDate,
       'paymentMethod': paymentMethod,
+      'address': address,
       'deliveredDate': deliveredDate,
+      'userId': userId,
+      'purchasedItems': purchasedItems
     };
   }
 }

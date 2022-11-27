@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/pages/main/menu/favorites_page.dart';
 import 'package:oferi/ui/pages/main/menu/product_history_page.dart';
