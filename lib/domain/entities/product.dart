@@ -8,7 +8,7 @@ class Product {
   String seller;
   double latitude;
   double longitude;
-  double? price;
+  double price;
 
   Product(
       {required this.id,
@@ -18,14 +18,14 @@ class Product {
       required this.seller,
       required this.latitude,
       required this.longitude,
-      price})
-      : price = (price == null) ? randomFloat(100) : price;
+      required this.price});
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
         id: json["id"],
         name: json["name"],
         imgUrl: json['img'].replaceAll("'", '').toString().trim(),
+        price: json['price'],
         category: json['category'],
         seller: json['seller'],
         latitude: json['latitude'],
@@ -37,6 +37,7 @@ class Product {
       'name': name,
       'imgUrl': imgUrl,
       'category': category,
+      'price': price,
       'seller': seller,
       'latitude': latitude,
       'longitude': longitude
