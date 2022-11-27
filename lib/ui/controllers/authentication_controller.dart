@@ -16,7 +16,7 @@ class AuthenticationController extends GetxController {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       return true;
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       return false;
     }
   }
@@ -36,7 +36,7 @@ class AuthenticationController extends GetxController {
       await userController.createUser(
           names, surnames, phone, country, email, userCredential.user!.uid);
       return true;
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       return false;
     }
   }

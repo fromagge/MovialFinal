@@ -1,16 +1,11 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:oferi/domain/entities/purchase.dart';
 import 'package:oferi/domain/entities/product.dart';
-import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/image_widgets/image_widget.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
-import 'package:oferi/ui/widgets/product_widgets/product_grid_card.dart';
-import 'package:intl/intl.dart';
-import 'package:oferi/ui/widgets/product_widgets/product_list_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class FavoritesPage extends StatefulWidget {
@@ -26,6 +21,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   final one = Product(
     id: "probando",
     category: "categoria",
+    description: 'Lorem ipsum',
     imgUrl:
         "https://cdn.shopify.com/s/files/1/0070/7032/files/image5_4578a9e6-2eff-4a5a-8d8c-9292252ec848.jpg?v=1620247043",
     latitude: 50.toDouble(),
@@ -136,7 +132,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     ),
                     const SizedBox(height: 3),
                     Text(
-                      "Precio: \$ ${favorite.price!.toInt()}",
+                      "Precio: \$ ${favorite.price.toInt()}",
                       style: const TextStyle(
                           fontWeight: FontWeight.w600, fontSize: 20),
                     ),

@@ -72,7 +72,7 @@ class MenuPage extends StatelessWidget {
         chooseMenuRoute(label, context);
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 30, vertical: 13),
+        margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 13),
         width: 400,
         height: 55,
         child: Row(
@@ -83,7 +83,7 @@ class MenuPage extends StatelessWidget {
               children: [
                 Icon(
                   innerIcon,
-                  color: Color(0xFFFF545F),
+                  color: const Color(0xFFFF545F),
                   size: 50,
                 ),
                 Icon(

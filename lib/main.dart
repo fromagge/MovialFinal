@@ -1,4 +1,3 @@
-import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/controllers/authentication_controller.dart';
 import 'package:oferi/ui/controllers/cart_controller.dart';
 import 'package:oferi/ui/controllers/favorite_controller.dart';
@@ -7,7 +6,6 @@ import 'package:oferi/ui/controllers/purchase_controller.dart';
 import 'package:oferi/ui/controllers/user_controller.dart';
 import 'package:oferi/ui/pages/loading/loading_page.dart';
 import 'package:oferi/ui/pages/login/login_page.dart';
-import 'package:oferi/ui/pages/login/register.dart';
 import 'firebase_options.dart';
 import 'package:division/division.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,8 +16,6 @@ import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:loggy/loggy.dart';
 
 void main() async {
   Loggy.initLoggy();

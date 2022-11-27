@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:loggy/loggy.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oferi/ui/pages/main/cart/cart_page.dart';
-import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/pages/main/home/home_page.dart';
 import 'package:oferi/ui/pages/main/menu/menu_page.dart';
 import 'package:oferi/ui/pages/main/user/profile_page.dart';

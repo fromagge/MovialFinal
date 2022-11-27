@@ -1,19 +1,12 @@
-import 'package:division/division.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:oferi/domain/entities/product.dart';
-import 'package:oferi/domain/entities/user.dart';
 import 'package:oferi/ui/pages/login/login_page.dart';
-import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 import 'package:oferi/ui/pages/main/user/profile_edit_page.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
-import 'package:oferi/ui/widgets/product_widgets/product_grid_card.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../widgets/image_widgets/image_widget.dart';
 
@@ -28,6 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
   //UserController userController = Get.find();
   final one = Product(
     id: "mondacon",
+    description: 'lorem ipsum',
     category: "categoria",
     imgUrl:
         "https://cdn.shopify.com/s/files/1/0070/7032/files/image5_4578a9e6-2eff-4a5a-8d8c-9292252ec848.jpg?v=1620247043",
@@ -217,7 +211,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             left: constraints.minWidth,
                           ),
                           child: Text(
-                            "\$ ${product.price!.toStringAsFixed(2)}",
+                            "\$ ${product.price.toStringAsFixed(2)}",
                             maxLines: 3,
                             style: const TextStyle(fontSize: 20),
                           ),

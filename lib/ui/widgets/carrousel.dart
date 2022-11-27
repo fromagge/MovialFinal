@@ -75,22 +75,22 @@ class _CarouselState extends State<Carousel> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 330),
+              margin: const EdgeInsets.only(left: 330),
               child: IconButton(
-                icon: Icon(Icons.arrow_forward_ios),
+                icon: const Icon(Icons.arrow_forward_ios),
                 iconSize: 25,
-                color: Color(0xFF42006E),
+                color: const Color(0xFF42006E),
                 onPressed: () {
                   controller.nextPage();
                 },
               ),
             ),
             Container(
-              margin: EdgeInsets.only(right: 330),
+              margin: const EdgeInsets.only(right: 330),
               child: IconButton(
-                icon: Icon(Icons.arrow_back_ios_outlined),
+                icon: const Icon(Icons.arrow_back_ios_outlined),
                 iconSize: 25,
-                color: Color(0xFF42006E),
+                color: const Color(0xFF42006E),
                 onPressed: () {
                   controller.previousPage();
                 },

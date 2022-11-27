@@ -101,7 +101,7 @@ class _ProductGridCardState extends State<ProductGridCard> {
                             left: constraints.minWidth,
                           ),
                           child: Text(
-                            "\$ ${widget.product.price!.toStringAsFixed(2)}",
+                            "\$ ${widget.product.price.toStringAsFixed(2)}",
                             style: const TextStyle(fontSize: 20),
                           ),
                         ),

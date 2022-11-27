@@ -11,7 +11,6 @@ import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:oferi/ui/pages/main/cart/package_delivery_tracking.dart';
 import 'package:oferi/ui/utils/validator.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
-import 'package:oferi/ui/widgets/input_widgets/textfield_widget.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -153,7 +152,7 @@ class _CheckoutPage extends State<CheckoutPage> {
                                             color: Colors.grey.shade600,
                                             fontWeight: FontWeight.w600)),
                                     const TextSpan(text: "\n"),
-                                    TextSpan(
+                                    const TextSpan(
                                         //TODO: CAMBIAR PRECIO POR EL TOTAL DE LA LISTA DE PRODUCTOS.
                                         text: "\$ 101.235.000",
                                         style: TextStyle(
@@ -332,7 +331,7 @@ Widget confirmationValue(BuildContext context) => Center(
                         onPressed: () {
                           PersistentNavBarNavigator.pushNewScreen(
                             context,
-                            screen: PackageDeliveryTrackingPage(),
+                            screen: const PackageDeliveryTrackingPage(),
                             withNavBar: true,
                             pageTransitionAnimation:
                                 PageTransitionAnimation.fade,
@@ -395,7 +394,7 @@ Widget generateProductList(BuildContext context) {
                                       fontSize: 16)),
                               const TextSpan(text: "\n"),
                               TextSpan(
-                                  text: cart[index].price!.toStringAsFixed(2),
+                                  text: cart[index].price.toStringAsFixed(2),
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 16)),

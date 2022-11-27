@@ -1,10 +1,5 @@
-import 'package:division/division.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:oferi/ui/pages/main/cart/checkout.dart';
-import 'package:oferi/ui/pages/main/home/result_page.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class SearchBar extends StatefulWidget {
   final void Function(String)? onSubmitted;

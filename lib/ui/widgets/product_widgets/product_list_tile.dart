@@ -38,7 +38,7 @@ class ProductListTile extends StatelessWidget {
                             product.name,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Color(0xFF42006E),
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold),
@@ -57,7 +57,7 @@ class ProductListTile extends StatelessWidget {
                                     product.price.toString(),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Color(0xFF42006E),
                                       fontWeight: FontWeight.w400,
                                       fontSize: 20,
@@ -68,7 +68,7 @@ class ProductListTile extends StatelessWidget {
                               Expanded(
                                 flex: 2,
                                 child: Container(
-                                  margin: EdgeInsets.only(top: 10),
+                                  margin: const EdgeInsets.only(top: 10),
                                   child: Align(
                                     child: IconButton(
                                       padding: EdgeInsets.zero,
@@ -79,6 +79,7 @@ class ProductListTile extends StatelessWidget {
                                         size: 35,
                                       ),
                                       onPressed: () {
+                                        // ignore: todo
                                         //TODO: Delete Product from Cart
                                       },
                                     ),

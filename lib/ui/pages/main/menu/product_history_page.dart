@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:loggy/loggy.dart';
 import 'package:oferi/domain/entities/purchase.dart';
 import 'package:oferi/domain/entities/product.dart';
-import 'package:oferi/ui/controllers/product_controller.dart';
 import 'package:oferi/ui/controllers/purchase_controller.dart';
-import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/widgets/image_widgets/image_widget.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
-import 'package:oferi/ui/widgets/product_widgets/product_grid_card.dart';
 import 'package:intl/intl.dart';
 
 class ProductHistoryPage extends StatefulWidget {
@@ -201,7 +197,7 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
                           const TextSpan(
                               text: 'Pago: ',
                               style: TextStyle(fontWeight: FontWeight.w600)),
-                          TextSpan(text: "\$ ${product.price!.toInt()}"),
+                          TextSpan(text: "\$ ${product.price.toInt()}"),
                         ],
                       ),
                     ),

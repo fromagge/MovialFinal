@@ -1,17 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:loggy/loggy.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oferi/ui/controllers/cart_controller.dart';
-import 'package:oferi/ui/controllers/product_controller.dart';
-import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
 import 'package:oferi/ui/widgets/product_widgets/product_list_tile.dart';
-import "package:flutter/material.dart";
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class CartPage extends StatelessWidget {

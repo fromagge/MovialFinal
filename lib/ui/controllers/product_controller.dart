@@ -29,6 +29,40 @@ class ProductController extends GetxController {
     }
   }
 
+  Future<bool> removePublishedProduct(String productId) async {
+    DocumentSnapshot product = await prodsRef.doc(productId).get();
+
+    if (!product.exists) {
+      return false;
+    }
+
+    Product prod = Product.fromJson(product.data() as Map<String, dynamic>);
+
+    if (prod.seller == uid) {
+      await prodsRef.doc(productId).delete();
+      return true; // Unnecessary
+    } else {
+      // Forbidden
+      return false;
+    }
+  }
+
+  Future<void> editPublishedProduct(String productId, Product newSpecs) async {
+    DocumentSnapshot product = await prodsRef.doc(productId).get();
+
+    if (!product.exists) {
+      return;
+    }
+
+    Product prod = Product.fromJson(product.data() as Map<String, dynamic>);
+
+    if (prod.seller == uid) {
+      await prodsRef.doc(productId).update(newSpecs.toJson());
+    } else {
+      // Forbidden
+    }
+  }
+
   Future<List<Product>> getProductsByCategory(String category) async {
     QuerySnapshot products =
         await prodsRef.where('category', isEqualTo: category).get();

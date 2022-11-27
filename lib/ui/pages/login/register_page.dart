@@ -1,11 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/controllers/authentication_controller.dart';
-import 'package:oferi/ui/pages/login/login_page.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/input_widgets/textfield_widget.dart';
 import 'package:get/get.dart';

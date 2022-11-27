@@ -1,20 +1,17 @@
 import 'package:division/division.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oferi/domain/entities/product.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:oferi/ui/controllers/authentication_controller.dart';
 import 'package:oferi/ui/controllers/cart_controller.dart';
-import 'package:oferi/ui/controllers/product_controller.dart';
 import 'package:oferi/ui/pages/main/cart/cart_page.dart';
-import 'package:oferi/ui/pages/main/cart/checkout.dart';
+import 'package:oferi/ui/widgets/carrousel.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/input_widgets/textfield_widget.dart';
-import 'package:oferi/ui/widgets/carrousel.dart';
-import 'package:get/get.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class ProductDetailedPage extends StatefulWidget {
   const ProductDetailedPage({super.key, required this.product});
@@ -28,6 +25,7 @@ class ProductDetailedPage extends StatefulWidget {
 class _ItemPage extends State<ProductDetailedPage> {
   _ItemPage(this.product);
   final Product product;
+  final myUid = AuthenticationController().getUid();
 
   late GoogleMapController mapController;
   late TextEditingController questionTextController;
@@ -99,7 +97,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                                           color: Colors.orange,
                                           fontWeight: FontWeight.bold)),
                                   TextSpan(
-                                    text: product.price!.toStringAsFixed(2),
+                                    text: product.price.toStringAsFixed(2),
                                   ),
                                 ],
                               ),
@@ -180,17 +178,19 @@ class _ItemPage extends State<ProductDetailedPage> {
             ),
           ),
         ),
-        Container(
-          color: Colors.white,
-          padding: const EdgeInsets.all(12),
-          child: DefaultButtonWidget(
-              label: "Agregar al carrito",
-              onPressed: () {
-                EasyLoading.showSuccess("Agregado al carrito");
-                cartController.addProducToCart(product.id);
-              },
-              buttonColor: const Color(0xFFFF545F)),
-        )
+        (product.seller != myUid)
+            ? Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(12),
+                child: DefaultButtonWidget(
+                    label: "Agregar al carrito",
+                    onPressed: () {
+                      cartController.addProducToCart(product.id);
+                      EasyLoading.showSuccess("Agregado al carrito");
+                    },
+                    buttonColor: const Color(0xFFFF545F)),
+              )
+            : Container()
       ],
     );
   }

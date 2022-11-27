@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/controllers/authentication_controller.dart';
-
 import '../../domain/entities/cart.dart';
 
 // Controlador usado para manejar los usuarios del chat
