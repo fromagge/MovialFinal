@@ -1,5 +1,3 @@
-import 'package:oferi/ui/utils/utils.dart';
-
 class Product {
   String id;
   String name;
@@ -28,7 +26,7 @@ class Product {
         name: json["name"],
         description: json['description'] ?? '',
         imgUrl: json['img'].replaceAll("'", '').toString().trim(),
-        price: json['price'],
+        price: getPrice(json['price']),
         category: json['category'],
         seller: json['seller'],
         latitude: json['latitude'],
@@ -41,10 +39,31 @@ class Product {
       'imgUrl': imgUrl,
       'category': category,
       'description': description,
-      'price': price,
+      'price': price.toString(),
       'seller': seller,
       'latitude': latitude,
       'longitude': longitude
     };
+  }
+
+  static double getPrice(price) {
+    if (price is String) {
+      if (price.split('.').length > 2) {
+        var value = double.tryParse(price);
+        if (value != null) {
+          return value;
+        }
+
+        return 0.0;
+      }
+
+      return double.parse(price);
+    }
+
+    if (price is double) {
+      return price;
+    }
+
+    return 0.0;
   }
 }
