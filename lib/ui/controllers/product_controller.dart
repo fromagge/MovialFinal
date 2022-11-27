@@ -23,7 +23,7 @@ class ProductController extends GetxController {
   Future<void> getProducts() async {
     QuerySnapshot list =
         await FirebaseFirestore.instance.collection('products').limit(20).get();
-    print(list);
+
     List<Product> data = [];
 
     for (QueryDocumentSnapshot doc in list.docs) {

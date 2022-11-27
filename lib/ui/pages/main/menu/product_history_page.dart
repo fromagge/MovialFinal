@@ -20,42 +20,16 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
   late List<Purchase> lastMonthPurchases;
   late List<Purchase> lastSixMonthPurchases;
   late List<Purchase> yesterdayPurchases;
-  final one = Purchase(
-      category: "categoria",
-      address: "Cra 33# 25b - 58",
-      imgUrl:
-          "https://cdn.shopify.com/s/files/1/0070/7032/files/image5_4578a9e6-2eff-4a5a-8d8c-9292252ec848.jpg?v=1620247043",
-      latitude: 50.toDouble(),
-      longitude: 20.toDouble(),
-      name: "Nombre del producto",
-      seller: "Vendedor con un nombre pero muy muy muy largo",
-      price: 20000.toDouble(),
-      paymentMethod: "Tarjeta de credito",
-      purchaseDate: DateTime.now(),
-      deliveredDate: DateTime.now());
+
   @override
   void initState() {
     // TODO: implement initState
 
-    todayPurchases = [
-      one,
-      one,
-      one,
-      one,
-      one,
-      one,
-      one,
-      one,
-      one,
-      one,
-      one,
-      one,
-      one
-    ];
+    todayPurchases = [];
     yesterdayPurchases = [];
     lastWeekPurchases = [];
-    lastMonthPurchases = [one, one, one, one, one, one];
-    lastSixMonthPurchases = [one];
+    lastMonthPurchases = [];
+    lastSixMonthPurchases = [];
   }
 
   @override

@@ -1,60 +1,36 @@
-import 'package:oferi/domain/entities/product.dart';
-
-class Purchase extends Product {
+class Purchase {
+  String? id;
   DateTime purchaseDate;
   DateTime deliveredDate;
   String paymentMethod;
   String address;
+
+  String userId;
+  List<String> purchasedItems;
+
   Purchase(
-      {id,
-      name,
-      category,
-      imgUrl,
-      latitude,
-      longitude,
-      seller,
-      price,
+      {this.id,
       required this.purchaseDate,
       required this.address,
       required this.paymentMethod,
-      required this.deliveredDate})
-      : super(
-          id: id,
-          name: name,
-          category: category,
-          imgUrl: imgUrl,
-          latitude: latitude,
-          longitude: longitude,
-          seller: seller,
-          price: price,
-        );
+      required this.deliveredDate,
+      required this.userId,
+      required this.purchasedItems});
 
   factory Purchase.fromJson(Map<String, dynamic> json) {
     return Purchase(
-        name: json["name"],
-        imgUrl: json['img'].replaceAll("'", '').toString().trim(),
-        category: json['category'],
-        seller: json['seller'],
-        latitude: json['latitude'],
-        longitude: json['longitude'],
+        id: json['id'],
         purchaseDate: json['purchaseDate'],
         paymentMethod: json['paymentMethod'],
-        price: json['price'],
         address: json['address'],
-        deliveredDate: json['deliveredDate']);
+        deliveredDate: json['deliveredDate'],
+        userId: json['userId'],
+        purchasedItems: json['purchasedItems']);
   }
   toJson() {
     return {
-      'name': name,
-      'imgUrl': imgUrl,
-      'category': category,
-      'address': address,
-      'seller': seller,
-      'latitud': latitude,
-      'longitude': longitude,
       'purchaseDate': purchaseDate,
       'paymentMethod': paymentMethod,
-      'price': price,
       'deliveredDate': deliveredDate,
     };
   }
