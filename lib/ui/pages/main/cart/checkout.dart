@@ -338,7 +338,7 @@ Widget generateProductList(BuildContext context) {
         case ConnectionState.done:
           if (snapshot.hasData) {
             var cart = snapshot.data!;
-            // EasyLoading.dismiss();
+            EasyLoading.dismiss();
             return ListView.separated(
               physics: const ClampingScrollPhysics(),
               scrollDirection: Axis.vertical,
