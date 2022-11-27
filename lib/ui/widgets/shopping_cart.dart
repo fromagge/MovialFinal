@@ -56,7 +56,7 @@ class ItemCart extends StatelessWidget {
                         ..fontWeight(FontWeight.w900)
                         ..fontSize(15)
                         ..textAlign.right(true),
-                      '\$ ${product.price!.toStringAsFixed(2)}')
+                      '\$ ${product.price.toStringAsFixed(2)}')
                 ],
               ))
         ]));

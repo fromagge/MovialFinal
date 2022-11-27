@@ -49,7 +49,7 @@ class _CarouselState extends State<Carousel> {
             Container(
               child: CarouselSlider(
                 carouselController: controller,
-                items: imgDefault.map((image) {
+                items: widget.images.map((image) {
                   return Parent(
                       style: ParentStyle(),
                       child: ClipRRect(
@@ -75,22 +75,22 @@ class _CarouselState extends State<Carousel> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 330),
+              margin: const EdgeInsets.only(left: 330),
               child: IconButton(
-                icon: Icon(Icons.arrow_forward_ios),
+                icon: const Icon(Icons.arrow_forward_ios),
                 iconSize: 25,
-                color: Color(0xFF42006E),
+                color: const Color(0xFF42006E),
                 onPressed: () {
                   controller.nextPage();
                 },
               ),
             ),
             Container(
-              margin: EdgeInsets.only(right: 330),
+              margin: const EdgeInsets.only(right: 330),
               child: IconButton(
-                icon: Icon(Icons.arrow_back_ios_outlined),
+                icon: const Icon(Icons.arrow_back_ios_outlined),
                 iconSize: 25,
-                color: Color(0xFF42006E),
+                color: const Color(0xFF42006E),
                 onPressed: () {
                   controller.previousPage();
                 },
@@ -100,7 +100,7 @@ class _CarouselState extends State<Carousel> {
         ),
         DotsIndicator(
           decorator: DotsDecorator(activeColor: Colors.black.withOpacity(0.6)),
-          dotsCount: imgDefault.length,
+          dotsCount: widget.images.length,
           position: _currentIndex.toDouble(),
         )
       ],

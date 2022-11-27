@@ -1,18 +1,17 @@
 import 'package:division/division.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oferi/domain/entities/product.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:oferi/ui/controllers/authentication_controller.dart';
+import 'package:oferi/ui/controllers/cart_controller.dart';
 import 'package:oferi/ui/pages/main/cart/cart_page.dart';
-import 'package:oferi/ui/pages/main/cart/checkout.dart';
+import 'package:oferi/ui/widgets/carrousel.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/input_widgets/textfield_widget.dart';
-import 'package:oferi/ui/widgets/carrousel.dart';
-import 'package:get/get.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class ProductDetailedPage extends StatefulWidget {
   const ProductDetailedPage({super.key, required this.product});
@@ -26,11 +25,17 @@ class ProductDetailedPage extends StatefulWidget {
 class _ItemPage extends State<ProductDetailedPage> {
   _ItemPage(this.product);
   final Product product;
+  final myUid = AuthenticationController().getUid();
+
   late GoogleMapController mapController;
+  late TextEditingController questionTextController;
+
+  CartController cartController = Get.find();
 
   @override
   void initState() {
     super.initState();
+    questionTextController = TextEditingController();
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -75,7 +80,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                                 ..fontSize(26)
                                 ..fontWeight(FontWeight.normal)
                                 ..textAlign.left(true),
-                              "Chaleco Usado de Cuero (Todavia funcional)"),
+                              "${product.name}"),
                           Container(
                             alignment: Alignment.centerRight,
                             child: RichText(
@@ -92,7 +97,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                                           color: Colors.orange,
                                           fontWeight: FontWeight.bold)),
                                   TextSpan(
-                                    text: product.price!.toStringAsFixed(2),
+                                    text: product.price.toStringAsFixed(2),
                                   ),
                                 ],
                               ),
@@ -113,7 +118,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                                 ..fontSize(18)
                                 ..margin(top: 20, bottom: 20)
                                 ..textAlign.justify(true),
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pretium massa ipsum, convallis dignissim elit placerat vitae. Maecenas nec interdum dui. Mauris eleifend, massa sit amet tincidunt pharetra, est mauris suscipit mauris, ac bibendum massa neque non nulla. Ut lorem odio, vehicula sed dui a, sagittis consequat augue. Donec porttitor quam vel nibh aliquet auctor. Vestibulum lobortis a eros non dictum. Pellentesque placerat semper mauris suscipit molestie."),
+                              "agregar descripcion de producto en atributo"),
                           Txt(
                             "Ubicación:",
                             style: TxtStyle()
@@ -149,6 +154,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                               ..textAlign.justify(true),
                           ),
                           DefaultTextWidget(
+                            controller: questionTextController,
                             fontSize: 15,
                             maxLines: 5,
                             initialText: "Escribe tu pregunta...",
@@ -172,17 +178,19 @@ class _ItemPage extends State<ProductDetailedPage> {
             ),
           ),
         ),
-        Container(
-          color: Colors.white,
-          padding: const EdgeInsets.all(12),
-          child: DefaultButtonWidget(
-              label: "Agregar al carrito",
-              onPressed: () {
-                EasyLoading.showSuccess("Agregado al carrito");
-                //TODO: AGREGAR PRODUCTO AL CARRITO EN EL CONTROLADOR
-              },
-              buttonColor: const Color(0xFFFF545F)),
-        )
+        (product.seller != myUid)
+            ? Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(12),
+                child: DefaultButtonWidget(
+                    label: "Agregar al carrito",
+                    onPressed: () {
+                      cartController.addProducToCart(product.id);
+                      EasyLoading.showSuccess("Agregado al carrito");
+                    },
+                    buttonColor: const Color(0xFFFF545F)),
+              )
+            : Container()
       ],
     );
   }
@@ -195,7 +203,6 @@ Future<dynamic> showCartSheet(double height, context) {
     useRootNavigator: false,
     context: context,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-    builder: (context) =>
-        SizedBox(height: height * 0.72, child: const CartPage()),
+    builder: (context) => SizedBox(height: height * 0.72, child: CartPage()),
   );
 }

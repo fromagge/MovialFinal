@@ -1,6 +1,11 @@
+import 'package:oferi/ui/controllers/authentication_controller.dart';
+import 'package:oferi/ui/controllers/cart_controller.dart';
+import 'package:oferi/ui/controllers/favorite_controller.dart';
+import 'package:oferi/ui/controllers/product_controller.dart';
+import 'package:oferi/ui/controllers/purchase_controller.dart';
+import 'package:oferi/ui/controllers/user_controller.dart';
 import 'package:oferi/ui/pages/loading/loading_page.dart';
 import 'package:oferi/ui/pages/login/login_page.dart';
-import 'package:oferi/ui/pages/login/register.dart';
 import 'firebase_options.dart';
 import 'package:division/division.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,8 +16,6 @@ import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:loggy/loggy.dart';
 
 void main() async {
   Loggy.initLoggy();
@@ -51,6 +54,13 @@ class Oferi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ProductController());
+    Get.put(UserController());
+    Get.put(AuthenticationController());
+    Get.put(CartController());
+    Get.put(PurchaseController());
+    Get.put(FavoriteController());
+
     WidgetsFlutterBinding.ensureInitialized();
     Loggy.initLoggy(
       logPrinter: const PrettyPrinter(
@@ -59,39 +69,39 @@ class Oferi extends StatelessWidget {
     );
 
     return GetMaterialApp(
-        title: 'Oferi',
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-              systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarIconBrightness:
-                Brightness.dark, // For Android (dark icons)
-            statusBarBrightness: Brightness.dark, // For iOS (dark icons)
-          )),
-          primaryColor: Colors.purple,
-        ),
-        builder: EasyLoading.init(),
-        home: FutureBuilder(
-          future: SharedPreferences.getInstance(),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return const LoadingPage();
+      title: 'Oferi',
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+            systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+          statusBarBrightness: Brightness.dark, // For iOS (dark icons)
+        )),
+        primaryColor: Colors.purple,
+      ),
+      builder: EasyLoading.init(),
+      home: FutureBuilder(
+        future: SharedPreferences.getInstance(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return const LoadingPage();
 
-              case ConnectionState.done:
-                if (snapshot.hasData) {
-                  // EasyLoading.dismiss();
+            case ConnectionState.done:
+              if (snapshot.hasData) {
+                // EasyLoading.dismiss();
 
-                  if (snapshot.data?.getBool("isLoggedIn") ?? false) {
-                    return const NavBar();
-                  }
-                  return const LoginPage();
+                if (snapshot.data?.getBool("isLoggedIn") ?? false) {
+                  return const NavBar();
                 }
+                return const LoginPage();
+              }
 
-                return const Txt("Fatal error");
-              default:
-                return const Txt("Fatal error");
-            }
-          },
-        ));
+              return const Txt("Fatal error");
+            default:
+              return const Txt("Fatal error");
+          }
+        },
+      ),
+    );
   }
 }

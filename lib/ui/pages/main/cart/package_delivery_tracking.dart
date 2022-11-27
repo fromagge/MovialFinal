@@ -18,7 +18,7 @@ class PackageDeliveryTrackingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = _data(0);
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: SafeArea(
         child: Scaffold(
             body: Column(
@@ -53,16 +53,16 @@ class PackageDeliveryTrackingPage extends StatelessWidget {
                       child: _OnTimeBar(driver: data.driverInfo),
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: DefaultButtonWidget(
                         label: "Detalles del envio",
                         onPressed: () {},
-                        buttonColor: Color(0xFFF3D9FA),
-                        textColor: Color(0xFF42006E),
+                        buttonColor: const Color(0xFFF3D9FA),
+                        textColor: const Color(0xFF42006E),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.only(top: 10),
                       child: TextButton(
                         child: Text(
                           "Cancelar la compra",
@@ -71,7 +71,7 @@ class PackageDeliveryTrackingPage extends StatelessWidget {
                             shadows: [
                               Shadow(
                                   color: Colors.black.withOpacity(0.7),
-                                  offset: Offset(0, -5))
+                                  offset: const Offset(0, -5))
                             ],
                             color: Colors.transparent,
                             decoration: TextDecoration.underline,
@@ -112,14 +112,14 @@ class _OrderTitle extends StatelessWidget {
       children: [
         Text(
           'Delivery #${orderInfo.id}',
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         Text(
           '${orderInfo.date.day}/${orderInfo.date.month}/${orderInfo.date.year}',
-          style: TextStyle(
+          style: const TextStyle(
             color: Color(0xffb6b2b2),
           ),
         ),
@@ -165,7 +165,7 @@ class _InnerTimeline extends StatelessWidget {
             }
 
             return Padding(
-              padding: EdgeInsets.only(left: 8.0),
+              padding: const EdgeInsets.only(left: 8.0),
               child: Text(messages[index - 1].toString()),
             );
           },
@@ -187,7 +187,7 @@ class _DeliveryProcesses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-      style: TextStyle(
+      style: const TextStyle(
         color: Color(0xff9b9b9b),
         fontSize: 12.5,
       ),
@@ -196,12 +196,12 @@ class _DeliveryProcesses extends StatelessWidget {
         child: FixedTimeline.tileBuilder(
           theme: TimelineThemeData(
             nodePosition: 0,
-            color: Color(0xff989898),
-            indicatorTheme: IndicatorThemeData(
+            color: const Color(0xff989898),
+            indicatorTheme: const IndicatorThemeData(
               position: 0,
               size: 20.0,
             ),
-            connectorTheme: ConnectorThemeData(
+            connectorTheme: const ConnectorThemeData(
               thickness: 2.5,
             ),
           ),
@@ -212,7 +212,7 @@ class _DeliveryProcesses extends StatelessWidget {
               if (processes[index].isCompleted) return null;
 
               return Padding(
-                padding: EdgeInsets.only(left: 8.0),
+                padding: const EdgeInsets.only(left: 8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -230,7 +230,7 @@ class _DeliveryProcesses extends StatelessWidget {
             },
             indicatorBuilder: (_, index) {
               if (processes[index].isCompleted) {
-                return DotIndicator(
+                return const DotIndicator(
                   color: Color(0xff66c97f),
                   child: Icon(
                     Icons.check,
@@ -239,13 +239,14 @@ class _DeliveryProcesses extends StatelessWidget {
                   ),
                 );
               } else {
-                return OutlinedDotIndicator(
+                return const OutlinedDotIndicator(
                   borderWidth: 2.5,
                 );
               }
             },
             connectorBuilder: (_, index, ___) => SolidLineConnector(
-              color: processes[index].isCompleted ? Color(0xff66c97f) : null,
+              color:
+                  processes[index].isCompleted ? const Color(0xff66c97f) : null,
             ),
           ),
         ),
@@ -266,23 +267,23 @@ class _OnTimeBar extends StatelessWidget {
         MaterialButton(
           onPressed: () {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('On-time!'),
               ),
             );
           },
           elevation: 0,
-          shape: StadiumBorder(),
-          color: Color(0xff66c97f),
+          shape: const StadiumBorder(),
+          color: const Color(0xff66c97f),
           textColor: Colors.white,
-          child: Text('On-time'),
+          child: const Text('On-time'),
         ),
-        Spacer(),
+        const Spacer(),
         Text(
           'Driver\n${driver.name}',
           textAlign: TextAlign.center,
         ),
-        SizedBox(width: 12.0),
+        const SizedBox(width: 12.0),
         Container(
           width: 40.0,
           height: 40.0,
@@ -304,27 +305,27 @@ class _OnTimeBar extends StatelessWidget {
 _OrderInfo _data(int id) => _OrderInfo(
       id: id,
       date: DateTime.now(),
-      driverInfo: _DriverInfo(
+      driverInfo: const _DriverInfo(
         name: 'Philipe',
         thumbnailUrl:
             'https://i.pinimg.com/originals/08/45/81/084581e3155d339376bf1d0e17979dc6.jpg',
       ),
       deliveryProcesses: [
-        _DeliveryProcess(
+        const _DeliveryProcess(
           'Package Process',
           messages: [
             _DeliveryMessage('8:30am', 'Package received by driver'),
             _DeliveryMessage('11:30am', 'Reached halfway mark'),
           ],
         ),
-        _DeliveryProcess(
+        const _DeliveryProcess(
           'In Transit',
           messages: [
             _DeliveryMessage('13:00pm', 'Driver arrived at destination'),
             _DeliveryMessage('11:35am', 'Package delivered by m.vassiliades'),
           ],
         ),
-        _DeliveryProcess.complete(),
+        const _DeliveryProcess.complete(),
       ],
     );
 

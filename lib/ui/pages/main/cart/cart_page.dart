@@ -1,17 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:oferi/ui/pages/main/bottom_navbar.dart';
+import 'package:oferi/ui/controllers/cart_controller.dart';
 import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
 import 'package:oferi/ui/widgets/product_widgets/product_list_tile.dart';
-import "package:flutter/material.dart";
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class CartPage extends StatelessWidget {
-  const CartPage({Key? key}) : super(key: key);
+  CartPage({Key? key}) : super(key: key);
+  CartController cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -65,16 +64,46 @@ class CartPage extends StatelessWidget {
   }
 
   Widget generateList() {
-    return ListView.separated(
-      physics: const ClampingScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: 20,
-      itemBuilder: (context, index) {
-        return ProductListTile();
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(height: 12);
+    return FutureBuilder(
+      future: cartController.getProductsInCart(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            EasyLoading.show();
+            return Container();
+
+          case ConnectionState.done:
+            EasyLoading.dismiss();
+            if (snapshot.hasData) {
+              var cart = snapshot.data!;
+              if (cart.length == 0) {
+                return const Center(
+                  child: Text('No products'),
+                );
+              }
+              return ListView.separated(
+                shrinkWrap: true,
+                itemCount: cart.length,
+                scrollDirection: Axis.vertical,
+                physics: ClampingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  var element = cart[index];
+                  return ProductListTile(
+                    product: element,
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return Container(
+                    height: 10,
+                  );
+                },
+              );
+            }
+            return Container();
+
+          default:
+            return Container();
+        }
       },
     );
   }

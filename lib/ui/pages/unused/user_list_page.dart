@@ -9,13 +9,13 @@ class UserListPage extends StatelessWidget {
     //HomeController controller = Get.find();
     //UserController userController = Get.find();
     return Scaffold(
-      appBar: AppBar(title: Text("User list"), actions: <Widget>[
+      appBar: AppBar(title: const Text("User list"), actions: <Widget>[
         IconButton(
-            key: Key('deleteAllButton'),
+            key: const Key('deleteAllButton'),
             onPressed: () {
               //userController.deleteAll();
             },
-            icon: Icon(Icons.delete))
+            icon: const Icon(Icons.delete))
       ]),
       /*floatingActionButton: GetX<HomeController>(
         builder: (controller) {
@@ -36,8 +36,8 @@ class UserListPage extends StatelessWidget {
           );
         },
       )*/
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
+      body: const Padding(
+        padding: EdgeInsets.all(8.0),
         //child: _getXlistView(),
       ),
     );

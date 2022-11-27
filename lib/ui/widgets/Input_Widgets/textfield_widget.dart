@@ -9,6 +9,7 @@ class DefaultTextWidget extends StatefulWidget {
   final int maxLines;
   final String initialText;
   final double fontSize;
+  final TextEditingController controller;
 
   DefaultTextWidget({
     super.key,
@@ -20,6 +21,7 @@ class DefaultTextWidget extends StatefulWidget {
     this.maxLines = 1,
     this.initialText = "",
     this.fontSize = 18,
+    required this.controller,
   });
 
   @override
@@ -27,12 +29,9 @@ class DefaultTextWidget extends StatefulWidget {
 }
 
 class _DefaultTextWidgetState extends State<DefaultTextWidget> {
-  final TextEditingController _controller = TextEditingController();
-
   @override
   void initState() {
     super.initState();
-    _controller.text = widget.initialText;
   }
 
   @override
@@ -47,9 +46,11 @@ class _DefaultTextWidgetState extends State<DefaultTextWidget> {
               widget.label,
             )),
         TextFormField(
-          controller: _controller,
+          controller: widget.controller,
           onTap: () {
-            _controller.text == widget.initialText ? _controller.clear() : null;
+            widget.controller.text == widget.initialText
+                ? widget.controller.clear()
+                : null;
           },
           obscureText: widget.showPassword,
           keyboardType: widget.textInputType,

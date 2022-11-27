@@ -9,8 +9,15 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class ProductGridCard extends StatefulWidget {
   final Product product;
+  final double? height;
+  final double? width;
 
-  const ProductGridCard({super.key, required this.product});
+  const ProductGridCard({
+    super.key,
+    required this.product,
+    this.height,
+    this.width,
+  });
 
   @override
   State<ProductGridCard> createState() => _ProductGridCardState();
@@ -39,32 +46,38 @@ class _ProductGridCardState extends State<ProductGridCard> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  ImageWidget(imageUrl: widget.product.imgUrl),
-                  Container(
-                    margin: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.white),
-                    child: IconButton(
-                      icon: markedFavorite
-                          ? const Icon(Icons.favorite, color: Colors.red)
-                          : const Icon(Icons.favorite_outline_sharp,
-                              color: Colors.red),
-                      iconSize: 30,
-                      onPressed: () {
-                        setState(() {
-                          //TODO: ALMACENAR FAVORITO USANDO EL CONTROLADOR
-                          markedFavorite
-                              ? markedFavorite = false
-                              : markedFavorite = true;
-                        });
-                      },
-                    ),
-                  )
-                ],
+              Container(
+                height: widget.height,
+                width: widget.width,
+                child: Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    Container(
+                        alignment: Alignment.center,
+                        child: ImageWidget(imageUrl: widget.product.imgUrl)),
+                    Container(
+                      margin: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.white),
+                      child: IconButton(
+                        icon: markedFavorite
+                            ? const Icon(Icons.favorite, color: Colors.red)
+                            : const Icon(Icons.favorite_outline_sharp,
+                                color: Colors.red),
+                        iconSize: 30,
+                        onPressed: () {
+                          setState(() {
+                            //TODO: ALMACENAR FAVORITO USANDO EL CONTROLADOR
+                            markedFavorite
+                                ? markedFavorite = false
+                                : markedFavorite = true;
+                          });
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 15,
@@ -84,12 +97,11 @@ class _ProductGridCardState extends State<ProductGridCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          color: Colors.amber,
                           padding: EdgeInsets.only(
                             left: constraints.minWidth,
                           ),
                           child: Text(
-                            "\$ ${widget.product.price!.toStringAsFixed(2)}",
+                            "\$ ${widget.product.price.toStringAsFixed(2)}",
                             style: const TextStyle(fontSize: 20),
                           ),
                         ),

@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:loggy/loggy.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oferi/ui/pages/main/cart/cart_page.dart';
-import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/pages/main/home/home_page.dart';
 import 'package:oferi/ui/pages/main/menu/menu_page.dart';
 import 'package:oferi/ui/pages/main/user/profile_page.dart';
@@ -61,11 +58,11 @@ class _NavBarState extends State<NavBar> {
   Future<dynamic> showMenuSheet(double height, BuildContext context) {
     return showMaterialModalBottomSheet(
       backgroundColor: Colors.transparent,
-      elevation: 1,
+      elevation: 0.1,
       useRootNavigator: false,
       context: context,
       builder: (context) =>
-          SizedBox(height: height * 0.32, child: const MenuPage()),
+          SizedBox(height: height * 0.35, child: const MenuPage()),
     );
   }
 
@@ -76,8 +73,7 @@ class _NavBarState extends State<NavBar> {
       useRootNavigator: false,
       context: context,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-      builder: (context) =>
-          SizedBox(height: height * 0.78, child: const CartPage()),
+      builder: (context) => SizedBox(height: height * 0.78, child: CartPage()),
     );
   }
 
