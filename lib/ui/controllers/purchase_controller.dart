@@ -42,7 +42,7 @@ class ProductController extends GetxController {
 
   Future<Purchase> getPurchaseById(String documentId) async {
     DocumentSnapshot purchase = await FirebaseFirestore.instance
-        .collection('products')
+        .collection('purchase')
         .doc(documentId)
         .get();
     return Purchase.fromJson(purchase.data() as Map<String, dynamic>);
