@@ -25,8 +25,15 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
   late List<Purchase> lastMonthPurchases;
   late List<Purchase> lastSixMonthPurchases;
   late List<Purchase> yesterdayPurchases;
-
+  late String currentDate;
   PurchaseController purchaseController = Get.find();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    currentDate = "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +54,7 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
                     if (snapshot.hasData) {
                       List<Purchase> purchases = snapshot.data!;
                       EasyLoading.dismiss();
-                      return purchaseHistory(purchases, "Comprado Hoy:");
+                      return purchaseHistory(purchases);
                     }
                     return Container();
                   default:
@@ -61,41 +68,39 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
     );
   }
 
-  Widget purchaseHistory(List<Purchase> purchases, String title) {
+  Widget purchaseHistory(List<Purchase> purchases) {
     return purchases.isEmpty
         ? Container()
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 20),
-                child: Text(
-                  title,
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                      color: Colors.red,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(15),
-                child: SizedBox(
-                  child: CustomScrollView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    slivers: [
-                      SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) => purchaseTile(purchases[index]),
-                          childCount: purchases.length,
-                        ),
-                      ),
-                    ],
+        : SizedBox(
+            child: CustomScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              slivers: [
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    childCount: purchases.length,
+                    (context, index) {
+                      var date = DateFormat('dd-MM-yyyy')
+                          .format(purchases[index].purchaseDate);
+
+                      return Column(children: [
+                        dateChanged(date)
+                            ? Text(
+                                "Comprado el $date",
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w700),
+                              )
+                            : Container(),
+                        purchaseTile(purchases[index])
+                      ]);
+                    },
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
   }
 
@@ -211,5 +216,18 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
             )
           ],
         ));
+  }
+
+  bool dateChanged(String newDate) {
+    if (currentDate.isEmpty) {
+      currentDate = newDate;
+      return true;
+    }
+    if (currentDate != newDate) {
+      currentDate = newDate;
+      return true;
+    }
+
+    return false;
   }
 }
