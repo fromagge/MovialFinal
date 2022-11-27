@@ -69,4 +69,12 @@ class CartController extends GetxController {
       // Error ? Producto no existe en la base de datos
     }
   }
+
+  Future<void> removeElementFromCart(String productId) async {
+    final cartsRef = FirebaseFirestore.instance.collection('carts');
+
+    Cart cart = await getCurrentUserCart();
+    cart.eraseElementFromCart(productId);
+    await cartsRef.doc(uid).update({'items': cart.items});
+  }
 }

@@ -28,4 +28,53 @@ class ProductController extends GetxController {
       await prodsRef.add(product.toJson());
     }
   }
+
+  Future<List<Product>> getProductsByCategory(String category) async {
+    QuerySnapshot products =
+        await prodsRef.where('category', isEqualTo: category).get();
+
+    List<Product> data = [];
+
+    for (var product in products.docs) {
+      Map<String, dynamic> json = product.data() as Map<String, dynamic>;
+      json['id'] = product.id;
+      data.add(Product.fromJson(json));
+    }
+
+    return data;
+  }
+
+  Future<List<Product>> searchProducts(String search) async {
+    List<Product> data = [];
+
+    QuerySnapshot products = await prodsRef
+        .orderBy('name', descending: true)
+        .startAt([search]).endAt([search + '\uf8ff']).get();
+
+    for (var product in products.docs) {
+      Map<String, dynamic> json = product.data() as Map<String, dynamic>;
+      json['id'] = product.id;
+      data.add(Product.fromJson(json));
+    }
+
+    return data;
+  }
+
+  Future<List<Product>> searchProductsWithCategory(
+      String category, String search) async {
+    List<Product> data = [];
+
+    QuerySnapshot products = await prodsRef
+        .where('category', isEqualTo: category)
+        .orderBy('name', descending: true)
+        .startAt([search]).endAt([search + '\uf8ff']).get();
+
+    for (var product in products.docs) {
+      Map<String, dynamic> json = product.data() as Map<String, dynamic>;
+      json['id'] = product.id;
+      data.add(Product.fromJson(json));
+    }
+
+    return data;
+  }
 }
