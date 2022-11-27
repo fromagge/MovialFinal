@@ -76,11 +76,9 @@ class CartPage extends StatelessWidget {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             EasyLoading.show();
-            logInfo(snapshot.data);
             return Container();
 
           case ConnectionState.done:
-            logInfo(snapshot.data);
             EasyLoading.dismiss();
             if (snapshot.hasData) {
               var cart = snapshot.data!;

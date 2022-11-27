@@ -19,13 +19,14 @@ class Purchase {
 
   factory Purchase.fromJson(Map<String, dynamic> json) {
     return Purchase(
-        id: json['id'],
-        purchaseDate: json['purchaseDate'],
-        paymentMethod: json['paymentMethod'],
-        address: json['address'],
-        deliveredDate: json['deliveredDate'],
-        userId: json['userId'],
-        purchasedItems: json['purchasedItems']);
+      id: json['id'],
+      purchaseDate: json['purchaseDate'].toDate(),
+      paymentMethod: json['paymentMethod'],
+      address: json['address'],
+      deliveredDate: json['deliveredDate'].toDate(),
+      userId: json['userId'],
+      purchasedItems: List<String>.from(json['purchasedItems']),
+    );
   }
   toJson() {
     return {
@@ -34,7 +35,7 @@ class Purchase {
       'address': address,
       'deliveredDate': deliveredDate,
       'userId': userId,
-      'purchasedItems': purchasedItems
+      'purchasedItems': purchasedItems,
     };
   }
 }

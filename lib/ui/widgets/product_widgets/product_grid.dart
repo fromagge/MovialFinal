@@ -32,7 +32,25 @@ class _ProductGrid extends State<ProductGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return horizList(productController.products);
+    return FutureBuilder(
+      future: productController.getProducts(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            EasyLoading.show();
+            return Container();
+          case ConnectionState.done:
+            EasyLoading.dismiss();
+            if (snapshot.hasData) {
+              var products = snapshot.data!;
+              return horizList(products);
+            }
+            return Container();
+          default:
+            return Container();
+        }
+      },
+    );
   }
 
   Widget horizList(List<Product> products) {

@@ -17,16 +17,6 @@ class Result extends StatelessWidget {
   Result({Key? key, required this.search}) : super(key: key);
   final String search;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  Product product = Product(
-    id: "123",
-    name: "Chaleco de Cuero Sueco Amarillo",
-    category: "XD",
-    imgUrl:
-        "https://img.freepik.com/free-photo/bff-printed-red-hoodie_53876-105408.jpg?w=2000",
-    latitude: 5,
-    longitude: 10,
-    seller: "Julio",
-  );
 
   @override
   Widget build(BuildContext context) {
