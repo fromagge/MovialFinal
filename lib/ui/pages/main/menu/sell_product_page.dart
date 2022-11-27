@@ -1,6 +1,9 @@
 // ignore_for_file: unused_import, use_key_in_widget_constructors, unused_local_variable, prefer_const_literals_to_create_immutables, prefer_const_constructors, deprecated_member_use, sized_box_for_whitespace, avoid_print
 
 import 'dart:io';
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,20 +19,22 @@ class SellProduct extends StatefulWidget {
 }
 
 class _SellProduct extends State<SellProduct> {
-  XFile? image;
+  List<XFile?>? images;
   var position;
 
   final ImagePicker picker = ImagePicker();
 
   late List<TextEditingController> controllers;
   late List<FocusNode> focusNodes;
-
+  CarouselController controller = CarouselController();
+  double _currentIndex = 0;
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
     controllers = List.generate(4, (_) => TextEditingController());
+    images = [];
   }
 
   //we can upload image from camera or from gallery based on parameter
@@ -37,7 +42,7 @@ class _SellProduct extends State<SellProduct> {
     var img = await picker.pickImage(source: media);
 
     setState(() {
-      image = img;
+      img != null ? images!.add(img) : null;
     });
   }
 
@@ -70,7 +75,13 @@ class _SellProduct extends State<SellProduct> {
                       width: 200,
                       child: ElevatedButton(
                         onPressed: () {
-                          myAlert();
+                          if (images!.length < 6) {
+                            myAlert();
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text(
+                                    "Maximo número de imagenes alcanzado")));
+                          }
                         },
                         child: Text('Subir foto'),
                       ),
@@ -80,23 +91,11 @@ class _SellProduct extends State<SellProduct> {
                     ),
                     //if image not null show the image
                     //if image null show text
-                    image != null
-                        ? Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
-                              child: Image.file(
-                                //to show image, you type like this.
-                                File(image!.path),
-                                fit: BoxFit.cover,
-                                width: MediaQuery.of(context).size.width,
-                                height: 300,
-                              ),
-                            ),
-                          )
+                    images!.isNotEmpty
+                        ? showCarrousel()
                         : Center(
                             child: Text(
-                              "No Image",
+                              "No Images",
                               style: TextStyle(fontSize: 20),
                             ),
                           ),
@@ -175,7 +174,7 @@ class _SellProduct extends State<SellProduct> {
                               final form = _key.currentState;
                               form!.save();
                               if (form.validate()) {
-                                if (image == null || position == null) {
+                                if (images!.isEmpty || position == null) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                           content: Text(
@@ -248,5 +247,85 @@ class _SellProduct extends State<SellProduct> {
             ),
           );
         });
+  }
+
+  Widget showCarrousel() {
+    logInfo("Imagenes son $images");
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(30),
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: images!.length != 1
+                  ? CarouselSlider(
+                      carouselController: controller,
+                      items: images!.map((image) {
+                        return showImage(image);
+                      }).toList(),
+                      options: CarouselOptions(
+                          padEnds: false,
+                          pageSnapping: false,
+                          scrollPhysics: const BouncingScrollPhysics(),
+                          autoPlay: false,
+                          enableInfiniteScroll: false,
+                          aspectRatio: 1.2,
+                          initialPage: _currentIndex.toInt(),
+                          enlargeCenterPage: true,
+                          disableCenter: true,
+                          onPageChanged: (val, _) {
+                            setState(() {
+                              _currentIndex = val.toDouble();
+                            });
+                          }),
+                    )
+                  : Container(
+                      alignment: Alignment.center,
+                      height: 300,
+                      width: 300,
+                      child: showImage(images![0]),
+                    ),
+            ),
+            DotsIndicator(
+                decorator:
+                    DotsDecorator(activeColor: Colors.black.withOpacity(0.6)),
+                dotsCount: images!.length,
+                position: _currentIndex > 0 ? _currentIndex : 0.0)
+          ],
+        ));
+  }
+
+  Widget showImage(XFile? image) {
+    return Stack(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(30),
+          child: Container(
+            height: 600,
+            child: Image.file(
+              //to show image, you type like this.
+              File(image!.path),
+              fit: BoxFit.cover,
+              width: MediaQuery.of(context).size.width,
+            ),
+          ),
+        ),
+        Container(
+          alignment: Alignment.topRight,
+          child: IconButton(
+            onPressed: () {
+              setState(() {
+                images!.remove(image);
+                _currentIndex = _currentIndex - 1;
+                images ??= [];
+              });
+            },
+            icon: Icon(Icons.delete_sharp),
+            iconSize: 40,
+            color: Color(0xFF42006E).withOpacity(0.8),
+          ),
+        )
+      ],
+    );
   }
 }
