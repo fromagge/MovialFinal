@@ -28,41 +28,6 @@ class UserController extends GetxController {
 
   get allUsers => _users;
 
-  // método para comenzar a escuchar cambios en la "tabla" userList de la base de
-  // datos
-  void start() {
-    _users.clear();
-
-    newEntryStreamSubscription =
-        databaseRef.child("userList").onChildAdded.listen(_onEntryAdded);
-
-    updateEntryStreamSubscription =
-        databaseRef.child("userList").onChildChanged.listen(_onEntryChanged);
-  }
-
-  // método para dejar de escuchar cambios
-  void stop() {
-    newEntryStreamSubscription.cancel();
-    updateEntryStreamSubscription.cancel();
-  }
-
-  // cuando obtenemos un evento con un nuevo usuario lo agregamos a _users
-  _onEntryAdded(DatabaseEvent event) {
-    final json = event.snapshot.value as Map<dynamic, dynamic>;
-    _users.add(User.fromJson(event.snapshot, json));
-  }
-
-  // cuando obtenemos un evento con un usuario modificado lo reemplazamos en _users
-  // usando el key como llave
-  _onEntryChanged(DatabaseEvent event) {
-    var oldEntry = _users.singleWhere((entry) {
-      return entry.key == event.snapshot.key;
-    });
-
-    final json = event.snapshot.value as Map<dynamic, dynamic>;
-    _users[_users.indexOf(oldEntry)] = User.fromJson(event.snapshot, json);
-  }
-
   // método para crear un nuevo usuario
   Future<void> createUser(names, surnames, phone, country, email, uid) async {
     logInfo(

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 import 'package:oferi/domain/entities/purchase.dart';
 import 'package:oferi/domain/entities/product.dart';
+import 'package:oferi/ui/controllers/product_controller.dart';
+import 'package:oferi/ui/controllers/purchase_controller.dart';
 import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/widgets/image_widgets/image_widget.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
@@ -15,22 +20,13 @@ class ProductHistoryPage extends StatefulWidget {
 }
 
 class _ProductHistoryPageState extends State<ProductHistoryPage> {
-  late List<Purchase> todayPurchases;
+  late List<Purchase> purchases;
   late List<Purchase> lastWeekPurchases;
   late List<Purchase> lastMonthPurchases;
   late List<Purchase> lastSixMonthPurchases;
   late List<Purchase> yesterdayPurchases;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    todayPurchases = [];
-    yesterdayPurchases = [];
-    lastWeekPurchases = [];
-    lastMonthPurchases = [];
-    lastSixMonthPurchases = [];
-  }
+  PurchaseController purchaseController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +35,26 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
         body: ListView(
           children: [
             const TitleWidget(title: "Historial de compras"),
-            purchaseHistory(todayPurchases, "Comprado Hoy:"),
-            purchaseHistory(yesterdayPurchases, "Ayer"),
-            purchaseHistory(lastWeekPurchases, "Última semana"),
-            purchaseHistory(lastMonthPurchases, "Último mes"),
-            purchaseHistory(lastSixMonthPurchases, "Últimos seis meses"),
+            FutureBuilder(
+              future: purchaseController.getPurchaseList(),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    EasyLoading.show();
+                    return Container();
+                  case ConnectionState.done:
+                    EasyLoading.dismiss();
+                    if (snapshot.hasData) {
+                      List<Purchase> purchases = snapshot.data!;
+                      EasyLoading.dismiss();
+                      return purchaseHistory(purchases, "Comprado Hoy:");
+                    }
+                    return Container();
+                  default:
+                    return Container();
+                }
+              },
+            )
           ],
         ),
       ),
@@ -89,6 +100,47 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
   }
 
   Widget purchaseTile(Purchase purchase) {
+    return FutureBuilder(
+      future: purchaseController.getProductsInPurchase(purchase.id!),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            EasyLoading.show();
+            return Container();
+
+          case ConnectionState.done:
+            if (snapshot.hasData) {
+              List<Product> products = snapshot.data!;
+              EasyLoading.dismiss();
+
+              return products.isEmpty
+                  ? Container()
+                  : SizedBox(
+                      child: CustomScrollView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        slivers: [
+                          SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) =>
+                                  productTile(purchase, products[index]),
+                              childCount: products.length,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+            }
+
+            return Container();
+          default:
+            return Container();
+        }
+      },
+    );
+  }
+
+  Widget productTile(Purchase purchase, Product product) {
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
@@ -101,7 +153,7 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
                     borderRadius: const BorderRadius.all(Radius.circular(20))),
                 width: 140,
                 height: 140,
-                child: ImageWidget(imageUrl: purchase.imgUrl)),
+                child: ImageWidget(imageUrl: product.imgUrl)),
             Container(
               margin: const EdgeInsets.only(left: 10, bottom: 10),
               child: SizedBox(
@@ -110,7 +162,7 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      purchase.name,
+                      product.name,
                       style: TextStyle(
                         color: const Color(0xFF42006E).withOpacity(0.8),
                         fontSize: 21,
@@ -130,7 +182,7 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
                           const TextSpan(
                               text: 'Vendedor: ',
                               style: TextStyle(fontWeight: FontWeight.w600)),
-                          TextSpan(text: purchase.seller),
+                          TextSpan(text: product.seller),
                           const TextSpan(text: '\n'),
                           const TextSpan(
                               text: 'Fecha de compra: ',
@@ -142,12 +194,14 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
                           const TextSpan(
                               text: 'Método de pago: ',
                               style: TextStyle(fontWeight: FontWeight.w600)),
-                          TextSpan(text: " ${purchase.paymentMethod}"),
+                          TextSpan(
+                              text:
+                                  " ${purchase.paymentMethod.split(".").last.replaceAll("_", " ")}"),
                           const TextSpan(text: '\n'),
                           const TextSpan(
                               text: 'Pago: ',
                               style: TextStyle(fontWeight: FontWeight.w600)),
-                          TextSpan(text: "\$ ${purchase.price!.toInt()}"),
+                          TextSpan(text: "\$ ${product.price!.toInt()}"),
                         ],
                       ),
                     ),

@@ -8,7 +8,7 @@ import 'package:oferi/ui/controllers/authentication_controller.dart';
 import '../../domain/entities/cart.dart';
 
 // Controlador usado para manejar los usuarios del chat
-class CartController extends GetxController {
+class FavoriteController extends GetxController {
   final favoritesRef = FirebaseFirestore.instance.collection('favorites');
   final uid = AuthenticationController().getUid();
 

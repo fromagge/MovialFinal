@@ -6,8 +6,10 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/ui/controllers/cart_controller.dart';
+import 'package:oferi/ui/controllers/purchase_controller.dart';
 import 'package:oferi/ui/pages/main/bottom_navbar.dart';
 import 'package:oferi/ui/pages/main/cart/package_delivery_tracking.dart';
+import 'package:oferi/ui/utils/validator.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/input_widgets/textfield_widget.dart';
 import 'package:oferi/ui/widgets/menu_widgets/title_widget.dart';
@@ -24,12 +26,16 @@ class _CheckoutPage extends State<CheckoutPage> {
   _CheckoutPage();
 
   CartController cartController = Get.find();
+  PurchaseController purchaseController = Get.find();
+
+  late TextEditingController addressController;
   late int current;
 
   @override
   void initState() {
     super.initState();
     current = -1;
+    addressController = TextEditingController();
   }
 
   @override
@@ -61,7 +67,10 @@ class _CheckoutPage extends State<CheckoutPage> {
                                 width: 320,
                                 height: 40,
                                 child: TextFormField(
+                                  controller: addressController,
                                   style: const TextStyle(fontSize: 20),
+                                  validator: (value) =>
+                                      Validator.validateText(value ?? ""),
                                   decoration: InputDecoration(
                                     contentPadding: const EdgeInsets.only(
                                       top: 15,
@@ -156,12 +165,35 @@ class _CheckoutPage extends State<CheckoutPage> {
                           Expanded(
                             child: DefaultButtonWidget(
                                 label: "Pagar",
-                                onPressed: () {
+                                onPressed: () async {
                                   {
-                                    showOkCancelAlertDialog(
-                                        context: context,
-                                        builder: ((context, child) =>
-                                            confirmationValue(context)));
+                                    String address = addressController.text;
+                                    if (address.isNotEmpty && current != -1) {
+                                      showOkCancelAlertDialog(
+                                          context: context,
+                                          builder: ((context, child) =>
+                                              confirmationValue(context)));
+
+                                      var products = await cartController
+                                          .getProductsInCart();
+
+                                      await purchaseController.makePurchase(
+                                          products,
+                                          PaymentMethods.TARJETA_DE_CREDITO,
+                                          address);
+                                    } else {
+                                      if (current == -1) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    "Select a payment method.")));
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    "Current address is empty.")));
+                                      }
+                                    }
                                   }
                                 },
                                 buttonColor: const Color(0xFFFF545F)),

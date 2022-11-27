@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/domain/entities/purchase.dart';
 import 'authentication_controller.dart';
@@ -8,14 +9,19 @@ import 'authentication_controller.dart';
 enum PaymentMethods { TARJETA_DE_CREDITO }
 
 // Controlador usado para manejar los usuarios del chat
-class ProductController extends GetxController {
+class PurchaseController extends GetxController {
   final purchaseRef = FirebaseFirestore.instance.collection('purchase');
   final uid = AuthenticationController().getUid();
+  var _purchases = <Purchase>[].obs;
 
-  Future<void> makePurchase(
-      List<Product> products, PaymentMethods paymentMethod) async {
+  get purchases => _purchases;
+
+  Future<void> makePurchase(List<Product> products,
+      PaymentMethods paymentMethod, String address) async {
+    logInfo(
+        "PurchaseController --> Haciendo Purchase con Productos: $products y metodo de pago: $paymentMethod");
     Purchase newPurchase = Purchase(
-        address: 'La direccion',
+        address: address,
         purchaseDate: DateTime.now(),
         paymentMethod: paymentMethod.toString(),
         userId: uid,
@@ -34,9 +40,10 @@ class ProductController extends GetxController {
     for (var purchase in purchases.docs) {
       Map<String, dynamic> json = purchase.data() as Map<String, dynamic>;
       json['id'] = purchase.id;
+
       data.add(Purchase.fromJson(json));
     }
-
+    logInfo("PurchaseController --> Purchase List $data");
     return data;
   }
 
@@ -45,6 +52,7 @@ class ProductController extends GetxController {
         .collection('purchase')
         .doc(documentId)
         .get();
+
     return Purchase.fromJson(purchase.data() as Map<String, dynamic>);
   }
 
@@ -63,6 +71,7 @@ class ProductController extends GetxController {
       json["id"] = product.id;
       data.add(Product.fromJson(json));
     }
+
     return data;
   }
 }
