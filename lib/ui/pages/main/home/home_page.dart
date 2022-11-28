@@ -32,6 +32,7 @@ class HomePage extends StatelessWidget {
             children: [
               LocationSelectWidget(),
               SearchBar(
+                clear: true,
                 onSubmitted: (searchText) {
                   logInfo("Buscando: $searchText");
                   PersistentNavBarNavigator.pushNewScreen(

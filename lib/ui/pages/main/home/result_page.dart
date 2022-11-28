@@ -49,6 +49,7 @@ class Result extends StatelessWidget {
                         },
                       ),
                       title: SearchBar(
+                        searchText: search,
                         placeholder: search,
                         onSubmitted: (searchText) {
                           logInfo("Buscando de nuevo: $searchText");

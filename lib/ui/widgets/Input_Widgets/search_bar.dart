@@ -2,10 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
+  String searchText;
   final void Function(String)? onSubmitted;
-  final String? placeholder;
+  String? placeholder;
+  final bool clear;
 
-  const SearchBar({super.key, this.onSubmitted, this.placeholder});
+  SearchBar(
+      {super.key,
+      this.searchText = "",
+      this.onSubmitted,
+      this.placeholder,
+      this.clear = false});
 
   @override
   State<SearchBar> createState() => _SearchBar();
@@ -17,7 +24,7 @@ class _SearchBar extends State<SearchBar> {
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController(text: "");
+    textController = TextEditingController(text: widget.searchText);
   }
 
   @override
@@ -43,12 +50,21 @@ class _SearchBar extends State<SearchBar> {
       style: const TextStyle(
         fontSize: 20,
       ),
-      placeholderStyle: TextStyle(color: Colors.black),
       placeholder: widget.placeholder,
+      onSuffixTap: (() {
+        setState(() {
+          widget.placeholder = "";
+        });
+        textController.clear();
+      }),
       onSubmitted: ((searchText) {
         if (widget.onSubmitted != null) {
-          widget.onSubmitted!(searchText);
+          searchText.isNotEmpty ? widget.onSubmitted!(searchText) : null;
         }
+        widget.clear ? textController.clear() : null;
+        setState(() {
+          widget.placeholder = searchText;
+        });
       }),
     );
   }
