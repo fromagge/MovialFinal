@@ -54,12 +54,7 @@ class Oferi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ProductController());
-    Get.put(UserController());
     Get.put(AuthenticationController());
-    Get.put(CartController());
-    Get.put(PurchaseController());
-    Get.put(FavoriteController());
 
     WidgetsFlutterBinding.ensureInitialized();
     Loggy.initLoggy(
