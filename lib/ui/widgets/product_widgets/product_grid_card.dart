@@ -54,7 +54,7 @@ class _ProductGridCardState extends State<ProductGridCard> {
                   children: [
                     Container(
                         alignment: Alignment.center,
-                        child: ImageWidget(imageUrl: widget.product.imgUrl)),
+                        child: ImageWidget(imageUrl: widget.product.imgs[0])),
                     Container(
                       margin: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
@@ -96,12 +96,10 @@ class _ProductGridCardState extends State<ProductGridCard> {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          padding: EdgeInsets.only(
-                            left: constraints.minWidth,
-                          ),
+                        SizedBox(
+                          width: 110,
                           child: Text(
-                            "\$ ${widget.product.price.toStringAsFixed(2)}",
+                            "\$${widget.product.price}",
                             style: const TextStyle(fontSize: 20),
                           ),
                         ),

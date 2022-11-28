@@ -406,7 +406,8 @@ Widget generateProductList(BuildContext context) {
                       height: 65,
                       child: FittedBox(
                         fit: BoxFit.contain,
-                        child: CachedNetworkImage(imageUrl: cart[index].imgUrl),
+                        child:
+                            CachedNetworkImage(imageUrl: cart[index].imgs[0]),
                       ),
                     )
                   ],

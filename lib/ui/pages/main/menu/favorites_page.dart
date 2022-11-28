@@ -18,23 +18,11 @@ class FavoritesPage extends StatefulWidget {
 class _FavoritesPageState extends State<FavoritesPage> {
   late List<Product> favorites;
 
-  final one = Product(
-    id: "probando",
-    category: "categoria",
-    description: 'Lorem ipsum',
-    imgUrl:
-        "https://cdn.shopify.com/s/files/1/0070/7032/files/image5_4578a9e6-2eff-4a5a-8d8c-9292252ec848.jpg?v=1620247043",
-    latitude: 50.toDouble(),
-    longitude: 20.toDouble(),
-    name: "Nombre del producto muy muy muy muy mu ylargo",
-    seller: "Vendedor con un nombre pero muy muy muy largo",
-    price: 20000.toDouble(),
-  );
   @override
   void initState() {
     // TODO: implement initState
 
-    favorites = [one, one, one];
+    favorites = [];
   }
 
   @override
@@ -113,7 +101,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     borderRadius: const BorderRadius.all(Radius.circular(20))),
                 width: 140,
                 height: 140,
-                child: ImageWidget(imageUrl: favorite.imgUrl)),
+                child: ImageWidget(imageUrl: favorite.imgs[0])),
             Container(
               margin: const EdgeInsets.only(left: 10, bottom: 10),
               child: SizedBox(

@@ -15,39 +15,42 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: SafeArea(
-        child: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                automaticallyImplyLeading: false,
-                toolbarHeight: height / 24,
-                backgroundColor: Color(0xFF42006E),
-              ),
-            ];
-          },
-          body: Center(
-              child: ListView(
-            children: [
-              LocationSelectWidget(),
-              SearchBar(
-                clear: true,
-                onSubmitted: (searchText) {
-                  logInfo("Buscando: $searchText");
-                  PersistentNavBarNavigator.pushNewScreen(
-                    context,
-                    screen: Result(
-                      search: searchText,
-                    ),
-                    pageTransitionAnimation: PageTransitionAnimation.fade,
-                  );
-                },
-              ),
-              ImageButtonGrid(),
-              const Carousel(aspectRatio: 2),
-            ],
-          )),
+    return GestureDetector(
+      onTap: (() => FocusScope.of(context).requestFocus(FocusNode())),
+      child: Scaffold(
+        body: SafeArea(
+          child: NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                SliverAppBar(
+                  automaticallyImplyLeading: false,
+                  toolbarHeight: height / 24,
+                  backgroundColor: Color(0xFF42006E),
+                ),
+              ];
+            },
+            body: Center(
+                child: ListView(
+              children: [
+                LocationSelectWidget(),
+                SearchBar(
+                  clear: true,
+                  onSubmitted: (searchText) {
+                    logInfo("Buscando: $searchText");
+                    PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      screen: Result(
+                        search: searchText,
+                      ),
+                      pageTransitionAnimation: PageTransitionAnimation.fade,
+                    );
+                  },
+                ),
+                ImageButtonGrid(),
+                const Carousel(aspectRatio: 2),
+              ],
+            )),
+          ),
         ),
       ),
     );

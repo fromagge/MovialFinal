@@ -23,7 +23,7 @@ class ProductListTile extends StatelessWidget {
             children: [
               SizedBox(
                   width: width / 2 - 40,
-                  child: ImageWidget(imageUrl: product.imgUrl)),
+                  child: ImageWidget(imageUrl: product.imgs[0])),
               const SizedBox(
                 width: 10,
               ),

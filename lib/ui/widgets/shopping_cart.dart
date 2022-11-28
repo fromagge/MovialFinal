@@ -19,7 +19,7 @@ class ItemCart extends StatelessWidget {
               child: SizedBox(
                 height: 75,
                 width: 75,
-                child: thumbnail(product.imgUrl),
+                child: thumbnail(product.imgs[0]),
               )),
           Parent(
             style: ParentStyle()

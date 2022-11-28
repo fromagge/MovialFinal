@@ -62,7 +62,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                   infiniteScroll: false,
                   pageSnapping: false,
                   aspectRatio: 1.2,
-                  images: [product.imgUrl],
+                  images: product.imgs,
                 ),
                 Parent(
                     style: ParentStyle()
@@ -80,7 +80,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                                 ..fontSize(26)
                                 ..fontWeight(FontWeight.normal)
                                 ..textAlign.left(true),
-                              "${product.name}"),
+                              product.name),
                           Container(
                             alignment: Alignment.centerRight,
                             child: RichText(
@@ -104,6 +104,22 @@ class _ItemPage extends State<ProductDetailedPage> {
                             ),
                           ),
                           Txt(
+                            "Vendedor del producto:",
+                            style: TxtStyle()
+                              ..fontSize(20)
+                              ..bold()
+                              ..textColor(const Color(0xFF42006E))
+                              ..alignment.centerLeft()
+                              ..margin(top: 20, bottom: 0)
+                              ..textAlign.justify(true),
+                          ),
+                          Txt(
+                              style: TxtStyle()
+                                ..fontSize(18)
+                                ..margin(top: 20, bottom: 20)
+                                ..textAlign.justify(true),
+                              product.seller),
+                          Txt(
                             "Descripcion del producto:",
                             style: TxtStyle()
                               ..fontSize(20)
@@ -118,7 +134,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                                 ..fontSize(18)
                                 ..margin(top: 20, bottom: 20)
                                 ..textAlign.justify(true),
-                              "agregar descripcion de producto en atributo"),
+                              product.description ?? "Sin Descripción"),
                           Txt(
                             "Ubicación:",
                             style: TxtStyle()
@@ -153,24 +169,12 @@ class _ItemPage extends State<ProductDetailedPage> {
                               ..margin(top: 20)
                               ..textAlign.justify(true),
                           ),
-                          DefaultTextWidget(
-                            controller: questionTextController,
-                            fontSize: 15,
-                            maxLines: 5,
-                            initialText: "Escribe tu pregunta...",
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(top: 15),
-                            child: DefaultButtonWidget(
-                                label: "Preguntar",
-                                onPressed: () {
-                                  //SEND QUESTION TO CONTROLLER
-                                },
-                                buttonColor: const Color(0xFF42006E)),
-                          ),
-                          Container(
-                            height: 120,
-                          )
+                          showQuestions(),
+                          product.seller != myUid
+                              ? Container(
+                                  height: 120,
+                                )
+                              : Container()
                         ],
                       ),
                     ))
@@ -178,7 +182,7 @@ class _ItemPage extends State<ProductDetailedPage> {
             ),
           ),
         ),
-        (product.seller != myUid)
+        product.seller != myUid
             ? Container(
                 color: Colors.white,
                 padding: const EdgeInsets.all(12),
@@ -193,6 +197,26 @@ class _ItemPage extends State<ProductDetailedPage> {
             : Container()
       ],
     );
+  }
+
+  Widget showQuestions() {
+    return Column(children: [
+      DefaultTextWidget(
+        controller: questionTextController,
+        fontSize: 15,
+        maxLines: 5,
+        initialText: "Escribe tu pregunta...",
+      ),
+      Container(
+        padding: const EdgeInsets.only(top: 15),
+        child: DefaultButtonWidget(
+            label: "Preguntar",
+            onPressed: () {
+              //SEND QUESTION TO CONTROLLER
+            },
+            buttonColor: const Color(0xFF42006E)),
+      ),
+    ]);
   }
 }
 

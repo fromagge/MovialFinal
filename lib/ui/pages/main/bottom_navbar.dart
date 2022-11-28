@@ -10,6 +10,7 @@ import 'package:oferi/ui/controllers/user_controller.dart';
 import 'package:oferi/ui/pages/main/cart/cart_page.dart';
 import 'package:oferi/ui/pages/main/home/home_page.dart';
 import 'package:oferi/ui/pages/main/menu/menu_page.dart';
+import 'package:oferi/ui/pages/main/menu/sell_product_page.dart';
 import 'package:oferi/ui/pages/main/user/profile_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -34,12 +35,6 @@ class _NavBarState extends State<NavBar> {
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
-    Get.put(ProductController());
-    Get.put(UserController());
-
-    Get.put(CartController());
-    Get.put(PurchaseController());
-    Get.put(FavoriteController());
     const double iconsize = 30;
     return [
       PersistentBottomNavBarItem(
@@ -91,6 +86,12 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ProductController());
+    Get.put(UserController());
+    Get.put(CartController());
+    Get.put(PurchaseController());
+    Get.put(FavoriteController());
+
     return WillPopScope(
       onWillPop: () async => false,
       child: PersistentTabView(

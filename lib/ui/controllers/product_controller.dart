@@ -1,3 +1,5 @@
+import 'package:loggy/loggy.dart';
+
 import 'authentication_controller.dart';
 import 'dart:async';
 import 'dart:io';
@@ -27,7 +29,9 @@ class ProductController extends GetxController {
   }
 
   Future<void> publishProduct(Product product, List<File>? images) async {
-    if (product.id == uid) {
+    logInfo("mi uid $uid");
+    logInfo("product.id");
+    if (product.seller == uid) {
       if (images != null) {
         List<String> urls = [];
 
@@ -40,6 +44,8 @@ class ProductController extends GetxController {
       }
 
       await prodsRef.add(product.toJson());
+    } else {
+      logInfo("ERROR - DEBE SER EL MISMO USUARIO PARA CREAR PRODUCTO");
     }
   }
 

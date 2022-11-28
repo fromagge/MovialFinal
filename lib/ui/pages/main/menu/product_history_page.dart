@@ -66,7 +66,14 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
 
   Widget purchaseHistory(List<Purchase> purchases) {
     return purchases.isEmpty
-        ? Container()
+        ? Container(
+            height: MediaQuery.of(context).size.height * 0.5,
+            alignment: Alignment.center,
+            margin: const EdgeInsets.only(bottom: 30),
+            child: const Text(
+              "No ha comprado ningun producto",
+              style: TextStyle(color: Colors.black45, fontSize: 20),
+            ))
         : SizedBox(
             child: CustomScrollView(
               physics: const NeverScrollableScrollPhysics(),
@@ -154,7 +161,7 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
                     borderRadius: const BorderRadius.all(Radius.circular(20))),
                 width: 140,
                 height: 140,
-                child: ImageWidget(imageUrl: product.imgUrl)),
+                child: ImageWidget(imageUrl: product.imgs[0])),
             Container(
               margin: const EdgeInsets.only(left: 10, bottom: 10),
               child: SizedBox(

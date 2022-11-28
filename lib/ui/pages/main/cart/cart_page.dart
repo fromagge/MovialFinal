@@ -76,7 +76,7 @@ class CartPage extends StatelessWidget {
             EasyLoading.dismiss();
             if (snapshot.hasData) {
               var cart = snapshot.data!;
-              if (cart.length == 0) {
+              if (cart.isEmpty) {
                 return const Center(
                   child: Text('No products'),
                 );

@@ -6,8 +6,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loggy/loggy.dart';
+import 'package:oferi/domain/entities/product.dart';
+import 'package:oferi/ui/controllers/authentication_controller.dart';
+import 'package:oferi/ui/controllers/product_controller.dart';
 import 'package:oferi/ui/utils/validator.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/textfield_widget.dart';
@@ -19,7 +23,7 @@ class SellProduct extends StatefulWidget {
 }
 
 class _SellProduct extends State<SellProduct> {
-  List<XFile?>? images;
+  late List<File> images;
   var position;
 
   final ImagePicker picker = ImagePicker();
@@ -30,6 +34,8 @@ class _SellProduct extends State<SellProduct> {
   double _currentIndex = 0;
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
+  ProductController productController = Get.find();
+
   @override
   void initState() {
     super.initState();
@@ -39,15 +45,15 @@ class _SellProduct extends State<SellProduct> {
 
   //we can upload image from camera or from gallery based on parameter
   Future getImage(ImageSource media) async {
-    var img = await picker.pickImage(source: media);
+    XFile? img = await picker.pickImage(source: media);
 
     setState(() {
-      img != null ? images!.add(img) : null;
+      img != null ? images.add(File(img.path)) : null;
     });
   }
 
   Future getPosition() async {
-    var request = await Geolocator.checkPermission();
+    var request = await Geolocator.requestPermission();
     var pos = await Geolocator.getCurrentPosition();
     setState(() {
       position = pos;
@@ -167,10 +173,11 @@ class _SellProduct extends State<SellProduct> {
                         DefaultButtonWidget(
                             label: "Publicar",
                             onPressed: () {
-                              var productName = controllers[0].text;
-                              var productCategory = controllers[1].text;
-                              var productPrice = controllers[2].text;
-                              var productDescription = controllers[3].text;
+                              String productName = controllers[0].text;
+                              String productCategory = controllers[1].text;
+                              double productPrice =
+                                  double.parse(controllers[2].text);
+                              String productDescription = controllers[3].text;
                               final form = _key.currentState;
                               form!.save();
                               if (form.validate()) {
@@ -180,6 +187,16 @@ class _SellProduct extends State<SellProduct> {
                                           content: Text(
                                               "Recuerde agregar la imagen y su ubicación")));
                                 } else {
+                                  Product product = Product(
+                                      name: productName,
+                                      category: productCategory,
+                                      imgs: [],
+                                      longitude: position.longitude,
+                                      description: productDescription,
+                                      price: productPrice,
+                                      latitude: position.latitude);
+                                  productController.publishProduct(
+                                      product, images);
                                   //productController.createProduct(image, productName,productCategory,productPrice,productDescription,position.latitude,position.longitude)
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
@@ -283,7 +300,7 @@ class _SellProduct extends State<SellProduct> {
                       alignment: Alignment.center,
                       height: 300,
                       width: 300,
-                      child: showImage(images![0]),
+                      child: showImage(images[0]),
                     ),
             ),
             DotsIndicator(
@@ -295,7 +312,7 @@ class _SellProduct extends State<SellProduct> {
         ));
   }
 
-  Widget showImage(XFile? image) {
+  Widget showImage(File image) {
     return Stack(
       children: [
         ClipRRect(
@@ -315,7 +332,7 @@ class _SellProduct extends State<SellProduct> {
           child: IconButton(
             onPressed: () {
               setState(() {
-                images!.remove(image);
+                images.remove(image);
                 _currentIndex = _currentIndex - 1;
                 images ??= [];
               });

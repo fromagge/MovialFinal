@@ -23,24 +23,12 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   AuthenticationController authController = Get.find();
 
-  final one = Product(
-    id: "mondacon",
-    description: 'lorem ipsum',
-    category: "categoria",
-    imgUrl:
-        "https://cdn.shopify.com/s/files/1/0070/7032/files/image5_4578a9e6-2eff-4a5a-8d8c-9292252ec848.jpg?v=1620247043",
-    latitude: 50.toDouble(),
-    longitude: 20.toDouble(),
-    name: "Nombre del producto",
-    seller: "Vendedor con un nombre pero muy muy muy largo",
-    price: 2000000000.toDouble(),
-  );
   late final List<Product> products;
 
   @override
   void initState() {
     // TODO: implement initState
-    products = [one, one, one, one, one, one, one, one];
+    products = [];
   }
 
   @override
@@ -149,18 +137,24 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget sellingList(List sellingProducts, BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.37,
-      width: MediaQuery.of(context).size.width,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          return SizedBox(
-              width: 190, child: productCard(sellingProducts[index]));
-        },
-      ),
-    );
+    return sellingProducts.isNotEmpty
+        ? SizedBox(
+            height: MediaQuery.of(context).size.height * 0.37,
+            width: MediaQuery.of(context).size.width,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                return SizedBox(
+                    width: 190, child: productCard(sellingProducts[index]));
+              },
+            ),
+          )
+        : Container(
+            height: MediaQuery.of(context).size.height * 0.37,
+            alignment: Alignment.center,
+            child: const Text("No tienes productos en venta actualmente"),
+          );
   }
 
   Widget productCard(Product product) {
@@ -189,7 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Container(
                         alignment: Alignment.center,
-                        child: ImageWidget(imageUrl: product.imgUrl)),
+                        child: ImageWidget(imageUrl: product.imgs[0])),
                   ],
                 ),
               ),
