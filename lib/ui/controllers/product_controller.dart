@@ -1,8 +1,11 @@
 import 'authentication_controller.dart';
 import 'dart:async';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:oferi/domain/entities/product.dart';
+
+import 'file_controller.dart';
 
 // Controlador usado para manejar los usuarios del chat
 class ProductController extends GetxController {
@@ -23,8 +26,19 @@ class ProductController extends GetxController {
     return data;
   }
 
-  Future<void> publishProduct(Product product) async {
+  Future<void> publishProduct(Product product, List<File>? images) async {
     if (product.id == uid) {
+      if (images != null) {
+        List<String> urls = [];
+
+        for (File f in images) {
+          String url = await uploadFileToServer(f);
+          urls.add(url);
+        }
+
+        product.imgs = urls;
+      }
+
       await prodsRef.add(product.toJson());
     }
   }
