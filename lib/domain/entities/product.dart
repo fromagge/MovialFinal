@@ -1,7 +1,7 @@
 class Product {
   String id;
   String name;
-  String imgUrl;
+  List<String> imgs;
   String category;
   String seller;
   String? description;
@@ -12,7 +12,7 @@ class Product {
   Product(
       {required this.id,
       required this.name,
-      required this.imgUrl,
+      required this.imgs,
       required this.description,
       required this.category,
       required this.seller,
@@ -25,8 +25,8 @@ class Product {
         id: json["id"],
         name: json["name"],
         description: json['description'] ?? '',
-        imgUrl: json['img'].replaceAll("'", '').toString().trim(),
-        price: getPrice(json['price']),
+        imgs: json['imgs'],
+        price: json['price'],
         category: json['category'],
         seller: json['seller'],
         latitude: json['latitude'],
@@ -36,7 +36,7 @@ class Product {
   toJson() {
     return {
       'name': name,
-      'imgUrl': imgUrl,
+      'imgs': imgs,
       'category': category,
       'description': description,
       'price': price.toString(),
@@ -44,26 +44,5 @@ class Product {
       'latitude': latitude,
       'longitude': longitude
     };
-  }
-
-  static double getPrice(price) {
-    if (price is String) {
-      if (price.split('.').length > 2) {
-        var value = double.tryParse(price);
-        if (value != null) {
-          return value;
-        }
-
-        return 0.0;
-      }
-
-      return double.parse(price);
-    }
-
-    if (price is double) {
-      return price;
-    }
-
-    return 0.0;
   }
 }
