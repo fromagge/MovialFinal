@@ -36,11 +36,9 @@ class CartController extends GetxController {
           .collection('products')
           .doc(item)
           .get();
-      logInfo("Tomando productos del carrito ${product.data()}");
-      var json = product.data() as Map<String, dynamic>;
-      //NO BORRAR
 
-      json["id"] = product.id;
+      var json = product.data() as Map<String, dynamic>;
+
       data.add(Product.fromJson(json));
     }
     return data;

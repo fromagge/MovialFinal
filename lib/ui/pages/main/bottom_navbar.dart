@@ -6,6 +6,7 @@ import 'package:oferi/ui/controllers/cart_controller.dart';
 import 'package:oferi/ui/controllers/favorite_controller.dart';
 import 'package:oferi/ui/controllers/product_controller.dart';
 import 'package:oferi/ui/controllers/purchase_controller.dart';
+import 'package:oferi/ui/controllers/search_controller.dart';
 import 'package:oferi/ui/controllers/user_controller.dart';
 import 'package:oferi/ui/pages/main/cart/cart_page.dart';
 import 'package:oferi/ui/pages/main/home/home_page.dart';
@@ -86,6 +87,7 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(SearchController());
     Get.put(ProductController());
     Get.put(CartController());
     Get.put(PurchaseController());

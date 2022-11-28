@@ -4,6 +4,7 @@ import 'package:get/route_manager.dart';
 import 'package:loggy/loggy.dart';
 import 'package:get/get.dart';
 import 'package:oferi/domain/entities/product.dart';
+import 'package:oferi/ui/controllers/authentication_controller.dart';
 import 'package:oferi/ui/controllers/cart_controller.dart';
 import 'package:oferi/ui/controllers/favorite_controller.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
@@ -14,12 +15,13 @@ class ProductGridCard extends StatefulWidget {
   final Product product;
   final double? height;
   final double? width;
-
-  const ProductGridCard({
+  bool markedFavorite = false;
+  ProductGridCard({
     super.key,
     required this.product,
     this.height,
     this.width,
+    this.markedFavorite = false,
   });
 
   @override
@@ -27,7 +29,6 @@ class ProductGridCard extends StatefulWidget {
 }
 
 class _ProductGridCardState extends State<ProductGridCard> {
-  bool markedFavorite = false;
   FavoriteController favoriteController = Get.find();
   CartController cartController = Get.find();
 
@@ -66,21 +67,21 @@ class _ProductGridCardState extends State<ProductGridCard> {
                           borderRadius: BorderRadius.circular(50),
                           color: Colors.white),
                       child: IconButton(
-                        icon: markedFavorite
+                        icon: widget.markedFavorite
                             ? const Icon(Icons.favorite, color: Colors.red)
                             : const Icon(Icons.favorite_outline_sharp,
                                 color: Colors.red),
                         iconSize: 30,
                         onPressed: () {
                           setState(() {
-                            markedFavorite == false
+                            widget.markedFavorite == false
                                 ? favoriteController
                                     .addProducToFavorite(widget.product.id)
                                 : favoriteController.removeElementFromFavorite(
                                     widget.product.id);
-                            markedFavorite
-                                ? markedFavorite = false
-                                : markedFavorite = true;
+                            widget.markedFavorite
+                                ? widget.markedFavorite = false
+                                : widget.markedFavorite = true;
                           });
                         },
                       ),
@@ -112,16 +113,21 @@ class _ProductGridCardState extends State<ProductGridCard> {
                             style: const TextStyle(fontSize: 20),
                           ),
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.add_circle,
-                              color: Color(0xFF42006E)),
-                          iconSize: 35,
-                          onPressed: () {
-                            //TODO: ALMACENAR PRODUCTO EN EL CARRITO A TRAVES DEL CONTROLADOR
-                            EasyLoading.showSuccess("Agregado al carrito");
-                            cartController.addProducToCart(widget.product.id);
-                          },
-                        )
+                        widget.product.seller ==
+                                AuthenticationController().getUid()
+                            ? Container()
+                            : IconButton(
+                                icon: const Icon(Icons.add_circle,
+                                    color: Color(0xFF42006E)),
+                                iconSize: 35,
+                                onPressed: () {
+                                  //TODO: ALMACENAR PRODUCTO EN EL CARRITO A TRAVES DEL CONTROLADOR
+                                  EasyLoading.showSuccess(
+                                      "Agregado al carrito");
+                                  cartController
+                                      .addProducToCart(widget.product.id);
+                                },
+                              )
                       ],
                     );
                   },

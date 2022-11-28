@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:oferi/ui/controllers/product_controller.dart';
+import 'package:oferi/ui/controllers/search_controller.dart';
 import 'package:oferi/ui/widgets/product_widgets/product_grid_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:oferi/domain/entities/product.dart';
@@ -14,7 +15,7 @@ class ProductGrid extends StatefulWidget {
 }
 
 class _ProductGrid extends State<ProductGrid> {
-  ProductController productController = Get.find();
+  SearchController searchItems = Get.find();
 
   @override
   void initState() {
@@ -24,7 +25,7 @@ class _ProductGrid extends State<ProductGrid> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: productController.getProducts(),
+      future: searchItems.getSearchedItems(),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -33,8 +34,9 @@ class _ProductGrid extends State<ProductGrid> {
           case ConnectionState.done:
             EasyLoading.dismiss();
             if (snapshot.hasData) {
-              var products = snapshot.data!;
-              return horizList(products);
+              var products = snapshot.data![0];
+              var favorites = snapshot.data![1];
+              return horizList(products, favorites);
             }
             return Container();
           default:
@@ -44,8 +46,8 @@ class _ProductGrid extends State<ProductGrid> {
     );
   }
 
-  Widget horizList(List<Product> products) {
-    final int columns = 2;
+  Widget horizList(List<Product> products, List<Product> favorites) {
+    const int columns = 2;
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -58,7 +60,13 @@ class _ProductGrid extends State<ProductGrid> {
         itemCount: products.length,
         mainAxisSpacing: 17,
         itemBuilder: (context, index) {
-          return ProductGridCard(product: products[index]);
+          Product? isFavorite = favorites
+              .firstWhereOrNull((element) => element.id == products[index].id);
+
+          return ProductGridCard(
+            product: products[index],
+            markedFavorite: isFavorite == null ? false : true,
+          );
         },
       ),
     );

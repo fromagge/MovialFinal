@@ -209,7 +209,7 @@ class _ProductHistoryPageState extends State<ProductHistoryPage> {
                           const TextSpan(
                               text: 'Pago: ',
                               style: TextStyle(fontWeight: FontWeight.w600)),
-                          TextSpan(text: "\$ ${product.price.toInt()}"),
+                          TextSpan(text: "\$ ${product.price}"),
                         ],
                       ),
                     ),

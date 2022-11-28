@@ -1,4 +1,5 @@
 import 'package:loggy/loggy.dart';
+import 'package:oferi/ui/controllers/cart_controller.dart';
 import 'package:oferi/ui/controllers/favorite_controller.dart';
 
 import 'authentication_controller.dart';
@@ -21,8 +22,9 @@ class ProductController extends GetxController {
 
     for (QueryDocumentSnapshot doc in list.docs) {
       Map<String, dynamic> json = doc.data() as Map<String, dynamic>;
-      json['id'] = doc.id;
-      data.add(Product.fromJson(json));
+      if (Product.fromJson(json).purchased == false) {
+        data.add(Product.fromJson(json));
+      }
     }
 
     return data;
@@ -60,6 +62,7 @@ class ProductController extends GetxController {
 
     if (prod.seller == uid) {
       await prodsRef.doc(productId).delete();
+      await CartController().removeElementFromCart(productId);
       await FavoriteController().removeElementFromFavorite(productId);
       return true; // Unnecessary
     } else {
@@ -70,13 +73,14 @@ class ProductController extends GetxController {
 
   Future<void> editPublishedProduct(String productId, Product newSpecs) async {
     DocumentSnapshot product = await prodsRef.doc(productId).get();
+
     var uid = AuthenticationController().getUid();
     if (!product.exists) {
       return;
     }
 
     Product prod = Product.fromJson(product.data() as Map<String, dynamic>);
-
+    logInfo("editing with ${newSpecs.purchased}");
     if (prod.seller == uid) {
       await prodsRef.doc(productId).update(newSpecs.toJson());
     } else {

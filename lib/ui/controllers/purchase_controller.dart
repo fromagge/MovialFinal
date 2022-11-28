@@ -31,6 +31,7 @@ class PurchaseController extends GetxController {
         deliveredDate: DateTime.now());
     products.forEach((element) {
       element.purchased = true;
+      logInfo("editing ${element.id} with purchased: ${element.purchased}");
       ProductController().editPublishedProduct(element.id, element);
     });
 
