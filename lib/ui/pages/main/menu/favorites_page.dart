@@ -114,60 +114,74 @@ class _FavoritesPageState extends State<FavoritesPage> {
           pageTransitionAnimation: PageTransitionAnimation.fade,
         );
       },
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-                decoration: BoxDecoration(
-                    border:
-                        Border.all(color: const Color(0xFF42006E), width: 4),
-                    borderRadius: const BorderRadius.all(Radius.circular(20))),
-                width: 140,
-                height: 140,
-                child: ImageWidget(imageUrl: favorite.imgs[0])),
-            Container(
-              margin: const EdgeInsets.only(left: 10, bottom: 10),
-              child: SizedBox(
-                width: 200,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      favorite.name,
-                      style: TextStyle(
-                        color: const Color(0xFF42006E).withOpacity(0.8),
-                        fontSize: 21,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      maxLines: 3,
+      child: Stack(
+        alignment: Alignment.topRight,
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: const Color(0xFF42006E), width: 4),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                    width: 140,
+                    height: 140,
+                    child: ImageWidget(imageUrl: favorite.imgs[0])),
+                Container(
+                  margin: const EdgeInsets.only(left: 10, bottom: 10),
+                  child: SizedBox(
+                    width: 140,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          favorite.name,
+                          style: TextStyle(
+                            color: const Color(0xFF42006E).withOpacity(0.8),
+                            fontSize: 21,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          maxLines: 3,
+                        ),
+                        const SizedBox(height: 3),
+                        Text(
+                          "Precio: \$ ${favorite.price.toInt()}",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 20),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          child: DefaultButtonWidget(
+                              label: "Agregar al carrito",
+                              onPressed: () {
+                                EasyLoading.showSuccess(
+                                    "${favorite.name} añadido al carrito");
+                                cartController.addProducToCart(favorite.id);
+                              },
+                              buttonColor: const Color(0xFF42006E)),
+                        )
+                      ],
                     ),
-                    const SizedBox(height: 3),
-                    Text(
-                      "Precio: \$ ${favorite.price.toInt()}",
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 20),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      child: DefaultButtonWidget(
-                          label: "Agregar al carrito",
-                          onPressed: () {
-                            EasyLoading.showSuccess(
-                                "${favorite.name} añadido al carrito");
-                            cartController.addProducToCart(favorite.id);
-                          },
-                          buttonColor: const Color(0xFF42006E)),
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          IconButton(
+            onPressed: () async {
+              await FavoriteController().removeElementFromFavorite(favorite.id);
+              setState(() {});
+            },
+            icon: Icon(Icons.close),
+            color: Colors.red,
+          )
+        ],
       ),
     );
   }

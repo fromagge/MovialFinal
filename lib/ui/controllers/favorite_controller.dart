@@ -20,7 +20,7 @@ class FavoriteController extends GetxController {
       await favoritesRef.doc(uid).set({'items': []});
       return Cart(id: uid, items: []);
     }
-    logInfo("FavoriteController --> get ${favorites.data()}");
+
     return Cart.fromJson(uid, favorites.data() as Map<String, dynamic>);
   }
 

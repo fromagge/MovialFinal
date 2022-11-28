@@ -35,7 +35,6 @@ class _ProductGrid extends State<ProductGrid> {
           case ConnectionState.done:
             EasyLoading.dismiss();
             if (snapshot.hasData) {
-              logInfo("ESTO ES EL SNAPSHOT DE RESULTADO ${snapshot.data}");
               if (snapshot.data!.isNotEmpty) {
                 var products = snapshot.data![0];
                 var favorites = snapshot.data![1];
