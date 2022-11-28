@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/domain/entities/purchase.dart';
+import 'package:oferi/ui/controllers/product_controller.dart';
 import 'authentication_controller.dart';
 
 enum PaymentMethods { TARJETA_DE_CREDITO }
@@ -11,13 +12,14 @@ enum PaymentMethods { TARJETA_DE_CREDITO }
 // Controlador usado para manejar los usuarios del chat
 class PurchaseController extends GetxController {
   final purchaseRef = FirebaseFirestore.instance.collection('purchase');
-  final uid = AuthenticationController().getUid();
+
   var _purchases = <Purchase>[].obs;
 
   get purchases => _purchases;
 
   Future<void> makePurchase(List<Product> products,
       PaymentMethods paymentMethod, String address) async {
+    var uid = AuthenticationController().getUid();
     logInfo(
         "PurchaseController --> Haciendo Purchase con Productos: $products y metodo de pago: $paymentMethod");
     Purchase newPurchase = Purchase(
@@ -27,11 +29,16 @@ class PurchaseController extends GetxController {
         userId: uid,
         purchasedItems: products.map((e) => e.id).toList(),
         deliveredDate: DateTime.now());
+    products.forEach((element) {
+      element.purchased = true;
+      ProductController().editPublishedProduct(element.id, element);
+    });
 
     await purchaseRef.add(newPurchase.toJson());
   }
 
   Future<List<Purchase>> getPurchaseList() async {
+    var uid = AuthenticationController().getUid();
     QuerySnapshot purchases =
         await purchaseRef.where('userId', isEqualTo: uid).get();
 

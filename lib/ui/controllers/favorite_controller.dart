@@ -9,9 +9,9 @@ import '../../domain/entities/cart.dart';
 // Controlador usado para manejar los usuarios del chat
 class FavoriteController extends GetxController {
   final favoritesRef = FirebaseFirestore.instance.collection('favorites');
-  final uid = AuthenticationController().getUid();
 
   Future<Cart> getCurrentUserFavoriteList() async {
+    var uid = AuthenticationController().getUid();
     final favoritesRef = FirebaseFirestore.instance.collection('favorites');
     DocumentSnapshot favorites;
     logInfo("hola es $favoritesRef");
@@ -68,6 +68,7 @@ class FavoriteController extends GetxController {
   }
 
   Future<void> removeElementFromFavorite(String productId) async {
+    var uid = AuthenticationController().getUid();
     logInfo("FavoriteController --> remover $productId");
     Cart cart = await getCurrentUserFavoriteList();
     cart.eraseElementFromCart(productId);

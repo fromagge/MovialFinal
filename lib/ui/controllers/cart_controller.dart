@@ -10,10 +10,10 @@ import '../../domain/entities/cart.dart';
 // Controlador usado para manejar los usuarios del chat
 class CartController extends GetxController {
   final databaseReference = FirebaseDatabase.instance.ref();
-  final uid = AuthenticationController().getUid();
 
   Future<Cart> getCurrentUserCart() async {
     DocumentSnapshot cart;
+    var uid = AuthenticationController().getUid();
     final cartsRef = FirebaseFirestore.instance.collection('carts');
 
     cart = await cartsRef.doc(uid).get();
@@ -28,7 +28,7 @@ class CartController extends GetxController {
 
   Future<List<Product>> getProductsInCart() async {
     Cart cart = await getCurrentUserCart();
-
+    logInfo(cart.items);
     List<Product> data = [];
 
     for (var item in cart.items) {
@@ -36,9 +36,10 @@ class CartController extends GetxController {
           .collection('products')
           .doc(item)
           .get();
-
+      logInfo("Tomando productos del carrito ${product.data()}");
       var json = product.data() as Map<String, dynamic>;
       //NO BORRAR
+
       json["id"] = product.id;
       data.add(Product.fromJson(json));
     }
@@ -46,7 +47,11 @@ class CartController extends GetxController {
   }
 
   Future<void> addProducToCart(String productId) async {
+    await getCurrentUserCart();
     final cartsRef = FirebaseFirestore.instance.collection('carts');
+
+    var uid = AuthenticationController().getUid();
+    logInfo("Agregando producto al carrito --> $productId");
     DocumentSnapshot product = await FirebaseFirestore.instance
         .collection('products')
         .doc(productId)
@@ -68,6 +73,7 @@ class CartController extends GetxController {
   }
 
   Future<void> removeElementFromCart(String productId) async {
+    var uid = AuthenticationController().getUid();
     final cartsRef = FirebaseFirestore.instance.collection('carts');
 
     Cart cart = await getCurrentUserCart();

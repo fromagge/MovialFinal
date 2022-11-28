@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/domain/entities/product.dart';
@@ -110,29 +111,36 @@ class _ProfilePageState extends State<ProfilePage> {
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.done:
-                      AppUser user = snapshot.data!;
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "${user.names.capitalizeFirst} ${user.surnames.capitalizeFirst} ",
-                            textAlign: TextAlign.start,
-                            style: const TextStyle(
-                                color: Color(0xFF42006E),
-                                fontSize: 28,
-                                fontWeight: FontWeight.w700),
-                          ),
-                          Text(
-                            user.country,
-                            style: TextStyle(
-                                color: const Color(0xFF42006E).withOpacity(0.7),
-                                fontSize: 25),
-                          ),
-                        ],
-                      );
+                      if (snapshot.hasData) {
+                        EasyLoading.dismiss();
+                        AppUser user = snapshot.data!;
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${user.names.capitalizeFirst} ${user.surnames.capitalizeFirst} ",
+                              textAlign: TextAlign.start,
+                              style: const TextStyle(
+                                  color: Color(0xFF42006E),
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            Text(
+                              user.country,
+                              style: TextStyle(
+                                  color:
+                                      const Color(0xFF42006E).withOpacity(0.7),
+                                  fontSize: 25),
+                            ),
+                          ],
+                        );
+                      }
+                      EasyLoading.showError("Un error ha ocurrido");
+                      return const Text("Error");
                     default:
-                      return Text("Cargando");
+                      EasyLoading();
+                      return Container();
                   }
                 }),
           )

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:division/division.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/controllers/authentication_controller.dart';
 import 'package:oferi/ui/controllers/cart_controller.dart';
+import 'package:oferi/ui/controllers/product_controller.dart';
 import 'package:oferi/ui/pages/main/cart/cart_page.dart';
 import 'package:oferi/ui/widgets/carrousel.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
@@ -28,9 +31,11 @@ class _ItemPage extends State<ProductDetailedPage> {
   final myUid = AuthenticationController().getUid();
 
   late GoogleMapController mapController;
+
   late TextEditingController questionTextController;
 
   CartController cartController = Get.find();
+  ProductController productController = Get.find();
 
   @override
   void initState() {
@@ -194,7 +199,22 @@ class _ItemPage extends State<ProductDetailedPage> {
                     },
                     buttonColor: const Color(0xFFFF545F)),
               )
-            : Container()
+            : Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(12),
+                child: DefaultButtonWidget(
+                    label: "Eliminar producto",
+                    onPressed: () async {
+                      EasyLoading.showSuccess(
+                          "Producto elimiando correctamente");
+                      await productController
+                          .removePublishedProduct(product.id);
+                      Navigator.of(context).pop();
+                      setState(() {});
+                    },
+                    textColor: Color(0xFF42006E),
+                    buttonColor: const Color(0xFFFAF2C8)),
+              )
       ],
     );
   }

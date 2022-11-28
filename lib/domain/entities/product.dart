@@ -12,6 +12,7 @@ class Product {
   double latitude;
   double longitude;
   double price;
+  bool purchased;
 
   Product(
       {required this.name,
@@ -20,7 +21,8 @@ class Product {
       required this.category,
       required this.latitude,
       required this.longitude,
-      required this.price});
+      required this.price,
+      this.purchased = false});
 
   Product.fromJson(Map<String, dynamic> json)
       : id = json["id"],
@@ -33,10 +35,12 @@ class Product {
         category = json['category'],
         seller = json['seller'],
         latitude = json['latitude'],
-        longitude = json['longitude'];
+        longitude = json['longitude'],
+        purchased = json['purchased'];
 
   toJson() {
     return {
+      'id': id,
       'name': name,
       'imgs': imgs,
       'category': category,
@@ -44,7 +48,8 @@ class Product {
       'price': price.toString(),
       'seller': seller,
       'latitude': latitude,
-      'longitude': longitude
+      'longitude': longitude,
+      'purchased': purchased
     };
   }
 }

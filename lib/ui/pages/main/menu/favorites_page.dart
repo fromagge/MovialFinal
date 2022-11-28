@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 import 'package:oferi/domain/entities/product.dart';
+import 'package:oferi/ui/controllers/cart_controller.dart';
 import 'package:oferi/ui/controllers/favorite_controller.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/button_widget.dart';
@@ -20,6 +21,7 @@ class FavoritesPage extends StatefulWidget {
 
 class _FavoritesPageState extends State<FavoritesPage> {
   FavoriteController favoriteController = Get.find();
+  CartController cartController = Get.find();
 
   @override
   void initState() {
@@ -156,7 +158,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                           onPressed: () {
                             EasyLoading.showSuccess(
                                 "${favorite.name} añadido al carrito");
-                            //TODO: cartController.addProduct(favorite)
+                            cartController.addProducToCart(favorite.id);
                           },
                           buttonColor: const Color(0xFF42006E)),
                     )

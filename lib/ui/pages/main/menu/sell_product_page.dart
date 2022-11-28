@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -198,10 +199,9 @@ class _SellProduct extends State<SellProduct> {
                                   productController.publishProduct(
                                       product, images);
                                   //productController.createProduct(image, productName,productCategory,productPrice,productDescription,position.latitude,position.longitude)
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content: Text(
-                                              "Producto agregado satisfactoriamente")));
+                                  EasyLoading.showSuccess(
+                                      "Producto agregado satisfactoriamente - Este proceso puede tardar unos segundos");
+                                  // Navigator.of(context).pop();
                                 }
                               }
 

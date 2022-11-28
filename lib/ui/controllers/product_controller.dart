@@ -1,4 +1,5 @@
 import 'package:loggy/loggy.dart';
+import 'package:oferi/ui/controllers/favorite_controller.dart';
 
 import 'authentication_controller.dart';
 import 'dart:async';
@@ -11,7 +12,6 @@ import 'file_controller.dart';
 
 // Controlador usado para manejar los usuarios del chat
 class ProductController extends GetxController {
-  final uid = AuthenticationController().getUid();
   final prodsRef = FirebaseFirestore.instance.collection('products');
 
   Future<List<Product>> getProducts() async {
@@ -29,8 +29,9 @@ class ProductController extends GetxController {
   }
 
   Future<void> publishProduct(Product product, List<File>? images) async {
+    var uid = AuthenticationController().getUid();
     logInfo("mi uid $uid");
-    logInfo("product.id");
+    logInfo("el id del producto es ${product.id}");
     if (product.seller == uid) {
       if (images != null) {
         List<String> urls = [];
@@ -42,8 +43,7 @@ class ProductController extends GetxController {
 
         product.imgs = urls;
       }
-
-      await prodsRef.add(product.toJson());
+      await prodsRef.doc(product.id).set(product.toJson());
     } else {
       logInfo("ERROR - DEBE SER EL MISMO USUARIO PARA CREAR PRODUCTO");
     }
@@ -51,7 +51,7 @@ class ProductController extends GetxController {
 
   Future<bool> removePublishedProduct(String productId) async {
     DocumentSnapshot product = await prodsRef.doc(productId).get();
-
+    var uid = AuthenticationController().getUid();
     if (!product.exists) {
       return false;
     }
@@ -60,6 +60,7 @@ class ProductController extends GetxController {
 
     if (prod.seller == uid) {
       await prodsRef.doc(productId).delete();
+      await FavoriteController().removeElementFromFavorite(productId);
       return true; // Unnecessary
     } else {
       // Forbidden
@@ -69,7 +70,7 @@ class ProductController extends GetxController {
 
   Future<void> editPublishedProduct(String productId, Product newSpecs) async {
     DocumentSnapshot product = await prodsRef.doc(productId).get();
-
+    var uid = AuthenticationController().getUid();
     if (!product.exists) {
       return;
     }

@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/controllers/cart_controller.dart';
+import 'package:oferi/ui/controllers/product_controller.dart';
 import 'package:oferi/ui/pages/main/cart/checkout.dart';
 import 'package:oferi/ui/widgets/image_widgets/image_widget.dart';
 import 'package:oferi/ui/widgets/input_widgets/button_widget.dart';
@@ -54,14 +57,20 @@ class _CartPageState extends State<CartPage> {
                     child: DefaultButtonWidget(
                         edgeInset: const EdgeInsets.only(bottom: 15),
                         label: "Ir a comprar",
-                        onPressed: () {
-                          PersistentNavBarNavigator.pushNewScreen(
-                            context,
-                            screen: const CheckoutPage(),
-                            withNavBar: false,
-                            pageTransitionAnimation:
-                                PageTransitionAnimation.cupertino,
-                          );
+                        onPressed: () async {
+                          List<Product> products =
+                              await cartController.getProductsInCart();
+                          products.isNotEmpty
+                              ? PersistentNavBarNavigator.pushNewScreen(
+                                  context,
+                                  screen: const CheckoutPage(),
+                                  withNavBar: false,
+                                  pageTransitionAnimation:
+                                      PageTransitionAnimation.cupertino,
+                                )
+                              : ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text("Cart is empty")));
                         },
                         buttonColor: const Color(0xFF42006E)))
               ],
@@ -91,11 +100,12 @@ class _CartPageState extends State<CartPage> {
                   child: Text('No products'),
                 );
               }
+
               return ListView.separated(
                 shrinkWrap: true,
                 itemCount: cart.length,
                 scrollDirection: Axis.vertical,
-                physics: ClampingScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 itemBuilder: (context, index) {
                   var element = cart[index];
 
@@ -110,7 +120,7 @@ class _CartPageState extends State<CartPage> {
                 },
               );
             }
-            return Container();
+            return const Text("Ocurrio algun error");
 
           default:
             return Container();
@@ -119,9 +129,6 @@ class _CartPageState extends State<CartPage> {
     );
   }
 
-  bool markedFavorite = true;
-
-  @override
   Widget productListTile(Product product) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
