@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/route_manager.dart';
 import 'package:loggy/loggy.dart';
+import 'package:get/get.dart';
 import 'package:oferi/domain/entities/product.dart';
+import 'package:oferi/ui/controllers/favorite_controller.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 import 'package:oferi/ui/widgets/image_widgets/image_widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -25,6 +27,7 @@ class ProductGridCard extends StatefulWidget {
 
 class _ProductGridCardState extends State<ProductGridCard> {
   bool markedFavorite = false;
+  FavoriteController favoriteController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +71,11 @@ class _ProductGridCardState extends State<ProductGridCard> {
                         iconSize: 30,
                         onPressed: () {
                           setState(() {
-                            //TODO: ALMACENAR FAVORITO USANDO EL CONTROLADOR
+                            markedFavorite == false
+                                ? favoriteController
+                                    .addProducToFavorite(widget.product.id)
+                                : favoriteController.removeElementFromFavorite(
+                                    widget.product.id);
                             markedFavorite
                                 ? markedFavorite = false
                                 : markedFavorite = true;

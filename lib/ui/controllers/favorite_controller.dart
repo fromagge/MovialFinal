@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 import 'package:oferi/domain/entities/product.dart';
 import 'package:oferi/ui/controllers/authentication_controller.dart';
 import '../../domain/entities/cart.dart';
@@ -11,59 +12,63 @@ class FavoriteController extends GetxController {
   final uid = AuthenticationController().getUid();
 
   Future<Cart> getCurrentUserFavoriteList() async {
+    final favoritesRef = FirebaseFirestore.instance.collection('favorites');
     DocumentSnapshot favorites;
-
+    logInfo("hola es $favoritesRef");
     favorites = await favoritesRef.doc(uid).get();
 
     if (!favorites.exists) {
       await favoritesRef.doc(uid).set({'items': []});
       return Cart(id: uid, items: []);
     }
-
+    logInfo("FavoriteController --> get ${favorites.data()}");
     return Cart.fromJson(uid, favorites.data() as Map<String, dynamic>);
   }
 
   Future<List<Product>> getProductsInFavoriteList() async {
-    Cart cart = await getCurrentUserFavoriteList();
-
+    Cart favorites = await getCurrentUserFavoriteList();
+    logInfo("items en favorites ${favorites.items}");
     List<Product> data = [];
 
-    for (var item in cart.items) {
+    for (var item in favorites.items) {
       DocumentSnapshot product = await FirebaseFirestore.instance
           .collection('products')
           .doc(item)
           .get();
 
+      logInfo(" esto es product.data() ${product.data()}");
       var json = product.data() as Map<String, dynamic>;
       //NO BORRAR
       json["id"] = product.id;
+      logInfo(json);
       data.add(Product.fromJson(json));
     }
     return data;
   }
 
   Future<void> addProducToFavorite(String productId) async {
-    DocumentSnapshot product = await FirebaseFirestore.instance
-        .collection('products')
-        .doc(productId)
-        .get();
+    Cart favoriteList = await getCurrentUserFavoriteList();
+    String uid = AuthenticationController().getUid();
 
-    if (product.exists) {
-      Cart cart = await getCurrentUserFavoriteList();
-      for (var item in cart.items) {
+    DocumentSnapshot favorites =
+        await FirebaseFirestore.instance.collection('favorites').doc(uid).get();
+    logInfo(favorites.exists);
+    if (favorites.exists) {
+      for (var item in favoriteList.items) {
         if (item == productId) {
-          return; //  Esto quiere decir que el elemento ya está en el carro
+          return; //  Esto quiere decir que el elemento ya está en favoritos
         }
       }
-
-      cart.addElementToCart(productId);
-      await favoritesRef.doc(uid).update({'items': cart.items});
+      logInfo("agregando a favoritos el producto $productId");
+      favoriteList.addElementToCart(productId);
+      await favoritesRef.doc(uid).update({'items': favoriteList.items});
     } else {
       // Error ? Producto no existe en la base de datos
     }
   }
 
   Future<void> removeElementFromFavorite(String productId) async {
+    logInfo("FavoriteController --> remover $productId");
     Cart cart = await getCurrentUserFavoriteList();
     cart.eraseElementFromCart(productId);
     await favoritesRef.doc(uid).update({'items': cart.items});

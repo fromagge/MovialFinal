@@ -1,7 +1,10 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 import 'package:oferi/domain/entities/product.dart';
+import 'package:oferi/ui/controllers/favorite_controller.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 import 'package:oferi/ui/widgets/Input_Widgets/button_widget.dart';
 import 'package:oferi/ui/widgets/image_widgets/image_widget.dart';
@@ -16,13 +19,11 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
-  late List<Product> favorites;
+  FavoriteController favoriteController = Get.find();
 
   @override
   void initState() {
     // TODO: implement initState
-
-    favorites = [];
   }
 
   @override
@@ -32,52 +33,74 @@ class _FavoritesPageState extends State<FavoritesPage> {
         body: ListView(
           children: [
             const TitleWidget(title: "Mis Favoritos"),
-            purchaseHistory(favorites)
+            favoritesList()
           ],
         ),
       ),
     );
   }
 
-  Widget purchaseHistory(List<Product> favorites) {
-    return favorites.isEmpty
-        ? const Center(
-            child: Text(
-            "No tienes ningun favorito actualmente",
-            style: TextStyle(fontSize: 17, color: Colors.black54),
-          ))
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 400,
-                child: CustomScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  slivers: [
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) => Container(
-                          margin: const EdgeInsets.only(bottom: 20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(
-                                      (math.Random().nextDouble() * 0xFFFFFF)
-                                          .toInt())
-                                  .withOpacity(0.25)),
-                          child: purchaseTile(favorites[index]),
+  Widget favoritesList() {
+    return FutureBuilder(
+      future: favoriteController.getProductsInFavoriteList(),
+      builder: (context, snapshot) {
+        logInfo(snapshot.connectionState);
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            if (snapshot.hasData) {
+              List<Product> favorites = snapshot.data!;
+              logInfo("favoritos son $favorites");
+              return favorites.isEmpty
+                  ? const Center(
+                      child: Text(
+                      "No tienes ningun favorito actualmente",
+                      style: TextStyle(fontSize: 17, color: Colors.black54),
+                    ))
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 400,
+                          child: CustomScrollView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            slivers: [
+                              SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                  (context, index) => Container(
+                                    margin: const EdgeInsets.only(bottom: 20),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Color(
+                                                (math.Random().nextDouble() *
+                                                        0xFFFFFF)
+                                                    .toInt())
+                                            .withOpacity(0.25)),
+                                    child: favoriteTile(favorites[index]),
+                                  ),
+                                  childCount: favorites.length,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        childCount: favorites.length,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
+                      ],
+                    );
+            }
+
+            return Center(child: Text("Error al buscar favoritos"));
+          default:
+            return Container(
+                alignment: Alignment.center,
+                width: 90,
+                height: 90,
+                child: CircularProgressIndicator());
+        }
+      },
+    );
   }
 
-  Widget purchaseTile(Product favorite) {
+  Widget favoriteTile(Product favorite) {
     return InkWell(
       borderRadius: BorderRadius.circular(10),
       onTap: () {
