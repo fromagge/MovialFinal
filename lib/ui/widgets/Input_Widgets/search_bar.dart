@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
   final void Function(String)? onSubmitted;
+  final String? placeholder;
 
-  const SearchBar({super.key, this.onSubmitted});
+  const SearchBar({super.key, this.onSubmitted, this.placeholder});
 
   @override
   State<SearchBar> createState() => _SearchBar();
@@ -42,7 +43,8 @@ class _SearchBar extends State<SearchBar> {
       style: const TextStyle(
         fontSize: 20,
       ),
-      placeholder: 'Buscar',
+      placeholderStyle: TextStyle(color: Colors.black),
+      placeholder: widget.placeholder,
       onSubmitted: ((searchText) {
         if (widget.onSubmitted != null) {
           widget.onSubmitted!(searchText);

@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
                 },
               ),
               ImageButtonGrid(),
-              Carousel(aspectRatio: 2),
+              const Carousel(aspectRatio: 2),
             ],
           )),
         ),

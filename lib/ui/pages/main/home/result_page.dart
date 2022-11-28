@@ -31,6 +31,7 @@ class Result extends StatelessWidget {
             child: NestedScrollView(
                 floatHeaderSlivers: true,
                 headerSliverBuilder: (context, innerBoxIsScrolled) {
+                  logInfo("this is $search");
                   return [
                     SliverAppBar(
                       floating: true,
@@ -48,6 +49,7 @@ class Result extends StatelessWidget {
                         },
                       ),
                       title: SearchBar(
+                        placeholder: search,
                         onSubmitted: (searchText) {
                           logInfo("Buscando de nuevo: $searchText");
                         },

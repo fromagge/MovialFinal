@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:oferi/domain/entities/product.dart';
+import 'package:oferi/ui/controllers/authentication_controller.dart';
+import 'package:oferi/ui/controllers/user_controller.dart';
 import 'package:oferi/ui/pages/login/login_page.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 import 'package:oferi/ui/pages/main/user/profile_edit_page.dart';
@@ -18,7 +21,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  //UserController userController = Get.find();
+  AuthenticationController authController = Get.find();
+
   final one = Product(
     id: "mondacon",
     description: 'lorem ipsum',
@@ -87,6 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           DefaultButtonWidget(
             onPressed: () {
+              authController.logout();
               Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
                   MaterialPageRoute(
                       builder: (BuildContext context) => const LoginPage()),
