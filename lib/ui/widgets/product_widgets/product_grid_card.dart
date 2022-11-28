@@ -4,6 +4,7 @@ import 'package:get/route_manager.dart';
 import 'package:loggy/loggy.dart';
 import 'package:get/get.dart';
 import 'package:oferi/domain/entities/product.dart';
+import 'package:oferi/ui/controllers/cart_controller.dart';
 import 'package:oferi/ui/controllers/favorite_controller.dart';
 import 'package:oferi/ui/pages/main/home/product_detailed_page.dart';
 import 'package:oferi/ui/widgets/image_widgets/image_widget.dart';
@@ -28,6 +29,7 @@ class ProductGridCard extends StatefulWidget {
 class _ProductGridCardState extends State<ProductGridCard> {
   bool markedFavorite = false;
   FavoriteController favoriteController = Get.find();
+  CartController cartController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +119,7 @@ class _ProductGridCardState extends State<ProductGridCard> {
                           onPressed: () {
                             //TODO: ALMACENAR PRODUCTO EN EL CARRITO A TRAVES DEL CONTROLADOR
                             EasyLoading.showSuccess("Agregado al carrito");
+                            cartController.addProducToCart(widget.product.id);
                           },
                         )
                       ],
