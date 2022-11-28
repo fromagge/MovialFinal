@@ -13,9 +13,15 @@ import 'package:oferi/ui/widgets/input_widgets/category_button/category_button_w
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-class Result extends StatelessWidget {
+class Result extends StatefulWidget {
   Result({Key? key, required this.search}) : super(key: key);
-  final String search;
+  String search;
+
+  @override
+  State<Result> createState() => _ResultState();
+}
+
+class _ResultState extends State<Result> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -31,7 +37,7 @@ class Result extends StatelessWidget {
             child: NestedScrollView(
                 floatHeaderSlivers: true,
                 headerSliverBuilder: (context, innerBoxIsScrolled) {
-                  logInfo("this is $search");
+                  logInfo("this is ${widget.search}");
                   return [
                     SliverAppBar(
                       floating: true,
@@ -49,10 +55,13 @@ class Result extends StatelessWidget {
                         },
                       ),
                       title: SearchBar(
-                        searchText: search,
-                        placeholder: search,
+                        searchText: widget.search,
+                        placeholder: widget.search,
                         onSubmitted: (searchText) {
                           logInfo("Buscando de nuevo: $searchText");
+                          setState(() {
+                            widget.search = searchText;
+                          });
                         },
                       ),
                       backgroundColor: const Color(0xFF42006E),
@@ -69,7 +78,9 @@ class Result extends StatelessWidget {
                     ),
                   ];
                 },
-                body: ProductGrid()),
+                body: ProductGrid(
+                  searchText: widget.search,
+                )),
           ),
         ),
       ),

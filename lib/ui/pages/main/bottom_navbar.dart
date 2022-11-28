@@ -87,8 +87,8 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(SearchController());
     Get.put(ProductController());
+    Get.put(SearchController());
     Get.put(CartController());
     Get.put(PurchaseController());
     Get.put(FavoriteController());

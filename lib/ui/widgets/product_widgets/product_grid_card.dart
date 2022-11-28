@@ -93,7 +93,7 @@ class _ProductGridCardState extends State<ProductGridCard> {
                 height: 15,
               ),
               Text(
-                widget.product.name,
+                widget.product.name.capitalizeFirst!,
                 style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(

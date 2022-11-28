@@ -85,7 +85,7 @@ class _ItemPage extends State<ProductDetailedPage> {
                                 ..fontSize(26)
                                 ..fontWeight(FontWeight.normal)
                                 ..textAlign.left(true),
-                              product.name),
+                              product.name.capitalizeFirst!),
                           Container(
                             alignment: Alignment.centerRight,
                             child: RichText(

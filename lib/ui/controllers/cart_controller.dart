@@ -28,7 +28,7 @@ class CartController extends GetxController {
 
   Future<List<Product>> getProductsInCart() async {
     Cart cart = await getCurrentUserCart();
-    logInfo(cart.items);
+
     List<Product> data = [];
 
     for (var item in cart.items) {

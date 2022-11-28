@@ -4,7 +4,7 @@ import 'package:oferi/ui/widgets/Input_Widgets/image_button/image_button.dart';
 class ImageButtonGrid extends StatelessWidget {
   ImageButtonGrid({super.key});
 
-  List<String> categorias = [
+  static List<String> categorias = [
     "Moda",
     "Tecnología",
     "Juguetes",

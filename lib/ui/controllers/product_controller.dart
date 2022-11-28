@@ -45,6 +45,7 @@ class ProductController extends GetxController {
 
         product.imgs = urls;
       }
+      product.name = product.name.toLowerCase();
       await prodsRef.doc(product.id).set(product.toJson());
     } else {
       logInfo("ERROR - DEBE SER EL MISMO USUARIO PARA CREAR PRODUCTO");
@@ -105,33 +106,53 @@ class ProductController extends GetxController {
 
   Future<List<Product>> searchProducts(String search) async {
     List<Product> data = [];
+    search = search.toLowerCase();
+    QuerySnapshot searchQuery = await prodsRef
+        .where('name',
+            isGreaterThanOrEqualTo: search,
+            isLessThan: search.substring(0, search.length - 1) +
+                String.fromCharCode(search.codeUnitAt(search.length - 1) + 1))
+        .get();
 
-    QuerySnapshot products = await prodsRef
-        .orderBy('name', descending: true)
-        .startAt([search]).endAt([search + '\uf8ff']).get();
-
-    for (var product in products.docs) {
+    for (var product in searchQuery.docs) {
       Map<String, dynamic> json = product.data() as Map<String, dynamic>;
-      json['id'] = product.id;
+
       data.add(Product.fromJson(json));
     }
 
     return data;
   }
 
-  Future<List<Product>> searchProductsWithCategory(
-      String category, String search) async {
+  Future<List<Product>> searchProductsWithCategory(String category) async {
+    QuerySnapshot products;
     List<Product> data = [];
+    if (category == "Otros") {
+      //Buscar aquellos con categorias Otros y el resto con categorias sin catalogar;
+      products = await prodsRef.where('category', isNotEqualTo: category).get();
 
-    QuerySnapshot products = await prodsRef
-        .where('category', isEqualTo: category)
-        .orderBy('name', descending: true)
-        .startAt([search]).endAt([search + '\uf8ff']).get();
+      QuerySnapshot restOfItems =
+          await prodsRef.where('category', isEqualTo: category).get();
 
-    for (var product in products.docs) {
-      Map<String, dynamic> json = product.data() as Map<String, dynamic>;
-      json['id'] = product.id;
-      data.add(Product.fromJson(json));
+      for (var product in products.docs) {
+        Map<String, dynamic> json = product.data() as Map<String, dynamic>;
+
+        data.add(Product.fromJson(json));
+      }
+
+      for (var product in restOfItems.docs) {
+        Map<String, dynamic> json = product.data() as Map<String, dynamic>;
+
+        data.add(Product.fromJson(json));
+      }
+    } else {
+      //Buscar aquellos con categorias especificas
+      products = await prodsRef.where('category', isEqualTo: category).get();
+
+      for (var product in products.docs) {
+        Map<String, dynamic> json = product.data() as Map<String, dynamic>;
+
+        data.add(Product.fromJson(json));
+      }
     }
 
     return data;

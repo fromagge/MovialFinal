@@ -14,7 +14,6 @@ class FavoriteController extends GetxController {
     var uid = AuthenticationController().getUid();
     final favoritesRef = FirebaseFirestore.instance.collection('favorites');
     DocumentSnapshot favorites;
-    logInfo("hola es $favoritesRef");
     favorites = await favoritesRef.doc(uid).get();
 
     if (!favorites.exists) {
@@ -36,11 +35,7 @@ class FavoriteController extends GetxController {
           .doc(item)
           .get();
 
-      logInfo(" esto es product.data() ${product.data()}");
       var json = product.data() as Map<String, dynamic>;
-      //NO BORRAR
-      json["id"] = product.id;
-      logInfo(json);
       data.add(Product.fromJson(json));
     }
     return data;
