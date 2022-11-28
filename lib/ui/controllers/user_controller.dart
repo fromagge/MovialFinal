@@ -1,14 +1,17 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
+import 'package:oferi/domain/entities/user.dart';
 import 'authentication_controller.dart';
 
 // Controlador usado para manejar los usuarios del chat
 class UserController extends GetxController {
   // lista en la que se almacenan los uaurios, la misma es observada por la UI
-  var _users = <User>[].obs;
+  List<AppUser> _users = <AppUser>[].obs;
 
   final databaseRef = FirebaseDatabase.instance.ref();
 
@@ -19,6 +22,7 @@ class UserController extends GetxController {
   // devolvemos a la UI todos los usuarios excepto el que está logeado en el sistema
   // esa lista será usada para la pantalla en la que listan los usuarios con los que se
   // puede comenzar una conversación
+
   get users {
     AuthenticationController authenticationController = Get.find();
     return _users
@@ -27,6 +31,21 @@ class UserController extends GetxController {
   }
 
   get allUsers => _users;
+
+  Future<void> getUsers() async {
+    DataSnapshot snapshot = await databaseRef.child('userList').get();
+    List<AppUser> data = [];
+
+    if (snapshot.exists) {
+      Map<dynamic, dynamic> values = snapshot.value as Map<dynamic, dynamic>;
+      values.forEach((key, value) {
+        data.add(AppUser.fromJson(snapshot, value as Map<dynamic, dynamic>));
+      });
+      _users = data;
+    } else {
+      logInfo('No users available or error');
+    }
+  }
 
   // método para crear un nuevo usuario
   Future<void> createUser(names, surnames, phone, country, email, uid) async {
@@ -61,5 +80,14 @@ class UserController extends GetxController {
       logError(error);
       return Future.error(error);
     }
+  }
+
+  Future<AppUser> getCurrentUser() async {
+    await getUsers();
+    var uid = AuthenticationController().getUid();
+
+    AppUser user = _users.firstWhere((element) => element.uid == uid);
+
+    return user;
   }
 }

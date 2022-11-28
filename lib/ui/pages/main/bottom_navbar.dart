@@ -58,7 +58,7 @@ class _NavBarState extends State<NavBar> {
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.person_crop_circle,
             size: iconsize + 2.5, color: Color(0xFF42006E)),
-      ),
+      )
     ];
   }
 
@@ -87,7 +87,6 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     Get.put(ProductController());
-    Get.put(UserController());
     Get.put(CartController());
     Get.put(PurchaseController());
     Get.put(FavoriteController());

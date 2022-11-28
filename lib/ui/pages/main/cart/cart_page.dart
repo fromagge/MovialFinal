@@ -71,6 +71,9 @@ class CartPage extends StatelessWidget {
           case ConnectionState.waiting:
             EasyLoading.show();
             return Container();
+          case ConnectionState.none:
+            EasyLoading.dismiss();
+            return Container();
 
           case ConnectionState.done:
             EasyLoading.dismiss();

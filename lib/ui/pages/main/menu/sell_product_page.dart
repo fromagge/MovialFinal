@@ -81,7 +81,7 @@ class _SellProduct extends State<SellProduct> {
                       width: 200,
                       child: ElevatedButton(
                         onPressed: () {
-                          if (images!.length < 6) {
+                          if (images.length < 6) {
                             myAlert();
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -97,7 +97,7 @@ class _SellProduct extends State<SellProduct> {
                     ),
                     //if image not null show the image
                     //if image null show text
-                    images!.isNotEmpty
+                    images.isNotEmpty
                         ? showCarrousel()
                         : Center(
                             child: Text(
@@ -181,7 +181,7 @@ class _SellProduct extends State<SellProduct> {
                               final form = _key.currentState;
                               form!.save();
                               if (form.validate()) {
-                                if (images!.isEmpty || position == null) {
+                                if (images.isEmpty || position == null) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                           content: Text(
@@ -274,10 +274,10 @@ class _SellProduct extends State<SellProduct> {
           children: [
             Container(
               margin: EdgeInsets.symmetric(horizontal: 10),
-              child: images!.length != 1
+              child: images.length != 1
                   ? CarouselSlider(
                       carouselController: controller,
-                      items: images!.map((image) {
+                      items: images.map((image) {
                         return showImage(image);
                       }).toList(),
                       options: CarouselOptions(
@@ -306,7 +306,7 @@ class _SellProduct extends State<SellProduct> {
             DotsIndicator(
                 decorator:
                     DotsDecorator(activeColor: Colors.black.withOpacity(0.6)),
-                dotsCount: images!.length,
+                dotsCount: images.length,
                 position: _currentIndex > 0 ? _currentIndex : 0.0)
           ],
         ));
@@ -321,7 +321,7 @@ class _SellProduct extends State<SellProduct> {
             height: 600,
             child: Image.file(
               //to show image, you type like this.
-              File(image!.path),
+              File(image.path),
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
             ),
@@ -334,7 +334,6 @@ class _SellProduct extends State<SellProduct> {
               setState(() {
                 images.remove(image);
                 _currentIndex = _currentIndex - 1;
-                images ??= [];
               });
             },
             icon: Icon(Icons.delete_sharp),
